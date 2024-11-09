@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+actor "Utilizador Não Autenticado" as UnauthUser
+
+UnauthUser -> (Login)
+UnauthUser -> (Registar numa AMAP)
+UnauthUser -> (Recuperar Password)
+UnauthUser -> (Ver/Pesquisar AMAPs)
+UnauthUser -> (Ver Detalhes da AMAP)
+(Ver Detalhes da AMAP) <|-- (Ver/Pesquisar Produtos) : <<extend>>
+(Ver/Pesquisar Produtos) <|-- (Ver Detalhes Produtos) : <<extend>>
+
+@enduml
