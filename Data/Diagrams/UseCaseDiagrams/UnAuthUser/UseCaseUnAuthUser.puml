@@ -8,6 +8,7 @@ UnauthUser -> (Recuperar Password)
 UnauthUser -> (Ver/Pesquisar AMAPs)
 UnauthUser -> (Ver Detalhes da AMAP)
 (Ver Detalhes da AMAP) <|-- (Ver/Pesquisar Produtos) : <<extend>>
-(Ver/Pesquisar Produtos) <|-- (Ver Detalhes Produtos) : <<extend>>
+(Ver Detalhes da AMAP) <|-- (Ver Missão) : <<extend>>
+(Ver Detalhes da AMAP) <|-- (Ver Valores) : <<extend>>
 
 @enduml
