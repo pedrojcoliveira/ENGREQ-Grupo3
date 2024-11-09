@@ -1,0 +1,9 @@
+@startuml
+left to right direction
+actor "Sistema" as System
+
+System --> (Enviar Notificações)
+System --> (Processar Pagamentos)
+
+
+@enduml

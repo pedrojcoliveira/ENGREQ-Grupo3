@@ -1,0 +1,20 @@
+@startuml
+top to bottom direction
+
+actor "Administrador" as Admin
+actor "Utilizador Autenticado" as User
+actor "Utilizador Não Autenticado" as UnauthUser
+(UnauthUser) <|-- (User) : <<extend>>
+(User) <|-- (Admin) : <<extend>>
+
+Admin --> (Implementar AMAPs)
+Admin --> (Gerir Utilizadores Autenticados)
+
+(Implementar AMAPs) <|-- (Gerir Configurações) : <<include>>
+(Implementar AMAPs) <|-- (Gerir Utilizadores) : <<include>>
+(Implementar AMAPs) <|-- (Gerir Produtos) : <<include>>
+(Implementar AMAPs) <|-- (Gerir Categorias Produtos) : <<include>>
+(Implementar AMAPs) <|-- (Gerir Períodos Sazonais) : <<include>>
+(Implementar AMAPs) <|-- (Gerir Frequências Entregas) : <<include>>
+
+@enduml
