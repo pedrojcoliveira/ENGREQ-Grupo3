@@ -1,9 +1,19 @@
 @startuml
-top to bottom direction
-
+left to right direction
+actor "Unauthenticated User" as UnauthUser
 actor "Admin" as Admin
 actor "Authenticated User" as User
-actor "Unauthenticated User" as UnauthUser
+actor "System" as System
+
+UnauthUser -> (UC01 Login)
+UnauthUser -> (UC02 Register in an AMAP)
+UnauthUser -> (UC03 Recover Password)
+UnauthUser -> (UC04 View/Search AMAPs)
+UnauthUser -> (UC05 View AMAP Details)
+(UC05 View AMAP Details) <|-- (UC06 View/Search Products) : <<extend>>
+(UC05 View AMAP Details) <|-- (UC07 View Mission) : <<extend>>
+(UC05 View AMAP Details) <|-- (UC08 View Values) : <<extend>>
+
 (UnauthUser) <|-- (User) : <<extend>>
 (User) <|-- (Admin) : <<extend>>
 
@@ -17,4 +27,5 @@ Admin --> (UC10 Manage Authenticated Users)
 (UC09 Implement AMAPs) <|-- (UC15 Manage Seasonal Delivery Dates) : <<include>>
 (UC09 Implement AMAPs) <|-- (UC16 Manage Delivery Frequencies) : <<include>>
 
+System --> (UC17 Send Notifications)
 @enduml

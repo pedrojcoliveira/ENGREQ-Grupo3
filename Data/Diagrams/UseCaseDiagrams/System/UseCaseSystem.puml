@@ -1,9 +1,7 @@
 @startuml
 left to right direction
-actor "Sistema" as System
+actor "System" as System
 
-System --> (Enviar Notificações)
-System --> (Processar Pagamentos)
-
+System --> (UC17 Send Notifications)
 
 @enduml
