@@ -1,4 +1,5 @@
 ﻿using AMAPP.API.DTOs;
+using AMAPP.API.DTOs.Auth;
 using AMAPP.API.Models;
 using AMAPP.API.Services.Authentication;
 using AMAPP.API.Services.Email;

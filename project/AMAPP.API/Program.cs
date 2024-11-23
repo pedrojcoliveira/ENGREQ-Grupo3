@@ -2,6 +2,7 @@
 using AMAPP.API.Configurations;
 using AMAPP.API.Data;
 using AMAPP.API.Models;
+using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Services.Authentication;
 using AMAPP.API.Services.Email;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,7 +29,7 @@ namespace AMAPP.API
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false; // Alterar para true se for necessária confirmação por email
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
@@ -60,6 +61,7 @@ namespace AMAPP.API
 
             builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
 
             builder.Services.AddControllers();

@@ -1,5 +1,5 @@
 ﻿using AMAPP.API.Configurations;
-using AMAPP.API.DTOs;
+using AMAPP.API.DTOs.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

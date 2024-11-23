@@ -1,4 +1,4 @@
-﻿namespace AMAPP.API.DTOs
+﻿namespace AMAPP.API.DTOs.Auth
 {
     public class LoginResponseDto
     {

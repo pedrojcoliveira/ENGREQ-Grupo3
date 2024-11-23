@@ -1,6 +1,6 @@
 ﻿namespace AMAPP.API.Models
 {
-    public abstract class Produto
+    public class Produto
     {
         public long Id { get; set; }
         public string Nome { get; set; }
