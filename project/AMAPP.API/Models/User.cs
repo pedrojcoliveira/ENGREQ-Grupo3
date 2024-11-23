@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace AMAPP.API.Model
+namespace AMAPP.API.Models
 {
     public class User : IdentityUser
     {
