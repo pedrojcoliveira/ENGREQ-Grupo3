@@ -1,5 +1,6 @@
 ﻿using AMAPP.API.Configurations;
-using AMAPP.API.DTOs;
+using AMAPP.API.DTOs.Auth;
+using AMAPP.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -7,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace AMAPP.API.Services.Authentication
+namespace AMAPP.API.Services.Implementations
 {
     public class JwtService : IJwtService
     {

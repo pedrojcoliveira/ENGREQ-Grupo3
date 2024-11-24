@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace AMAPP.API.Services.Authentication
+namespace AMAPP.API.Services.Implementations
 {
     public class AuthService
     {

@@ -1,4 +1,4 @@
-﻿namespace AMAPP.API.Services.Authentication
+﻿namespace AMAPP.API.Services.Interfaces
 {
     public interface IAuthService
     {
