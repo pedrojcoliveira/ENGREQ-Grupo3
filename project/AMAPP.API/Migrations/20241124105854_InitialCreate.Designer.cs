@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AMAPP.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241123181631_initialcreate")]
-    partial class initialcreate
+    [Migration("20241124105854_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,12 +26,12 @@ namespace AMAPP.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AMAPP.API.Models.ContaCorrente", b =>
+            modelBuilder.Entity("AMAPP.API.Models.CheckingAccount", b =>
                 {
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
-                    b.Property<double>("Saldo")
+                    b.Property<double>("Balance")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
@@ -39,13 +39,28 @@ namespace AMAPP.API.Migrations
                     b.ToTable("ContasCorrentes");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.CoprodutorInfo", b =>
+            modelBuilder.Entity("AMAPP.API.Models.CompoundProductProduct", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                    b.Property<int>("CompoundProductId")
+                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CompoundProductId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProdutoCompostoProdutos");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.CoproducerInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -59,188 +74,13 @@ namespace AMAPP.API.Migrations
                     b.ToTable("Coprodutores");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.EntregaProduto", b =>
+            modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("ProdutoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("QuantidadeEntregue")
                         .HasColumnType("integer");
 
-                    b.Property<int>("QuantidadeSubscrita")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("SubscricaoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.HasIndex("SubscricaoId");
-
-                    b.ToTable("EntregasProdutos");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.OfertaProduto", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<List<DateTime>>("DatasEntrega")
-                        .IsRequired()
-                        .HasColumnType("timestamp without time zone[]");
-
-                    b.Property<string>("FormaPagamento")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("NumeroParcelas")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("PeriodoSubscricaoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PeriodoSubscricaoId");
-
-                    b.ToTable("OfertasProdutos");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.PeriodoSubscricao", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("DataFim")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("DataInicio")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<List<DateTime>>("DatasEntregas")
-                        .IsRequired()
-                        .HasColumnType("timestamp without time zone[]");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PeriodosSubscricao");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.Produto", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("DescricaoBreve")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Fotografia")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long?>("OfertaProdutoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<double>("PrecoReferencia")
-                        .HasColumnType("double precision");
-
-                    b.Property<long?>("ProdutorInfoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TipoProdutoId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UnidadesEntrega")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OfertaProdutoId");
-
-                    b.HasIndex("ProdutorInfoId");
-
-                    b.HasIndex("TipoProdutoId");
-
-                    b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.ProdutoCompostoProduto", b =>
-                {
-                    b.Property<long>("ProdutoCompostoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProdutoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ProdutoCompostoId", "ProdutoId");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.ToTable("ProdutoCompostoProdutos");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.ProdutoSelecionado", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("DataEntrega")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<long>("ProdutoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("SubscricaoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.HasIndex("SubscricaoId");
-
-                    b.ToTable("ProdutoSelecionado");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.ProdutorInfo", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -254,37 +94,7 @@ namespace AMAPP.API.Migrations
                     b.ToTable("Produtores");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.Subscricao", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("CoprodutorId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("FormaPagamento")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("NumeroParcelas")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("OfertaProdutoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoprodutorId");
-
-                    b.HasIndex("OfertaProdutoId");
-
-                    b.ToTable("Subscricoes");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.TipoProduto", b =>
+            modelBuilder.Entity("AMAPP.API.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -292,11 +102,116 @@ namespace AMAPP.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Descricao")
+                    b.Property<string>("DeliveryUnit")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ProducerInfoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ProductOfferId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("ReferencePrice")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProducerInfoId");
+
+                    b.HasIndex("ProductOfferId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.ProductDelivery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QuantityDelivered")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QuantitySubscribed")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SubscriptionId");
+
+                    b.ToTable("EntregasProdutos");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.ProductOffer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<List<DateTime>>("DeliveryDates")
+                        .IsRequired()
+                        .HasColumnType("timestamp without time zone[]");
+
+                    b.Property<int>("NumberOfInstallments")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PeriodSubscriptionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PeriodSubscriptionId");
+
+                    b.ToTable("OfertasProdutos");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.ProductType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -308,15 +223,101 @@ namespace AMAPP.API.Migrations
                         new
                         {
                             Id = 1,
-                            Descricao = "Produto individual sem composição",
-                            Nome = "Simples"
+                            Description = "Produto individual sem composição",
+                            Name = "Simples"
                         },
                         new
                         {
                             Id = 2,
-                            Descricao = "Produto composto por outros produtos",
-                            Nome = "Composto"
+                            Description = "Produto composto por outros produtos",
+                            Name = "Composto"
                         });
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.SelectedProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SubscriptionId");
+
+                    b.ToTable("SelectedProduct");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CoproducerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("NumberOfInstallments")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductOfferId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoproducerId");
+
+                    b.HasIndex("ProductOfferId");
+
+                    b.ToTable("Subscricoes");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<List<DateTime>>("DeliveryDates")
+                        .IsRequired()
+                        .HasColumnType("timestamp without time zone[]");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PeriodosSubscricao");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.User", b =>
@@ -419,25 +420,25 @@ namespace AMAPP.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5c3c12f1-d9a5-4b9f-9362-26d5ffdc9710",
+                            Id = "7f06f7ec-5faf-4010-b14e-e39dd9755664",
                             Name = "Administrator",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3b9271ec-4436-4db5-9cb6-f92e1e609890",
+                            Id = "41b034d7-c952-4af6-bbe0-a25679384d16",
                             Name = "Amap",
                             NormalizedName = "AMAP"
                         },
                         new
                         {
-                            Id = "c7a8a05f-68a1-4458-a788-7f6bd758531f",
+                            Id = "1bf957b4-29d7-4b71-a906-dfadff9543f0",
                             Name = "Producer",
                             NormalizedName = "PROD"
                         },
                         new
                         {
-                            Id = "021a6da2-4710-4fa2-b25b-fd6f000c01ed",
+                            Id = "9fdcc702-c92d-43fc-8243-fa1729630b7d",
                             Name = "CoProducer",
                             NormalizedName = "COPR"
                         });
@@ -549,143 +550,143 @@ namespace AMAPP.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.ContaCorrente", b =>
+            modelBuilder.Entity("AMAPP.API.Models.CheckingAccount", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.CoprodutorInfo", "Coprodutor")
-                        .WithOne("ContaCorrente")
-                        .HasForeignKey("AMAPP.API.Models.ContaCorrente", "Id")
+                    b.HasOne("AMAPP.API.Models.CoproducerInfo", "Coproducer")
+                        .WithOne("CheckingAccount")
+                        .HasForeignKey("AMAPP.API.Models.CheckingAccount", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Coprodutor");
+                    b.Navigation("Coproducer");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.CoprodutorInfo", b =>
+            modelBuilder.Entity("AMAPP.API.Models.CompoundProductProduct", b =>
+                {
+                    b.HasOne("AMAPP.API.Models.Product", "CompoundProduct")
+                        .WithMany("CompoundProductProduct")
+                        .HasForeignKey("CompoundProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AMAPP.API.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CompoundProduct");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.CoproducerInfo", b =>
                 {
                     b.HasOne("AMAPP.API.Models.User", "User")
                         .WithOne()
-                        .HasForeignKey("AMAPP.API.Models.CoprodutorInfo", "UserId")
+                        .HasForeignKey("AMAPP.API.Models.CoproducerInfo", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.EntregaProduto", b =>
+            modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
+                    b.HasOne("AMAPP.API.Models.User", "User")
+                        .WithOne()
+                        .HasForeignKey("AMAPP.API.Models.ProducerInfo", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AMAPP.API.Models.Subscricao", "Subscricao")
-                        .WithMany()
-                        .HasForeignKey("SubscricaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
-
-                    b.Navigation("Subscricao");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.OfertaProduto", b =>
+            modelBuilder.Entity("AMAPP.API.Models.Product", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.PeriodoSubscricao", "PeriodoSubscricao")
-                        .WithMany("OfertasProdutos")
-                        .HasForeignKey("PeriodoSubscricaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("AMAPP.API.Models.ProducerInfo", null)
+                        .WithMany("ProductCatalog")
+                        .HasForeignKey("ProducerInfoId");
 
-                    b.Navigation("PeriodoSubscricao");
-                });
+                    b.HasOne("AMAPP.API.Models.ProductOffer", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ProductOfferId");
 
-            modelBuilder.Entity("AMAPP.API.Models.Produto", b =>
-                {
-                    b.HasOne("AMAPP.API.Models.OfertaProduto", null)
-                        .WithMany("Produtos")
-                        .HasForeignKey("OfertaProdutoId");
-
-                    b.HasOne("AMAPP.API.Models.ProdutorInfo", null)
-                        .WithMany("CatalogoProdutos")
-                        .HasForeignKey("ProdutorInfoId");
-
-                    b.HasOne("AMAPP.API.Models.TipoProduto", "TipoProduto")
+                    b.HasOne("AMAPP.API.Models.ProductType", "ProductType")
                         .WithMany()
-                        .HasForeignKey("TipoProdutoId")
+                        .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("TipoProduto");
+                    b.Navigation("ProductType");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.ProdutoCompostoProduto", b =>
+            modelBuilder.Entity("AMAPP.API.Models.ProductDelivery", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.Produto", "ProdutoComposto")
-                        .WithMany("ProdutoCompostoProdutos")
-                        .HasForeignKey("ProdutoCompostoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AMAPP.API.Models.Produto", "Produto")
+                    b.HasOne("AMAPP.API.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProdutoId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Produto");
+                    b.HasOne("AMAPP.API.Models.Subscription", "Subscription")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ProdutoComposto");
+                    b.Navigation("Product");
+
+                    b.Navigation("Subscription");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.ProdutoSelecionado", b =>
+            modelBuilder.Entity("AMAPP.API.Models.ProductOffer", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
+                    b.HasOne("AMAPP.API.Models.SubscriptionPeriod", "PeriodSubscription")
+                        .WithMany("ProductOffers")
+                        .HasForeignKey("PeriodSubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AMAPP.API.Models.Subscricao", "Subscricao")
-                        .WithMany("ProdutosSelecionados")
-                        .HasForeignKey("SubscricaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
-
-                    b.Navigation("Subscricao");
+                    b.Navigation("PeriodSubscription");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.ProdutorInfo", b =>
+            modelBuilder.Entity("AMAPP.API.Models.SelectedProduct", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.User", "User")
-                        .WithOne()
-                        .HasForeignKey("AMAPP.API.Models.ProdutorInfo", "UserId")
+                    b.HasOne("AMAPP.API.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("AMAPP.API.Models.Subscription", "Subscription")
+                        .WithMany("SelectedProducts")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Subscription");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.Subscricao", b =>
+            modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.CoprodutorInfo", "Coprodutor")
+                    b.HasOne("AMAPP.API.Models.CoproducerInfo", "Coproducer")
                         .WithMany()
-                        .HasForeignKey("CoprodutorId")
+                        .HasForeignKey("CoproducerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AMAPP.API.Models.OfertaProduto", "OfertaProduto")
+                    b.HasOne("AMAPP.API.Models.ProductOffer", "ProductOffer")
                         .WithMany()
-                        .HasForeignKey("OfertaProdutoId")
+                        .HasForeignKey("ProductOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Coprodutor");
+                    b.Navigation("Coproducer");
 
-                    b.Navigation("OfertaProduto");
+                    b.Navigation("ProductOffer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -739,35 +740,35 @@ namespace AMAPP.API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.CoprodutorInfo", b =>
+            modelBuilder.Entity("AMAPP.API.Models.CoproducerInfo", b =>
                 {
-                    b.Navigation("ContaCorrente")
+                    b.Navigation("CheckingAccount")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.OfertaProduto", b =>
+            modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
                 {
-                    b.Navigation("Produtos");
+                    b.Navigation("ProductCatalog");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.PeriodoSubscricao", b =>
+            modelBuilder.Entity("AMAPP.API.Models.Product", b =>
                 {
-                    b.Navigation("OfertasProdutos");
+                    b.Navigation("CompoundProductProduct");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.Produto", b =>
+            modelBuilder.Entity("AMAPP.API.Models.ProductOffer", b =>
                 {
-                    b.Navigation("ProdutoCompostoProdutos");
+                    b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.ProdutorInfo", b =>
+            modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
                 {
-                    b.Navigation("CatalogoProdutos");
+                    b.Navigation("SelectedProducts");
                 });
 
-            modelBuilder.Entity("AMAPP.API.Models.Subscricao", b =>
+            modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
                 {
-                    b.Navigation("ProdutosSelecionados");
+                    b.Navigation("ProductOffers");
                 });
 #pragma warning restore 612, 618
         }

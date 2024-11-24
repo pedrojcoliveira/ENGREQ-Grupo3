@@ -1,14 +1,14 @@
 ﻿namespace AMAPP.API.Models
 {
-    public class ProdutorInfo
+    public class ProducerInfo
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         // Relacionamento com ApplicationUser
         public string UserId { get; set; }
         public User User { get; set; }
 
         // Propriedade específica
-        public List<Produto> CatalogoProdutos { get; set; } = new List<Produto>();
+        public List<Product> ProductCatalog { get; set; } = new List<Product>();
     }
 }

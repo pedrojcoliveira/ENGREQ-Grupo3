@@ -11,16 +11,16 @@ namespace AMAPP.API.Data
 
 
         // Configurar os DbSets
-        public DbSet<ProdutorInfo> Produtores { get; set; }
-        public DbSet<CoprodutorInfo> Coprodutores { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
-        public DbSet<TipoProduto> TiposProdutos { get; set; }
-        public DbSet<ProdutoCompostoProduto> ProdutoCompostoProdutos { get; set; }
-        public DbSet<ContaCorrente> ContasCorrentes { get; set; }
-        public DbSet<PeriodoSubscricao> PeriodosSubscricao { get; set; }
-        public DbSet<OfertaProduto> OfertasProdutos { get; set; }
-        public DbSet<Subscricao> Subscricoes { get; set; }
-        public DbSet<EntregaProduto> EntregasProdutos { get; set; }
+        public DbSet<ProducerInfo> Produtores { get; set; }
+        public DbSet<CoproducerInfo> Coprodutores { get; set; }
+        public DbSet<Product> Produtos { get; set; }
+        public DbSet<ProductType> TiposProdutos { get; set; }
+        public DbSet<CompoundProductProduct> ProdutoCompostoProdutos { get; set; }
+        public DbSet<CheckingAccount> ContasCorrentes { get; set; }
+        public DbSet<SubscriptionPeriod> PeriodosSubscricao { get; set; }
+        public DbSet<ProductOffer> OfertasProdutos { get; set; }
+        public DbSet<Subscription> Subscricoes { get; set; }
+        public DbSet<ProductDelivery> EntregasProdutos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,88 +30,88 @@ namespace AMAPP.API.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             // Relacionamentos para ProdutorInfo
-            modelBuilder.Entity<ProdutorInfo>()
+            modelBuilder.Entity<ProducerInfo>()
                 .HasOne(p => p.User)
                 .WithOne()
-                .HasForeignKey<ProdutorInfo>(p => p.UserId);
+                .HasForeignKey<ProducerInfo>(p => p.UserId);
 
             // Relacionamentos para CoprodutorInfo
-            modelBuilder.Entity<CoprodutorInfo>()
+            modelBuilder.Entity<CoproducerInfo>()
                 .HasOne(c => c.User)
                 .WithOne()
-                .HasForeignKey<CoprodutorInfo>(c => c.UserId);
+                .HasForeignKey<CoproducerInfo>(c => c.UserId);
 
             // Configuração para Produto -> TipoProduto
-            modelBuilder.Entity<Produto>()
-                .HasOne(p => p.TipoProduto)
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.ProductType)
                 .WithMany()
-                .HasForeignKey(p => p.TipoProdutoId)
+                .HasForeignKey(p => p.ProductTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Configuração para ProdutoCompostoProduto (M:N)
-            modelBuilder.Entity<ProdutoCompostoProduto>()
-                .HasKey(pc => new { pc.ProdutoCompostoId, pc.ProdutoId });
+            modelBuilder.Entity<CompoundProductProduct>()
+                .HasKey(pc => new { pc.CompoundProductId, pc.ProductId });
 
-            modelBuilder.Entity<ProdutoCompostoProduto>()
-                .HasOne(pc => pc.ProdutoComposto)
-                .WithMany(p => p.ProdutoCompostoProdutos)
-                .HasForeignKey(pc => pc.ProdutoCompostoId);
+            modelBuilder.Entity<CompoundProductProduct>()
+                .HasOne(pc => pc.CompoundProduct)
+                .WithMany(p => p.CompoundProductProduct)
+                .HasForeignKey(pc => pc.CompoundProductId);
 
-            modelBuilder.Entity<ProdutoCompostoProduto>()
-                .HasOne(pc => pc.Produto)
+            modelBuilder.Entity<CompoundProductProduct>()
+                .HasOne(pc => pc.Product)
                 .WithMany()
-                .HasForeignKey(pc => pc.ProdutoId);
+                .HasForeignKey(pc => pc.ProductId);
 
 
             // Configuração para ContaCorrente
-            modelBuilder.Entity<ContaCorrente>()
-                .HasOne(c => c.Coprodutor)
-                .WithOne(c => c.ContaCorrente)
-                .HasForeignKey<ContaCorrente>(c => c.Id);
+            modelBuilder.Entity<CheckingAccount>()
+                .HasOne(c => c.Coproducer)
+                .WithOne(c => c.CheckingAccount)
+                .HasForeignKey<CheckingAccount>(c => c.Id);
 
             // Configuração para PeriodoSubscricao -> OfertaProduto
-            modelBuilder.Entity<OfertaProduto>()
-                .HasOne(o => o.PeriodoSubscricao)
-                .WithMany(p => p.OfertasProdutos)
-                .HasForeignKey(o => o.PeriodoSubscricaoId)
+            modelBuilder.Entity<ProductOffer>()
+                .HasOne(o => o.PeriodSubscription)
+                .WithMany(p => p.ProductOffers)
+                .HasForeignKey(o => o.PeriodSubscriptionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configuração para Subscricao -> Coprodutor
-            modelBuilder.Entity<Subscricao>()
-                .HasOne(s => s.Coprodutor)
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.Coproducer)
                 .WithMany()
-                .HasForeignKey(s => s.CoprodutorId)
+                .HasForeignKey(s => s.CoproducerId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configuração para Subscricao -> OfertaProduto
-            modelBuilder.Entity<Subscricao>()
-                .HasOne(s => s.OfertaProduto)
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.ProductOffer)
                 .WithMany()
-                .HasForeignKey(s => s.OfertaProdutoId)
+                .HasForeignKey(s => s.ProductOfferId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configuração para ProdutoSelecionado
-            modelBuilder.Entity<ProdutoSelecionado>()
-                .HasOne(ps => ps.Produto)
+            modelBuilder.Entity<SelectedProduct>()
+                .HasOne(ps => ps.Product)
                 .WithMany()
-                .HasForeignKey(ps => ps.ProdutoId);
+                .HasForeignKey(ps => ps.ProductId);
 
-            modelBuilder.Entity<ProdutoSelecionado>()
-                .HasOne(ps => ps.Subscricao)
-                .WithMany(s => s.ProdutosSelecionados)
-                .HasForeignKey(ps => ps.SubscricaoId);
+            modelBuilder.Entity<SelectedProduct>()
+                .HasOne(ps => ps.Subscription)
+                .WithMany(s => s.SelectedProducts)
+                .HasForeignKey(ps => ps.SubscriptionId);
 
             // Configuração para EntregaProduto
-            modelBuilder.Entity<EntregaProduto>()
-                .HasOne(e => e.Produto)
+            modelBuilder.Entity<ProductDelivery>()
+                .HasOne(e => e.Product)
                 .WithMany()
-                .HasForeignKey(e => e.ProdutoId)
+                .HasForeignKey(e => e.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<EntregaProduto>()
-                .HasOne(e => e.Subscricao)
+            modelBuilder.Entity<ProductDelivery>()
+                .HasOne(e => e.Subscription)
                 .WithMany()
-                .HasForeignKey(e => e.SubscricaoId)
+                .HasForeignKey(e => e.SubscriptionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
 
@@ -124,9 +124,9 @@ namespace AMAPP.API.Data
             );
 
             // Inserir dados iniciais para TipoProduto
-            modelBuilder.Entity<TipoProduto>().HasData(
-                new TipoProduto { Id = 1, Nome = "Simples", Descricao = "Produto individual sem composição" },
-                new TipoProduto { Id = 2, Nome = "Composto", Descricao = "Produto composto por outros produtos" }
+            modelBuilder.Entity<ProductType>().HasData(
+                new ProductType { Id = 1, Name = "Simples", Description = "Produto individual sem composição" },
+                new ProductType { Id = 2, Name = "Composto", Description = "Produto composto por outros produtos" }
             );
 
 

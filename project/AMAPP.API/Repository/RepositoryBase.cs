@@ -20,18 +20,25 @@ namespace AMAPP.API.Repository
             _context.SaveChanges();
         }
 
+        public async Task AddAsync(TEntity model)
+        {
+            await _context.Set<TEntity>().AddAsync(model);
+            await _context.SaveChangesAsync();
+        }
+
+
         public void AddRange(IEnumerable<TEntity> model)
         {
             _context.Set<TEntity>().AddRange(model);
             _context.SaveChanges();
         }
 
-        public TEntity? GetId(int id)
+        public TEntity? GetById(int id)
         {
             return _context.Set<TEntity>().Find(id);
         }
 
-        public async Task<TEntity?> GetIdAsync(int id)
+        public async Task<TEntity?> GetByIdAsync(int id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
@@ -82,10 +89,22 @@ namespace AMAPP.API.Repository
             _context.SaveChanges();
         }
 
+        public async Task UpdateAsync(TEntity objModel)
+        {
+            _context.Entry(objModel).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
         public void Remove(TEntity objModel)
         {
             _context.Set<TEntity>().Remove(objModel);
             _context.SaveChanges();
+        }
+
+        public async Task RemoveAsync(TEntity objModel)
+        {
+            _context.Set<TEntity>().Remove(objModel);
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

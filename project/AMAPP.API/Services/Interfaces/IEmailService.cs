@@ -1,6 +1,6 @@
 ﻿using AMAPP.API.DTOs;
 
-namespace AMAPP.API.Services.Email
+namespace AMAPP.API.Services.Interfaces
 {
     public interface IEmailService
     {
