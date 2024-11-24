@@ -1,7 +1,7 @@
-﻿using AMAPP.API.DTOs;
+﻿using AMAPP.API.DTOs.Auth;
 using Microsoft.AspNetCore.Identity;
 
-namespace AMAPP.API.Services.Authentication
+namespace AMAPP.API.Services.Interfaces
 {
     public interface IJwtService
     {

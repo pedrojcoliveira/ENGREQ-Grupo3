@@ -1,13 +1,13 @@
 ﻿using AMAPP.API.Configurations;
 using AMAPP.API.DTOs;
-
+using AMAPP.API.Services.Interfaces;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
 
-namespace AMAPP.API.Services.Email
+namespace AMAPP.API.Services.Implementations
 {
     public class EmailService : IEmailService
     {
