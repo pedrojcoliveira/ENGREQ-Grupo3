@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AMAPP.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241124105854_InitialCreate")]
+    [Migration("20241126205444_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,7 +36,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContasCorrentes");
+                    b.ToTable("CheckingAccounts");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.CompoundProductProduct", b =>
@@ -51,7 +51,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProdutoCompostoProdutos");
+                    b.ToTable("CompoundProductProducts");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.CoproducerInfo", b =>
@@ -71,7 +71,7 @@ namespace AMAPP.API.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Coprodutores");
+                    b.ToTable("CoproducersInfo");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
@@ -91,7 +91,7 @@ namespace AMAPP.API.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Produtores");
+                    b.ToTable("ProducersInfo");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.Product", b =>
@@ -118,7 +118,7 @@ namespace AMAPP.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("ProducerInfoId")
+                    b.Property<int>("ProducerInfoId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("ProductOfferId")
@@ -138,7 +138,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProductDelivery", b =>
@@ -167,7 +167,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("EntregasProdutos");
+                    b.ToTable("ProductsDelivery");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProductOffer", b =>
@@ -196,7 +196,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("PeriodSubscriptionId");
 
-                    b.ToTable("OfertasProdutos");
+                    b.ToTable("ProductOffers");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProductType", b =>
@@ -217,7 +217,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TiposProdutos");
+                    b.ToTable("ProductTypes");
 
                     b.HasData(
                         new
@@ -290,7 +290,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("ProductOfferId");
 
-                    b.ToTable("Subscricoes");
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
@@ -317,7 +317,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PeriodosSubscricao");
+                    b.ToTable("SubscriptionPeriods");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.User", b =>
@@ -420,25 +420,25 @@ namespace AMAPP.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7f06f7ec-5faf-4010-b14e-e39dd9755664",
+                            Id = "5168293c-68aa-42d1-a759-35a91c1f7673",
                             Name = "Administrator",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "41b034d7-c952-4af6-bbe0-a25679384d16",
+                            Id = "1355c02d-2791-4540-91ec-ae6f449ee888",
                             Name = "Amap",
                             NormalizedName = "AMAP"
                         },
                         new
                         {
-                            Id = "1bf957b4-29d7-4b71-a906-dfadff9543f0",
+                            Id = "731c1f62-2364-4b89-926e-fb54d1b0b550",
                             Name = "Producer",
                             NormalizedName = "PROD"
                         },
                         new
                         {
-                            Id = "9fdcc702-c92d-43fc-8243-fa1729630b7d",
+                            Id = "abc3804a-45fc-46d0-a8d3-47d515ead8b2",
                             Name = "CoProducer",
                             NormalizedName = "COPR"
                         });
@@ -604,9 +604,11 @@ namespace AMAPP.API.Migrations
 
             modelBuilder.Entity("AMAPP.API.Models.Product", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.ProducerInfo", null)
-                        .WithMany("ProductCatalog")
-                        .HasForeignKey("ProducerInfoId");
+                    b.HasOne("AMAPP.API.Models.ProducerInfo", "ProducerInfo")
+                        .WithMany("Products")
+                        .HasForeignKey("ProducerInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AMAPP.API.Models.ProductOffer", null)
                         .WithMany("Products")
@@ -617,6 +619,8 @@ namespace AMAPP.API.Migrations
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ProducerInfo");
 
                     b.Navigation("ProductType");
                 });
@@ -748,7 +752,7 @@ namespace AMAPP.API.Migrations
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
                 {
-                    b.Navigation("ProductCatalog");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.Product", b =>

@@ -57,7 +57,21 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PeriodosSubscricao",
+                name: "ProductTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubscriptionPeriods",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -69,21 +83,7 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PeriodosSubscricao", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TiposProdutos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TiposProdutos", x => x.Id);
+                    table.PrimaryKey("PK_SubscriptionPeriods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,7 +193,7 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coprodutores",
+                name: "CoproducersInfo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -202,9 +202,9 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coprodutores", x => x.Id);
+                    table.PrimaryKey("PK_CoproducersInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Coprodutores_AspNetUsers_UserId",
+                        name: "FK_CoproducersInfo_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -212,7 +212,7 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produtores",
+                name: "ProducersInfo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -221,9 +221,9 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produtores", x => x.Id);
+                    table.PrimaryKey("PK_ProducersInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produtores_AspNetUsers_UserId",
+                        name: "FK_ProducersInfo_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -231,7 +231,7 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OfertasProdutos",
+                name: "ProductOffers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -243,17 +243,17 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OfertasProdutos", x => x.Id);
+                    table.PrimaryKey("PK_ProductOffers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OfertasProdutos_PeriodosSubscricao_PeriodSubscriptionId",
+                        name: "FK_ProductOffers_SubscriptionPeriods_PeriodSubscriptionId",
                         column: x => x.PeriodSubscriptionId,
-                        principalTable: "PeriodosSubscricao",
+                        principalTable: "SubscriptionPeriods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContasCorrentes",
+                name: "CheckingAccounts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false),
@@ -261,17 +261,17 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContasCorrentes", x => x.Id);
+                    table.PrimaryKey("PK_CheckingAccounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ContasCorrentes_Coprodutores_Id",
+                        name: "FK_CheckingAccounts_CoproducersInfo_Id",
                         column: x => x.Id,
-                        principalTable: "Coprodutores",
+                        principalTable: "CoproducersInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produtos",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -282,32 +282,33 @@ namespace AMAPP.API.Migrations
                     ReferencePrice = table.Column<double>(type: "double precision", nullable: false),
                     DeliveryUnit = table.Column<string>(type: "text", nullable: false),
                     ProductTypeId = table.Column<int>(type: "integer", nullable: false),
-                    ProducerInfoId = table.Column<int>(type: "integer", nullable: true),
+                    ProducerInfoId = table.Column<int>(type: "integer", nullable: false),
                     ProductOfferId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produtos", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produtos_OfertasProdutos_ProductOfferId",
-                        column: x => x.ProductOfferId,
-                        principalTable: "OfertasProdutos",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Produtos_Produtores_ProducerInfoId",
+                        name: "FK_Products_ProducersInfo_ProducerInfoId",
                         column: x => x.ProducerInfoId,
-                        principalTable: "Produtores",
+                        principalTable: "ProducersInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_ProductOffers_ProductOfferId",
+                        column: x => x.ProductOfferId,
+                        principalTable: "ProductOffers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Produtos_TiposProdutos_ProductTypeId",
+                        name: "FK_Products_ProductTypes_ProductTypeId",
                         column: x => x.ProductTypeId,
-                        principalTable: "TiposProdutos",
+                        principalTable: "ProductTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subscricoes",
+                name: "Subscriptions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -319,23 +320,23 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subscricoes", x => x.Id);
+                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subscricoes_Coprodutores_CoproducerId",
+                        name: "FK_Subscriptions_CoproducersInfo_CoproducerId",
                         column: x => x.CoproducerId,
-                        principalTable: "Coprodutores",
+                        principalTable: "CoproducersInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Subscricoes_OfertasProdutos_ProductOfferId",
+                        name: "FK_Subscriptions_ProductOffers_ProductOfferId",
                         column: x => x.ProductOfferId,
-                        principalTable: "OfertasProdutos",
+                        principalTable: "ProductOffers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProdutoCompostoProdutos",
+                name: "CompoundProductProducts",
                 columns: table => new
                 {
                     CompoundProductId = table.Column<int>(type: "integer", nullable: false),
@@ -343,23 +344,23 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProdutoCompostoProdutos", x => new { x.CompoundProductId, x.ProductId });
+                    table.PrimaryKey("PK_CompoundProductProducts", x => new { x.CompoundProductId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_ProdutoCompostoProdutos_Produtos_CompoundProductId",
+                        name: "FK_CompoundProductProducts_Products_CompoundProductId",
                         column: x => x.CompoundProductId,
-                        principalTable: "Produtos",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProdutoCompostoProdutos_Produtos_ProductId",
+                        name: "FK_CompoundProductProducts_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Produtos",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EntregasProdutos",
+                name: "ProductsDelivery",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -371,17 +372,17 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EntregasProdutos", x => x.Id);
+                    table.PrimaryKey("PK_ProductsDelivery", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EntregasProdutos_Produtos_ProductId",
+                        name: "FK_ProductsDelivery_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Produtos",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EntregasProdutos_Subscricoes_SubscriptionId",
+                        name: "FK_ProductsDelivery_Subscriptions_SubscriptionId",
                         column: x => x.SubscriptionId,
-                        principalTable: "Subscricoes",
+                        principalTable: "Subscriptions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -401,15 +402,15 @@ namespace AMAPP.API.Migrations
                 {
                     table.PrimaryKey("PK_SelectedProduct", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SelectedProduct_Produtos_ProductId",
+                        name: "FK_SelectedProduct_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Produtos",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SelectedProduct_Subscricoes_SubscriptionId",
+                        name: "FK_SelectedProduct_Subscriptions_SubscriptionId",
                         column: x => x.SubscriptionId,
-                        principalTable: "Subscricoes",
+                        principalTable: "Subscriptions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -419,14 +420,14 @@ namespace AMAPP.API.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1bf957b4-29d7-4b71-a906-dfadff9543f0", null, "Producer", "PROD" },
-                    { "41b034d7-c952-4af6-bbe0-a25679384d16", null, "Amap", "AMAP" },
-                    { "7f06f7ec-5faf-4010-b14e-e39dd9755664", null, "Administrator", "ADMIN" },
-                    { "9fdcc702-c92d-43fc-8243-fa1729630b7d", null, "CoProducer", "COPR" }
+                    { "1355c02d-2791-4540-91ec-ae6f449ee888", null, "Amap", "AMAP" },
+                    { "5168293c-68aa-42d1-a759-35a91c1f7673", null, "Administrator", "ADMIN" },
+                    { "731c1f62-2364-4b89-926e-fb54d1b0b550", null, "Producer", "PROD" },
+                    { "abc3804a-45fc-46d0-a8d3-47d515ead8b2", null, "CoProducer", "COPR" }
                 });
 
             migrationBuilder.InsertData(
-                table: "TiposProdutos",
+                table: "ProductTypes",
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
@@ -472,51 +473,51 @@ namespace AMAPP.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coprodutores_UserId",
-                table: "Coprodutores",
+                name: "IX_CompoundProductProducts_ProductId",
+                table: "CompoundProductProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CoproducersInfo_UserId",
+                table: "CoproducersInfo",
                 column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntregasProdutos_ProductId",
-                table: "EntregasProdutos",
-                column: "ProductId");
+                name: "IX_ProducersInfo_UserId",
+                table: "ProducersInfo",
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntregasProdutos_SubscriptionId",
-                table: "EntregasProdutos",
-                column: "SubscriptionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OfertasProdutos_PeriodSubscriptionId",
-                table: "OfertasProdutos",
+                name: "IX_ProductOffers_PeriodSubscriptionId",
+                table: "ProductOffers",
                 column: "PeriodSubscriptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProdutoCompostoProdutos_ProductId",
-                table: "ProdutoCompostoProdutos",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produtores_UserId",
-                table: "Produtores",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produtos_ProducerInfoId",
-                table: "Produtos",
+                name: "IX_Products_ProducerInfoId",
+                table: "Products",
                 column: "ProducerInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produtos_ProductOfferId",
-                table: "Produtos",
+                name: "IX_Products_ProductOfferId",
+                table: "Products",
                 column: "ProductOfferId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produtos_ProductTypeId",
-                table: "Produtos",
+                name: "IX_Products_ProductTypeId",
+                table: "Products",
                 column: "ProductTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsDelivery_ProductId",
+                table: "ProductsDelivery",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsDelivery_SubscriptionId",
+                table: "ProductsDelivery",
+                column: "SubscriptionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SelectedProduct_ProductId",
@@ -529,13 +530,13 @@ namespace AMAPP.API.Migrations
                 column: "SubscriptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscricoes_CoproducerId",
-                table: "Subscricoes",
+                name: "IX_Subscriptions_CoproducerId",
+                table: "Subscriptions",
                 column: "CoproducerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscricoes_ProductOfferId",
-                table: "Subscricoes",
+                name: "IX_Subscriptions_ProductOfferId",
+                table: "Subscriptions",
                 column: "ProductOfferId");
         }
 
@@ -558,13 +559,13 @@ namespace AMAPP.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ContasCorrentes");
+                name: "CheckingAccounts");
 
             migrationBuilder.DropTable(
-                name: "EntregasProdutos");
+                name: "CompoundProductProducts");
 
             migrationBuilder.DropTable(
-                name: "ProdutoCompostoProdutos");
+                name: "ProductsDelivery");
 
             migrationBuilder.DropTable(
                 name: "SelectedProduct");
@@ -573,28 +574,28 @@ namespace AMAPP.API.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Produtos");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Subscricoes");
+                name: "Subscriptions");
 
             migrationBuilder.DropTable(
-                name: "Produtores");
+                name: "ProducersInfo");
 
             migrationBuilder.DropTable(
-                name: "TiposProdutos");
+                name: "ProductTypes");
 
             migrationBuilder.DropTable(
-                name: "Coprodutores");
+                name: "CoproducersInfo");
 
             migrationBuilder.DropTable(
-                name: "OfertasProdutos");
+                name: "ProductOffers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "PeriodosSubscricao");
+                name: "SubscriptionPeriods");
         }
     }
 }

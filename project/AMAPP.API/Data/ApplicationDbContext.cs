@@ -11,16 +11,16 @@ namespace AMAPP.API.Data
 
 
         // Configurar os DbSets
-        public DbSet<ProducerInfo> Produtores { get; set; }
-        public DbSet<CoproducerInfo> Coprodutores { get; set; }
-        public DbSet<Product> Produtos { get; set; }
-        public DbSet<ProductType> TiposProdutos { get; set; }
-        public DbSet<CompoundProductProduct> ProdutoCompostoProdutos { get; set; }
-        public DbSet<CheckingAccount> ContasCorrentes { get; set; }
-        public DbSet<SubscriptionPeriod> PeriodosSubscricao { get; set; }
-        public DbSet<ProductOffer> OfertasProdutos { get; set; }
-        public DbSet<Subscription> Subscricoes { get; set; }
-        public DbSet<ProductDelivery> EntregasProdutos { get; set; }
+        public DbSet<ProducerInfo> ProducersInfo { get; set; }
+        public DbSet<CoproducerInfo> CoproducersInfo { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<CompoundProductProduct> CompoundProductProducts { get; set; }
+        public DbSet<CheckingAccount> CheckingAccounts { get; set; }
+        public DbSet<SubscriptionPeriod> SubscriptionPeriods { get; set; }
+        public DbSet<ProductOffer> ProductOffers { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<ProductDelivery> ProductsDelivery { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,6 +40,14 @@ namespace AMAPP.API.Data
                 .HasOne(c => c.User)
                 .WithOne()
                 .HasForeignKey<CoproducerInfo>(c => c.UserId);
+
+
+            // Configure one-to-many relationship
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.ProducerInfo)
+                .WithMany(pr => pr.Products)
+                .HasForeignKey(p => p.ProducerInfoId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configuração para Produto -> TipoProduto
             modelBuilder.Entity<Product>()
