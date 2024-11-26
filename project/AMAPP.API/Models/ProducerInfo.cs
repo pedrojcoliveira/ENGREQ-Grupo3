@@ -9,6 +9,6 @@
         public User User { get; set; }
 
         // Propriedade específica
-        public List<Product> ProductCatalog { get; set; } = new List<Product>();
+        public List<Product> Products { get; set; } = new List<Product>();
     }
 }

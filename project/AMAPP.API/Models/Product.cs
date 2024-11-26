@@ -15,5 +15,9 @@
 
         // Relacionamento muitos-para-muitos
         public List<CompoundProductProduct> CompoundProductProduct { get; set; } = new List<CompoundProductProduct>();
+
+        // Relacionamento com Producer
+        public int ProducerInfoId { get; set; } // Foreign key
+        public ProducerInfo ProducerInfo { get; set; } // Navigation property
     }
 }
