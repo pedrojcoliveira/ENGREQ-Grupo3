@@ -5,18 +5,15 @@
         public int Id { get; set; }
 
         // Relacionamento com Coprodutor
-        public int CoproducerId { get; set; }
-        public CoproducerInfo Coproducer { get; set; }
+        public int CoproducerInfoId { get; set; }
+        public CoproducerInfo CoproducerInfo { get; set; }
 
         // Relacionamento com OfertaProduto
-        public int ProductOfferId { get; set; }
-        public ProductOffer ProductOffer { get; set; }
+        public int SubscriptionPeriodId { get; set; }
+        public SubscriptionPeriod SubscriptionPeriod { get; set; }
 
         // Produtos selecionados pelo coprodutor 
-        public List<SelectedProduct> SelectedProducts { get; set; } = new List<SelectedProduct>();
+        public List<SelectedProductOffer> SelectedProducts { get; set; } = new List<SelectedProductOffer>();
 
-
-        public string PaymentMethod { get; set; }
-        public int NumberOfInstallments { get; set; }
     }
 }

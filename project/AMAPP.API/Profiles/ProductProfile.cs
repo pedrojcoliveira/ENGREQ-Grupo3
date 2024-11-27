@@ -1,4 +1,4 @@
-﻿using AMAPP.API.DTOs.Produto;
+﻿using AMAPP.API.DTOs.Product;
 using AMAPP.API.Models;
 using AutoMapper;
 
@@ -13,8 +13,10 @@ namespace AMAPP.API.Profiles
                 .ForMember(dest => dest.ProductTypeId, opt => opt.MapFrom(src => src.ProductType.Id));
 
             // Map ProductDto to Produto
-            CreateMap<ProductDto, Product>()
-                .ForMember(dest => dest.ProductType, opt => opt.Ignore()); // TipoProduto is set separately
+            CreateMap<CreateProductDto, Product>()
+                .ForMember(dest => dest.ProductType, opt => opt.Ignore()) // TipoProduto is set separately
+                .ForMember(dest => dest.Photo, opt => opt.Ignore()) // Photo is set separately
+                .ForMember(dest => dest.ProducerInfo, opt => opt.Ignore()); // ProducerInfo is set separately
         }
     }
 }

@@ -7,7 +7,7 @@
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public List<DateTime> DeliveryDates { get; set; } = new List<DateTime>();
+        public List<SelectedProductOffer> DeliveryDates { get; set; } = new List<SelectedProductOffer>();
 
         // Relacionamento com OfertaProduto
         public List<ProductOffer> ProductOffers { get; set; } = new List<ProductOffer>();

@@ -1,5 +1,6 @@
-﻿using AMAPP.API.DTOs.Produto;
+﻿using AMAPP.API.DTOs.Product;
 using AMAPP.API.Models;
+using AMAPP.API.Repository.ProducerInfoRepository;
 using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Services.Interfaces;
 using AutoMapper;
@@ -10,11 +11,13 @@ namespace AMAPP.API.Services.Implementations
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
+        private readonly IProducerInfoRepository _producerInfoRepository;
 
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        public ProductService(IProductRepository productRepository, IMapper mapper, IProducerInfoRepository producerInfoRepository)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _producerInfoRepository = producerInfoRepository;
         }
 
         public async Task<List<ProductDto>> GetAllProductsAsync()
@@ -33,9 +36,36 @@ namespace AMAPP.API.Services.Implementations
             return _mapper.Map<ProductDto>(product);
         }
 
-        public async Task<ProductDto> AddProductAsync(ProductDto productDto)
+        public async Task<ProductDto> AddProductAsync(CreateProductDto productDto, string producerId)
         {
+            var producerInfo = await _producerInfoRepository.GetProducerInfoByUserIdAsync(producerId);
+            if (producerInfo == null)
+            {
+                producerInfo = new ProducerInfo
+                {
+                    UserId = producerId
+                };
+
+                await _producerInfoRepository.AddAsync(producerInfo);
+            }
+
+
+            // Convert the uploaded image to a byte array
+            byte[]? photoBytes = null;
+            if (productDto.Photo != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await productDto.Photo.CopyToAsync(memoryStream);
+                    photoBytes = memoryStream.ToArray();
+                }
+            }
+
             var product = _mapper.Map<Product>(productDto);
+
+            product.Photo = photoBytes;
+            product.ProducerInfoId = producerInfo.Id;
+
             await _productRepository.AddAsync(product);
             return _mapper.Map<ProductDto>(product);
         }
