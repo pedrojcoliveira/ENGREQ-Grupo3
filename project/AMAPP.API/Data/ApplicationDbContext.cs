@@ -20,7 +20,8 @@ namespace AMAPP.API.Data
         public DbSet<SubscriptionPeriod> SubscriptionPeriods { get; set; }
         public DbSet<ProductOffer> ProductOffers { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<ProductDelivery> ProductsDelivery { get; set; }
+        public DbSet<DeliveryDate> DeliveryDates { get; set; }
+        public DbSet<SelectedDeliveryDate> SelectedDeliveryDates { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,18 +30,22 @@ namespace AMAPP.API.Data
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            // Relacionamentos para ProdutorInfo
+            // Relacionamentos para ProducerInfo
             modelBuilder.Entity<ProducerInfo>()
                 .HasOne(p => p.User)
                 .WithOne()
                 .HasForeignKey<ProducerInfo>(p => p.UserId);
 
-            // Relacionamentos para CoprodutorInfo
+            // Relacionamentos para CoproducerInfo
             modelBuilder.Entity<CoproducerInfo>()
                 .HasOne(c => c.User)
                 .WithOne()
                 .HasForeignKey<CoproducerInfo>(c => c.UserId);
 
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Photo)
+                .HasColumnType("BYTEA") // Map to BYTEA column in PostgreSQL
+                .IsRequired(false);     // Mark as optional
 
             // Configure one-to-many relationship
             modelBuilder.Entity<Product>()
@@ -70,7 +75,6 @@ namespace AMAPP.API.Data
                 .WithMany()
                 .HasForeignKey(pc => pc.ProductId);
 
-
             // Configuração para ContaCorrente
             modelBuilder.Entity<CheckingAccount>()
                 .HasOne(c => c.Coproducer)
@@ -84,43 +88,44 @@ namespace AMAPP.API.Data
                 .HasForeignKey(o => o.PeriodSubscriptionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Configuração para Subscricao -> Coprodutor
-            modelBuilder.Entity<Subscription>()
-                .HasOne(s => s.Coproducer)
-                .WithMany()
-                .HasForeignKey(s => s.CoproducerId)
+            // Configuração para Produto -> OfertaProduto
+            modelBuilder.Entity<ProductOffer>()
+                .HasOne(po => po.Product)
+                .WithMany(p => p.ProductOffers)
+                .HasForeignKey(po => po.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Configuração para Subscricao -> OfertaProduto
+            // Configuração para ProdutoOferta -> SelectedDeliveryDate
+            modelBuilder.Entity<SelectedDeliveryDate>()
+                .HasOne(sdd => sdd.ProductOffer)
+                .WithMany(po => po.SelectedDeliveryDates)
+                .HasForeignKey(sdd => sdd.ProductOfferId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Configuração para Subscricao -> Coprodutor
             modelBuilder.Entity<Subscription>()
-                .HasOne(s => s.ProductOffer)
+                .HasOne(s => s.CoproducerInfo)
                 .WithMany()
-                .HasForeignKey(s => s.ProductOfferId)
+                .HasForeignKey(s => s.CoproducerInfoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Configuração para Subscricao -> PeriodoSubscricao
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.SubscriptionPeriod)
+                .WithMany()
+                .HasForeignKey(s => s.SubscriptionPeriodId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Configuração para ProdutoSelecionado
-            modelBuilder.Entity<SelectedProduct>()
-                .HasOne(ps => ps.Product)
+            modelBuilder.Entity<SelectedProductOffer>()
+                .HasOne(ps => ps.ProductOffer)
                 .WithMany()
-                .HasForeignKey(ps => ps.ProductId);
+                .HasForeignKey(ps => ps.ProductOfferId);
 
-            modelBuilder.Entity<SelectedProduct>()
+            modelBuilder.Entity<SelectedProductOffer>()
                 .HasOne(ps => ps.Subscription)
                 .WithMany(s => s.SelectedProducts)
                 .HasForeignKey(ps => ps.SubscriptionId);
-
-            // Configuração para EntregaProduto
-            modelBuilder.Entity<ProductDelivery>()
-                .HasOne(e => e.Product)
-                .WithMany()
-                .HasForeignKey(e => e.ProductId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<ProductDelivery>()
-                .HasOne(e => e.Subscription)
-                .WithMany()
-                .HasForeignKey(e => e.SubscriptionId)
-                .OnDelete(DeleteBehavior.Cascade);
 
 
 

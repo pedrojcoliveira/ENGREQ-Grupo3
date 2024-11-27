@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Photo { get; set; }
+        public byte[]? Photo { get; set; }
         public double ReferencePrice { get; set; }
         public string DeliveryUnit { get; set; }
 
@@ -16,8 +16,12 @@
         // Relacionamento muitos-para-muitos
         public List<CompoundProductProduct> CompoundProductProduct { get; set; } = new List<CompoundProductProduct>();
 
+        public List<ProductOffer> ProductOffers { get; set; }
+
         // Relacionamento com Producer
         public int ProducerInfoId { get; set; } // Foreign key
         public ProducerInfo ProducerInfo { get; set; } // Navigation property
+
+
     }
 }

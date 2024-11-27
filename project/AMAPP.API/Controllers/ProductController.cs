@@ -1,7 +1,12 @@
-﻿using AMAPP.API.DTOs.Produto;
+﻿using AMAPP.API.DTOs.Product;
 using AMAPP.API.Models;
+using AMAPP.API.Repository.ProducerInfoRepository;
 using AMAPP.API.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Ocsp;
+using System.Linq;
+using System.Security.Principal;
 
 namespace AMAPP.API.Controllers
 {
@@ -10,10 +15,13 @@ namespace AMAPP.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly UserManager<User> _userManager;
+        private readonly IProducerInfoRepository _producerInfoRepository;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, UserManager<User> userManager)
         {
             _productService = productService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -34,12 +42,31 @@ namespace AMAPP.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> AddProduct([FromBody] ProductDto productDto)
+        public async Task<ActionResult<ProductDto>> AddProduct([FromForm] CreateProductDto productDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var createdProduct = await _productService.AddProductAsync(productDto);
+            var producer = await _userManager.FindByNameAsync("quimbarreiros");
+            if (producer == null)
+                return NotFound("Producer not found.");
+
+            if (productDto.Photo != null)
+            {
+                if (productDto.Photo.Length > 5 * 1024 * 1024) // 5 MB limit
+                {
+                    return BadRequest("Photo size exceeds the 5MB limit.");
+                }
+
+                var validFormats = new[] { ".jpg", ".jpeg", ".png" };
+                var fileExtension = Path.GetExtension(productDto.Photo.FileName).ToLower();
+                if (!validFormats.Contains(fileExtension))
+                {
+                    return BadRequest("Invalid photo format. Only JPG and PNG are allowed.");
+                }
+            }
+
+            var createdProduct = await _productService.AddProductAsync(productDto, producer.Id);
             return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, createdProduct);
         }
 

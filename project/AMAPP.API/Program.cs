@@ -2,6 +2,7 @@
 using AMAPP.API.Configurations;
 using AMAPP.API.Data;
 using AMAPP.API.Models;
+using AMAPP.API.Repository.ProducerInfoRepository;
 using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Services.Implementations;
 using AMAPP.API.Services.Interfaces;
@@ -16,7 +17,7 @@ namespace AMAPP.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -63,8 +64,9 @@ namespace AMAPP.API
 
             builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
 
 
             builder.Services.AddControllers();
@@ -109,6 +111,9 @@ namespace AMAPP.API
 
             var app = builder.Build();
 
+            // Seed roles and users
+            await DatabaseSeed.SeedRolesAndUsers(app.Services);
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -122,6 +127,7 @@ namespace AMAPP.API
 
 
             app.MapControllers();
+
 
             app.Run();
         }
