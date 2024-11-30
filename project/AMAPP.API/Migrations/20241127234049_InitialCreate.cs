@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -57,23 +56,7 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PeriodosSubscricao",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DeliveryDates = table.Column<List<DateTime>>(type: "timestamp without time zone[]", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PeriodosSubscricao", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TiposProdutos",
+                name: "ProductTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -83,7 +66,22 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TiposProdutos", x => x.Id);
+                    table.PrimaryKey("PK_ProductTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubscriptionPeriods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscriptionPeriods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,7 +191,7 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coprodutores",
+                name: "CoproducersInfo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -202,9 +200,9 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coprodutores", x => x.Id);
+                    table.PrimaryKey("PK_CoproducersInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Coprodutores_AspNetUsers_UserId",
+                        name: "FK_CoproducersInfo_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -212,7 +210,7 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produtores",
+                name: "ProducersInfo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -221,9 +219,9 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produtores", x => x.Id);
+                    table.PrimaryKey("PK_ProducersInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produtores_AspNetUsers_UserId",
+                        name: "FK_ProducersInfo_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -231,29 +229,27 @@ namespace AMAPP.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OfertasProdutos",
+                name: "DeliveryDates",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PeriodSubscriptionId = table.Column<int>(type: "integer", nullable: false),
-                    DeliveryDates = table.Column<List<DateTime>>(type: "timestamp without time zone[]", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "text", nullable: false),
-                    NumberOfInstallments = table.Column<int>(type: "integer", nullable: false)
+                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    SubscriptionPeriodId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OfertasProdutos", x => x.Id);
+                    table.PrimaryKey("PK_DeliveryDates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OfertasProdutos_PeriodosSubscricao_PeriodSubscriptionId",
-                        column: x => x.PeriodSubscriptionId,
-                        principalTable: "PeriodosSubscricao",
+                        name: "FK_DeliveryDates_SubscriptionPeriods_SubscriptionPeriodId",
+                        column: x => x.SubscriptionPeriodId,
+                        principalTable: "SubscriptionPeriods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContasCorrentes",
+                name: "CheckingAccounts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false),
@@ -261,81 +257,74 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ContasCorrentes", x => x.Id);
+                    table.PrimaryKey("PK_CheckingAccounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ContasCorrentes_Coprodutores_Id",
+                        name: "FK_CheckingAccounts_CoproducersInfo_Id",
                         column: x => x.Id,
-                        principalTable: "Coprodutores",
+                        principalTable: "CoproducersInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produtos",
+                name: "Subscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CoproducerInfoId = table.Column<int>(type: "integer", nullable: false),
+                    SubscriptionPeriodId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_CoproducersInfo_CoproducerInfoId",
+                        column: x => x.CoproducerInfoId,
+                        principalTable: "CoproducersInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_SubscriptionPeriods_SubscriptionPeriodId",
+                        column: x => x.SubscriptionPeriodId,
+                        principalTable: "SubscriptionPeriods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Photo = table.Column<string>(type: "text", nullable: false),
+                    Photo = table.Column<byte[]>(type: "BYTEA", nullable: true),
                     ReferencePrice = table.Column<double>(type: "double precision", nullable: false),
                     DeliveryUnit = table.Column<string>(type: "text", nullable: false),
                     ProductTypeId = table.Column<int>(type: "integer", nullable: false),
-                    ProducerInfoId = table.Column<int>(type: "integer", nullable: true),
-                    ProductOfferId = table.Column<int>(type: "integer", nullable: true)
+                    ProducerInfoId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produtos", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produtos_OfertasProdutos_ProductOfferId",
-                        column: x => x.ProductOfferId,
-                        principalTable: "OfertasProdutos",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Produtos_Produtores_ProducerInfoId",
+                        name: "FK_Products_ProducersInfo_ProducerInfoId",
                         column: x => x.ProducerInfoId,
-                        principalTable: "Produtores",
-                        principalColumn: "Id");
+                        principalTable: "ProducersInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Produtos_TiposProdutos_ProductTypeId",
+                        name: "FK_Products_ProductTypes_ProductTypeId",
                         column: x => x.ProductTypeId,
-                        principalTable: "TiposProdutos",
+                        principalTable: "ProductTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subscricoes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CoproducerId = table.Column<int>(type: "integer", nullable: false),
-                    ProductOfferId = table.Column<int>(type: "integer", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "text", nullable: false),
-                    NumberOfInstallments = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subscricoes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Subscricoes_Coprodutores_CoproducerId",
-                        column: x => x.CoproducerId,
-                        principalTable: "Coprodutores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Subscricoes_OfertasProdutos_ProductOfferId",
-                        column: x => x.ProductOfferId,
-                        principalTable: "OfertasProdutos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProdutoCompostoProdutos",
+                name: "CompoundProductProducts",
                 columns: table => new
                 {
                     CompoundProductId = table.Column<int>(type: "integer", nullable: false),
@@ -343,73 +332,97 @@ namespace AMAPP.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProdutoCompostoProdutos", x => new { x.CompoundProductId, x.ProductId });
+                    table.PrimaryKey("PK_CompoundProductProducts", x => new { x.CompoundProductId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_ProdutoCompostoProdutos_Produtos_CompoundProductId",
+                        name: "FK_CompoundProductProducts_Products_CompoundProductId",
                         column: x => x.CompoundProductId,
-                        principalTable: "Produtos",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProdutoCompostoProdutos_Produtos_ProductId",
+                        name: "FK_CompoundProductProducts_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Produtos",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EntregasProdutos",
+                name: "ProductOffers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
-                    SubscriptionId = table.Column<int>(type: "integer", nullable: false),
-                    QuantitySubscribed = table.Column<int>(type: "integer", nullable: false),
-                    QuantityDelivered = table.Column<int>(type: "integer", nullable: false)
+                    PeriodSubscriptionId = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EntregasProdutos", x => x.Id);
+                    table.PrimaryKey("PK_ProductOffers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EntregasProdutos_Produtos_ProductId",
+                        name: "FK_ProductOffers_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Produtos",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EntregasProdutos_Subscricoes_SubscriptionId",
-                        column: x => x.SubscriptionId,
-                        principalTable: "Subscricoes",
+                        name: "FK_ProductOffers_SubscriptionPeriods_PeriodSubscriptionId",
+                        column: x => x.PeriodSubscriptionId,
+                        principalTable: "SubscriptionPeriods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SelectedProduct",
+                name: "SelectedDeliveryDates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ProductOfferId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SelectedDeliveryDates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SelectedDeliveryDates_ProductOffers_ProductOfferId",
+                        column: x => x.ProductOfferId,
+                        principalTable: "ProductOffers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SelectedProductOffer",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DeliveryDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    ProductOfferId = table.Column<int>(type: "integer", nullable: false),
                     SubscriptionId = table.Column<int>(type: "integer", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    SubscriptionPeriodId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SelectedProduct", x => x.Id);
+                    table.PrimaryKey("PK_SelectedProductOffer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SelectedProduct_Produtos_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Produtos",
+                        name: "FK_SelectedProductOffer_ProductOffers_ProductOfferId",
+                        column: x => x.ProductOfferId,
+                        principalTable: "ProductOffers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SelectedProduct_Subscricoes_SubscriptionId",
+                        name: "FK_SelectedProductOffer_SubscriptionPeriods_SubscriptionPeriod~",
+                        column: x => x.SubscriptionPeriodId,
+                        principalTable: "SubscriptionPeriods",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SelectedProductOffer_Subscriptions_SubscriptionId",
                         column: x => x.SubscriptionId,
-                        principalTable: "Subscricoes",
+                        principalTable: "Subscriptions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -419,14 +432,14 @@ namespace AMAPP.API.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1bf957b4-29d7-4b71-a906-dfadff9543f0", null, "Producer", "PROD" },
-                    { "41b034d7-c952-4af6-bbe0-a25679384d16", null, "Amap", "AMAP" },
-                    { "7f06f7ec-5faf-4010-b14e-e39dd9755664", null, "Administrator", "ADMIN" },
-                    { "9fdcc702-c92d-43fc-8243-fa1729630b7d", null, "CoProducer", "COPR" }
+                    { "36f73c3f-24a9-4f2d-925f-c0748990e6df", null, "Producer", "PROD" },
+                    { "3741b316-eeff-4755-b6fa-124c47bdb617", null, "CoProducer", "COPR" },
+                    { "81352cc0-a70f-421f-a3e7-91a63f86ef15", null, "Administrator", "ADMIN" },
+                    { "979f3b02-6149-4fff-b2d4-d1294a658325", null, "Amap", "AMAP" }
                 });
 
             migrationBuilder.InsertData(
-                table: "TiposProdutos",
+                table: "ProductTypes",
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
@@ -472,71 +485,76 @@ namespace AMAPP.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coprodutores_UserId",
-                table: "Coprodutores",
+                name: "IX_CompoundProductProducts_ProductId",
+                table: "CompoundProductProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CoproducersInfo_UserId",
+                table: "CoproducersInfo",
                 column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntregasProdutos_ProductId",
-                table: "EntregasProdutos",
-                column: "ProductId");
+                name: "IX_DeliveryDates_SubscriptionPeriodId",
+                table: "DeliveryDates",
+                column: "SubscriptionPeriodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntregasProdutos_SubscriptionId",
-                table: "EntregasProdutos",
-                column: "SubscriptionId");
+                name: "IX_ProducersInfo_UserId",
+                table: "ProducersInfo",
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OfertasProdutos_PeriodSubscriptionId",
-                table: "OfertasProdutos",
+                name: "IX_ProductOffers_PeriodSubscriptionId",
+                table: "ProductOffers",
                 column: "PeriodSubscriptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProdutoCompostoProdutos_ProductId",
-                table: "ProdutoCompostoProdutos",
+                name: "IX_ProductOffers_ProductId",
+                table: "ProductOffers",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produtores_UserId",
-                table: "Produtores",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produtos_ProducerInfoId",
-                table: "Produtos",
+                name: "IX_Products_ProducerInfoId",
+                table: "Products",
                 column: "ProducerInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produtos_ProductOfferId",
-                table: "Produtos",
-                column: "ProductOfferId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produtos_ProductTypeId",
-                table: "Produtos",
+                name: "IX_Products_ProductTypeId",
+                table: "Products",
                 column: "ProductTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SelectedProduct_ProductId",
-                table: "SelectedProduct",
-                column: "ProductId");
+                name: "IX_SelectedDeliveryDates_ProductOfferId",
+                table: "SelectedDeliveryDates",
+                column: "ProductOfferId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SelectedProduct_SubscriptionId",
-                table: "SelectedProduct",
+                name: "IX_SelectedProductOffer_ProductOfferId",
+                table: "SelectedProductOffer",
+                column: "ProductOfferId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SelectedProductOffer_SubscriptionId",
+                table: "SelectedProductOffer",
                 column: "SubscriptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscricoes_CoproducerId",
-                table: "Subscricoes",
-                column: "CoproducerId");
+                name: "IX_SelectedProductOffer_SubscriptionPeriodId",
+                table: "SelectedProductOffer",
+                column: "SubscriptionPeriodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscricoes_ProductOfferId",
-                table: "Subscricoes",
-                column: "ProductOfferId");
+                name: "IX_Subscriptions_CoproducerInfoId",
+                table: "Subscriptions",
+                column: "CoproducerInfoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_SubscriptionPeriodId",
+                table: "Subscriptions",
+                column: "SubscriptionPeriodId");
         }
 
         /// <inheritdoc />
@@ -558,43 +576,46 @@ namespace AMAPP.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ContasCorrentes");
+                name: "CheckingAccounts");
 
             migrationBuilder.DropTable(
-                name: "EntregasProdutos");
+                name: "CompoundProductProducts");
 
             migrationBuilder.DropTable(
-                name: "ProdutoCompostoProdutos");
+                name: "DeliveryDates");
 
             migrationBuilder.DropTable(
-                name: "SelectedProduct");
+                name: "SelectedDeliveryDates");
+
+            migrationBuilder.DropTable(
+                name: "SelectedProductOffer");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Produtos");
+                name: "ProductOffers");
 
             migrationBuilder.DropTable(
-                name: "Subscricoes");
+                name: "Subscriptions");
 
             migrationBuilder.DropTable(
-                name: "Produtores");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "TiposProdutos");
+                name: "CoproducersInfo");
 
             migrationBuilder.DropTable(
-                name: "Coprodutores");
+                name: "SubscriptionPeriods");
 
             migrationBuilder.DropTable(
-                name: "OfertasProdutos");
+                name: "ProducersInfo");
+
+            migrationBuilder.DropTable(
+                name: "ProductTypes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "PeriodosSubscricao");
         }
     }
 }

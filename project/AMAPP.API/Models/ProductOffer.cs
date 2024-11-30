@@ -7,12 +7,12 @@
         // Relacionamento com PeriodoSubscricao
         public int PeriodSubscriptionId { get; set; }
         public SubscriptionPeriod PeriodSubscription { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<SelectedDeliveryDate> SelectedDeliveryDates { get; set; } = new List<SelectedDeliveryDate>();
 
-        public List<DateTime> DeliveryDates { get; set; } = new List<DateTime>();
-
-        public string PaymentMethod { get; set; } // Ex: "Integral", "Fracionado"
-        public int NumberOfInstallments { get; set; } // Número de parcelas
+        //public string PaymentMethod { get; set; } // Ex: "MBway", "TransferenciaMultibanco"
+        //public string PaymentMode { get; set; } // Ex: "Integral", "Fracionado"
     }
 }

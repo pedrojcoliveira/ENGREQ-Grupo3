@@ -1,13 +1,13 @@
 ﻿namespace AMAPP.API.Models
 {
-    public class SelectedProduct
+    public class SelectedProductOffer
     {
         public int Id { get; set; }
 
         public DateTime DeliveryDate { get; set; }
 
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public int ProductOfferId { get; set; }
+        public ProductOffer ProductOffer { get; set; }
 
         public int SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
