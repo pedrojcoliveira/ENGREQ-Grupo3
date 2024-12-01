@@ -1,4 +1,3 @@
-
 using AMAPP.API.Configurations;
 using AMAPP.API.Data;
 using AMAPP.API.Models;
@@ -12,6 +11,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using AMAPP.API.DTOs.SubscriptionPeriod.Validators;
+using AMAPP.API.Middlewares;
+using AMAPP.API.Repository.ProductOfferRepository;
+using AMAPP.API.Repository.SelectedProductOfferRepository;
+using AMAPP.API.Repository.SubscriptionPeriodRepository;
+using AMAPP.API.Repository.SubscriptionRepository;
+using AMAPP.API.Services;
+using AMAPP.API.Utils;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace AMAPP.API
 {
@@ -30,7 +39,7 @@ namespace AMAPP.API
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = false; // Alterar para true se for necessária confirmação por email
+                options.SignIn.RequireConfirmedAccount = false; // Alterar para true se for necessï¿½ria confirmaï¿½ï¿½o por email
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
@@ -67,9 +76,30 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
+            builder.Services.AddScoped<ISubscriptionPeriodService, SubscriptionPeriodService>();
+            builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+            builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
+            builder.Services.AddScoped<ISelectedProductOfferRepository, SelectedProductOfferRepository>();
+
+            builder.Services.AddRouting(options =>
+            {
+                options.LowercaseUrls = true; // Ensure URLs are lowercase
+                options.LowercaseQueryStrings = true; // Optional: lowercase query strings
+                options.ConstraintMap["kebab"] = typeof(KebabCaseParameterTransformer); // Register transformer
+            });
+
+            builder.Services.AddControllers(options =>
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new KebabCaseParameterTransformer()));
+            });
+            builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+            
 
 
-            builder.Services.AddControllers();
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(option =>
@@ -121,9 +151,12 @@ namespace AMAPP.API
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
             app.UseHttpsRedirection();
             app.UseCors(); // Enable CORS for the frontend
             app.UseAuthorization();
+            
+            
 
 
             app.MapControllers();

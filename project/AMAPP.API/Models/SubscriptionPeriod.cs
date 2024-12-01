@@ -1,15 +1,20 @@
-﻿namespace AMAPP.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AMAPP.API.Models
 {
     public class SubscriptionPeriod
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public List<SelectedProductOffer> DeliveryDates { get; set; } = new List<SelectedProductOffer>();
+        public List<SelectedProductOffer> DeliveryDates { get; set; } = new ();
 
         // Relacionamento com OfertaProduto
-        public List<ProductOffer> ProductOffers { get; set; } = new List<ProductOffer>();
+        public List<ProductOffer> ProductOffers { get; set; } = new ();
     }
 }
