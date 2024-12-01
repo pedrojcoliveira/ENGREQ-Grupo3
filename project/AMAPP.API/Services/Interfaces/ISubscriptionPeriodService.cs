@@ -5,7 +5,10 @@ namespace AMAPP.API.Services.Interfaces
 {
     public interface ISubscriptionPeriodService
     {
-        Task<SubscriptionPeriodDto> AddSubscriptionPeriodAsync(CreateSubscriptionPeriodDto subscriptionPeriodDto);
-
+        Task<ResponseSubscriptionPeriodDto> AddSubscriptionPeriodAsync(CreateSubscriptionPeriodDto subscriptionPeriodDto);
+        Task<List<ResponseSubscriptionPeriodDto>> GetAllSubscriptionPeriodsAsync();
+        Task<ResponseSubscriptionPeriodDto> GetSubscriptionPeriodByIdAsync(int id);
+        Task<ResponseSubscriptionPeriodDto> UpdateSubscriptionPeriodAsync(int id, SubscriptionPeriodDto subscriptionPeriodDto);
+        Task<bool> DeleteSubscriptionPeriodAsync(int id);
     }
 }

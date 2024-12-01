@@ -8,9 +8,10 @@ namespace AMAPP.API.DTOs.Subscription.Validators
     {
         public CreateSubscriptionDtoValidator()
         {
+            /*
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required.")
-                .Length(2, 50).WithMessage("Name must be between 2 and 50 characters.");
+                .Length(2, 50).WithMessage("Name must be between 2 and 50 characters."); */
 
             RuleFor(x => x.Duration)
                 .IsInEnum().WithMessage("Invalid subscription duration.");
