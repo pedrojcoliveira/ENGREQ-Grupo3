@@ -4,6 +4,7 @@ using AMAPP.API.Repository.ProducerInfoRepository;
 using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Services.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace AMAPP.API.Services.Implementations
 {
@@ -12,12 +13,14 @@ namespace AMAPP.API.Services.Implementations
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
         private readonly IProducerInfoRepository _producerInfoRepository;
+        private readonly UserManager<User> _userManager;
 
-        public ProductService(IProductRepository productRepository, IMapper mapper, IProducerInfoRepository producerInfoRepository)
+        public ProductService(IProductRepository productRepository, IMapper mapper, IProducerInfoRepository producerInfoRepository, UserManager<User> userManager)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _producerInfoRepository = producerInfoRepository;
+            _userManager = userManager;
         }
 
         public async Task<List<ProductDto>> GetAllProductsAsync()
@@ -36,14 +39,34 @@ namespace AMAPP.API.Services.Implementations
             return _mapper.Map<ProductDto>(product);
         }
 
-        public async Task<ProductDto> AddProductAsync(CreateProductDto productDto, string producerId)
+        public async Task<ProductDto> AddProductAsync(CreateProductDto productDto)
         {
-            var producerInfo = await _producerInfoRepository.GetProducerInfoByUserIdAsync(producerId);
+            var producer = await _userManager.FindByNameAsync("quimbarreiros");
+            if (producer == null)
+                throw new KeyNotFoundException("Producer not found.");
+
+            if (productDto.Photo != null)
+            {
+                if (productDto.Photo.Length > 5 * 1024 * 1024) // 5 MB limit
+                {
+                    throw new ArgumentException("Photo size exceeds the 5MB limit.");
+                }
+
+                var validFormats = new[] { ".jpg", ".jpeg", ".png" };
+                var fileExtension = Path.GetExtension(productDto.Photo.FileName).ToLower();
+                if (!validFormats.Contains(fileExtension))
+                {
+                    throw new ArgumentException("Invalid photo format. Only JPG and PNG are allowed.");
+                }
+            }
+
+
+            var producerInfo = await _producerInfoRepository.GetProducerInfoByUserIdAsync(producer.Id);
             if (producerInfo == null)
             {
                 producerInfo = new ProducerInfo
                 {
-                    UserId = producerId
+                    UserId = producer.Id
                 };
 
                 await _producerInfoRepository.AddAsync(producerInfo);
