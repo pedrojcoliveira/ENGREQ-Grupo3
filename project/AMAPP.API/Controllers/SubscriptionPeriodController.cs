@@ -71,6 +71,15 @@ public class SubscriptionPeriodController : ControllerBase
             return NoContent();
         }
         
-        
+       [HttpPost("planning")]
+        public async Task<ActionResult<ResponseSubscriptionPeriodPlanDto>> AddSubscriptionPeriodPan([FromBody] CreateSubscriptionPeriodPlanDto subscriptionPeriodPanDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            //WIP
+            var createdSubscriptionPeriodPlan = await _subscriptionPeriodService.AddSubscriptionPeriodPlanAsync(subscriptionPeriodPanDto);
+            return StatusCode(201, createdSubscriptionPeriodPlan);
+        }
 
 }

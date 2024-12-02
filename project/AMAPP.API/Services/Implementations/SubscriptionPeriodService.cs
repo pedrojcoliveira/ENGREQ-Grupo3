@@ -107,5 +107,35 @@ namespace AMAPP.API.Services
             await _subscriptionPeriodRepository.RemoveAsync(subscriptionPeriod);
             return true;
         }
+        
+        public async Task<ResponseSubscriptionPeriodPlanDto> AddSubscriptionPeriodPlanAsync(CreateSubscriptionPeriodPlanDto subscriptionPeriodPlanDto)
+{
+    /*
+    // Validate the subscription period
+    var subscriptionPeriod = _mapper.Map<SubscriptionPeriod>(subscriptionPeriodPlanDto.SubscriptionPeriod);
+    await _subscriptionPeriodRepository.AddAsync(subscriptionPeriod);
+
+    // Validate and map the selected product offers
+    var selectedProductOffers = await Task.WhenAll(subscriptionPeriodPlanDto.SelectedProductOfferIds.Select(id => _selectedProductOfferRepository.GetByIdAsync(id)));
+    if (selectedProductOffers.Any(spo => spo == null))
+        throw new Exception("One or more SelectedProductOffer IDs are invalid.");
+
+    // Validate and map the product offers
+    var productOffers = await Task.WhenAll(subscriptionPeriodPlanDto.ProductOfferIds.Select(id => _productOfferRepository.GetByIdAsync(id)));
+    if (productOffers.Any(po => po == null))
+        throw new Exception("One or more ProductOffer IDs are invalid.");
+
+    // Create the response DTO
+    var response = new ResponseSubscriptionPeriodPlanDto
+    {
+        SubscriptionPeriod = _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod),
+        SelectedProductOffers = _mapper.Map<List<ResponseSelectedProductOfferDto>>(selectedProductOffers),
+        ProductOffers = _mapper.Map<List<ResponseProductOfferDto>>(productOffers)
+    };
+
+    return response;
+    */
+    throw new NotImplementedException();
+}
     }
 }

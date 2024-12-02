@@ -10,5 +10,7 @@ namespace AMAPP.API.Services.Interfaces
         Task<ResponseSubscriptionPeriodDto> GetSubscriptionPeriodByIdAsync(int id);
         Task<ResponseSubscriptionPeriodDto> UpdateSubscriptionPeriodAsync(int id, SubscriptionPeriodDto subscriptionPeriodDto);
         Task<bool> DeleteSubscriptionPeriodAsync(int id);
+        //WIP falta implementar
+        Task<ResponseSubscriptionPeriodPlanDto>AddSubscriptionPeriodPlanAsync(CreateSubscriptionPeriodPlanDto subscriptionPeriodPanDto);
     }
 }

@@ -13,24 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPeriodController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/ResponseSubscriptionPeriodDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/SubscriptionPeriodDtoValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Middlewares/GlobalExceptionHandlerMiddleware.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Utils/KebabCaseParameterTransformer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/appsettings_docker_db.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/AMAPP.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/AMAPP.API.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/Validators/CreateSubscriptionDtoValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/Validators/CreateSubscriptionDtoValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/SubscriptionPeriodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/SubscriptionPeriodDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodDtoValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodDtoValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Models/SubscriptionPeriod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Models/SubscriptionPeriod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPeriodService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/appsettings_docker_db.json" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/appsettings_docker_db.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
