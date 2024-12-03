@@ -5,6 +5,7 @@ using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AMAPP.API.Services.Interfaces;
 using AutoMapper;
+using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,21 +17,30 @@ namespace AMAPP.API.Services.Implementations
         private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
+        private readonly IValidator<ProductOfferDto> _productOfferDtoValidator;
 
         public ProductOfferService(
             IProductOfferRepository productOfferRepository,
             ISubscriptionPeriodRepository subscriptionPeriodRepository,
             IProductRepository productRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IValidator<ProductOfferDto> productOfferDtoValidator)
         {
             _productOfferRepository = productOfferRepository;
             _subscriptionPeriodRepository = subscriptionPeriodRepository;
             _productRepository = productRepository;
             _mapper = mapper;
+            _productOfferDtoValidator = productOfferDtoValidator;
         }
 
         public async Task<ProductOfferDto> CreateProductOfferAsync(ProductOfferDto productOfferDto)
         {
+            var validationResult = await _productOfferDtoValidator.ValidateAsync(productOfferDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.ToString());
+            }
+
             // Validar se o PeriodSubscriptionId existe
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.PeriodSubscriptionId);
             if (subscriptionPeriod == null)
@@ -54,9 +64,10 @@ namespace AMAPP.API.Services.Implementations
                 .ToList();
 
             // Salvar no repositório
-           // var createdProductOffer = await _productOfferRepository.AddAsync(productOffer);
+            await _productOfferRepository.AddAsync(productOffer);
 
-            return _mapper.Map<ProductOfferDto>(createdProductOffer);
+            // Retornar o DTO da oferta de produto criada
+            return _mapper.Map<ProductOfferDto>(productOffer);
         }
 
         public async Task<ProductOfferDto> GetProductOfferByIdAsync(int id)
@@ -71,14 +82,54 @@ namespace AMAPP.API.Services.Implementations
             return _mapper.Map<List<ProductOfferDto>>(productOffers);
         }
 
+        public async Task<List<ProductOfferDto>> GetAllProductOffersAsync()
+        {
+            var productOffers = await _productOfferRepository.GetAllAsync();
+            return _mapper.Map<List<ProductOfferDto>>(productOffers);
+        }
+
         public async Task<bool> AddProductOffersAsync(int subscriptionPeriodId, List<ProductOfferDto> offersDto)
         {
+            foreach (var offerDto in offersDto)
+            {
+                var validationResult = await _productOfferDtoValidator.ValidateAsync(offerDto);
+                if (!validationResult.IsValid)
+                {
+                    throw new ValidationException(validationResult.ToString());
+                }
+            }
+
             var productOffers = _mapper.Map<List<ProductOffer>>(offersDto);
             foreach (var offer in productOffers)
             {
                 offer.PeriodSubscriptionId = subscriptionPeriodId;
                 await _productOfferRepository.AddAsync(offer);
             }
+            return true;
+        }
+
+        public async Task<bool> UpdateProductOfferAsync(int id, ProductOfferDto productOfferDto)
+        {
+            var validationResult = await _productOfferDtoValidator.ValidateAsync(productOfferDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.ToString());
+            }
+
+            var existingProductOffer = await _productOfferRepository.GetByIdAsync(id);
+            if (existingProductOffer == null)
+            {
+                return false;
+            }
+
+            // Atualizar os campos da oferta de produto
+            existingProductOffer.ProductId = productOfferDto.ProductId;
+            existingProductOffer.PeriodSubscriptionId = productOfferDto.PeriodSubscriptionId;
+            existingProductOffer.SelectedDeliveryDates = productOfferDto.SelectedDeliveryDates
+                .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = existingProductOffer })
+                .ToList();
+
+            await _productOfferRepository.UpdateAsync(existingProductOffer);
             return true;
         }
 

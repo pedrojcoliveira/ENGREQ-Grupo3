@@ -22,6 +22,8 @@ using AMAPP.API.Services;
 using AMAPP.API.Utils;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using AMAPP.API.Validators;
+using FluentValidation;
 
 namespace AMAPP.API
 {
@@ -78,11 +80,10 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
             builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
-            //builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
+            builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductOfferService, ProductOfferService>();
-
-
+            builder.Services.AddValidatorsFromAssemblyContaining<ProductOfferDtoValidator>();
 
 
 

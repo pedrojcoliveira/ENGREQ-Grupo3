@@ -6,4 +6,4 @@
         public int PeriodSubscriptionId { get; set; }
         public List<DateTime> SelectedDeliveryDates { get; set; } = new List<DateTime>();
     }
-}
+}  
