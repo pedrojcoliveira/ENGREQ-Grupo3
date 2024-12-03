@@ -1,3 +1,4 @@
+using System.Reflection;
 using AMAPP.API.Configurations;
 using AMAPP.API.Data;
 using AMAPP.API.Models;
@@ -21,6 +22,8 @@ using AMAPP.API.Services;
 using AMAPP.API.Utils;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using MediatR;
+using System.Reflection;
 
 namespace AMAPP.API
 {
@@ -98,7 +101,8 @@ namespace AMAPP.API
                 .AddFluentValidationClientsideAdapters();
             
 
-
+            // Add MediatR
+            builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

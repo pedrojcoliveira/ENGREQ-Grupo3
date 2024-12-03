@@ -9,8 +9,6 @@ namespace AMAPP.API.DTOs.Subscription
         [Required]
         public string Name { get; set; }
         [Required]
-        public SubscriptionDuration Duration { get; set; }
-        [Required]
         public DateTime StartDate { get; set; }
         [Required]
         public List<DateTime> DeliveryDates { get; set; }

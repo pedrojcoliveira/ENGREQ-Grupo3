@@ -15,5 +15,12 @@ namespace AMAPP.API.Repository.ProducerInfoRepository
             return await _context.ProducersInfo
                                  .FirstOrDefaultAsync(p => p.UserId == id);
         }
+
+        public new async Task<IEnumerable<ProducerInfo>> GetAllAsync()
+        {
+            return await _context.ProducersInfo
+                .Include(p => p.User) // Include the User property
+                .ToListAsync();
+        }
     }
 }

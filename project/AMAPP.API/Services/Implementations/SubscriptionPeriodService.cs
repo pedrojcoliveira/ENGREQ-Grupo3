@@ -1,11 +1,13 @@
 ﻿using AMAPP.API.DTOs.Product;
 using AMAPP.API.Services.Interfaces;
 using AMAPP.API.DTOs.SubscriptionPeriod;
+using AMAPP.API.Events;
 using AMAPP.API.Models;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.SelectedProductOfferRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AutoMapper;
+using MediatR;
 
 namespace AMAPP.API.Services
 {
@@ -15,37 +17,32 @@ namespace AMAPP.API.Services
         private readonly IProductOfferRepository _productOfferRepository;
         private readonly ISelectedProductOfferRepository _selectedProductOfferRepository;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository,
             IProductOfferRepository productOfferRepository,
-            ISelectedProductOfferRepository selectedProductOfferRepository, IMapper mapper)
+            ISelectedProductOfferRepository selectedProductOfferRepository, IMapper mapper, IMediator mediator)
         {
             _subscriptionPeriodRepository = subscriptionPeriodRepository;
             _productOfferRepository = productOfferRepository;
             _selectedProductOfferRepository = selectedProductOfferRepository;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         public async Task<ResponseSubscriptionPeriodDto> AddSubscriptionPeriodAsync(
             CreateSubscriptionPeriodDto subscriptionPeriodDto)
         {
-            /*
-            var productOffers =
-                await Task.WhenAll(
-                    subscriptionPeriodDto.ProductOfferIds.Select(id => _productOfferRepository.GetByIdAsync(id)));
-            if (productOffers.Any(po => po == null)) throw new Exception("One or more ProductOffer IDs are invalid.");
-
-            var selectedProductOffers =
-                await Task.WhenAll(subscriptionPeriodDto.SelectedProductOfferIds.Select(id =>
-                    _selectedProductOfferRepository.GetByIdAsync(id)));
-            if (selectedProductOffers.Any(spo => spo == null))
-                throw new Exception("One or more SelectedProductOffer IDs are invalid.");*/
-
             var subscriptionPeriod =
                 _mapper.Map<SubscriptionPeriod>(
-                    subscriptionPeriodDto /*(subscriptionPeriodDto, productOffers, selectedProductOffers)*/);
+                    subscriptionPeriodDto);
 
             await _subscriptionPeriodRepository.AddAsync(subscriptionPeriod);
+            await _mediator.Publish(new SubscriptionPeriodCreatedEvent
+            {
+                NewlyCreatedSubscriptionPeriod = subscriptionPeriod
+            });
+            
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
         }
 
@@ -110,6 +107,21 @@ namespace AMAPP.API.Services
         
         public async Task<ResponseSubscriptionPeriodPlanDto> AddSubscriptionPeriodPlanAsync(CreateSubscriptionPeriodPlanDto subscriptionPeriodPlanDto)
 {
+    /*
+     *logic to be implemented here
+     * 
+     */
+
+    //validate if they exist by id
+    var selectedProductOfferIds = subscriptionPeriodPlanDto.SelectedProductOfferIds;
+    var productOfferIds = subscriptionPeriodPlanDto.ProductOfferIds;
+    //if they exist generate
+    var selectedProductOfferList = new List<SelectedProductOffer>();
+    var productOfferList = new List<ProductOffer>();
+    // create the SubscriptionPeriod model -> call repository like in AddSubscriptionPeriodAsync and get the id
+    //update each SelectedProductOffer and ProductOffer with the SubscriptionPeriodId and call the respective repository update method
+    //return all the data from the models and build the composite ResponseSubscriptionPeriodPlanDto
+    
     /*
     // Validate the subscription period
     var subscriptionPeriod = _mapper.Map<SubscriptionPeriod>(subscriptionPeriodPlanDto.SubscriptionPeriod);

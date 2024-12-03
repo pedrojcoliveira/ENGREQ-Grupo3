@@ -12,9 +12,7 @@ namespace AMAPP.API.DTOs.SubscriptionPeriod.Validators
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required.")
                 .Length(2, 50).WithMessage("Name must be between 2 and 50 characters.");
-
-            RuleFor(x => x.Duration)
-                .IsInEnum().WithMessage("Invalid subscription duration.");
+            
 
             RuleFor(x => x.StartDate)
                 .GreaterThan(DateTime.Now).WithMessage("Start date must be in the future.");
