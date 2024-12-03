@@ -2,6 +2,7 @@ using AMAPP.API.Configurations;
 using AMAPP.API.Data;
 using AMAPP.API.Models;
 using AMAPP.API.Repository.ProducerInfoRepository;
+using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Services.Implementations;
 using AMAPP.API.Services.Interfaces;
@@ -21,6 +22,8 @@ using AMAPP.API.Services;
 using AMAPP.API.Utils;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using AMAPP.API.Validators;
+using FluentValidation;
 
 namespace AMAPP.API
 {
@@ -76,12 +79,13 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
-            builder.Services.AddScoped<ISubscriptionPeriodService, SubscriptionPeriodService>();
-            builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
-            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-            builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
-            builder.Services.AddScoped<ISelectedProductOfferRepository, SelectedProductOfferRepository>();
+            builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProductOfferService, ProductOfferService>();
+            builder.Services.AddValidatorsFromAssemblyContaining<ProductOfferDtoValidator>();
+
+
 
             builder.Services.AddRouting(options =>
             {
