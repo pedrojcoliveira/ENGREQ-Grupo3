@@ -4,9 +4,6 @@ using AMAPP.API.Repository.ProducerInfoRepository;
 using AMAPP.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Asn1.Ocsp;
-using System.Linq;
-using System.Security.Principal;
 
 namespace AMAPP.API.Controllers
 {
@@ -18,10 +15,11 @@ namespace AMAPP.API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IProducerInfoRepository _producerInfoRepository;
 
-        public ProductController(IProductService productService, UserManager<User> userManager)
+        public ProductController(IProductService productService, UserManager<User> userManager, IProducerInfoRepository producerInfoRepository)
         {
             _productService = productService;
             _userManager = userManager;
+            _producerInfoRepository = producerInfoRepository;
         }
 
         [HttpGet]
@@ -42,32 +40,28 @@ namespace AMAPP.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> AddProduct([FromForm] CreateProductDto productDto)
+        public async Task<ActionResult<CreateProductDto>> AddProduct([FromForm] CreateProductDto productDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var producer = await _userManager.FindByNameAsync("quimbarreiros");
-            if (producer == null)
-                return NotFound("Producer not found.");
-
-            if (productDto.Photo != null)
+            try
             {
-                if (productDto.Photo.Length > 5 * 1024 * 1024) // 5 MB limit
-                {
-                    return BadRequest("Photo size exceeds the 5MB limit.");
-                }
-
-                var validFormats = new[] { ".jpg", ".jpeg", ".png" };
-                var fileExtension = Path.GetExtension(productDto.Photo.FileName).ToLower();
-                if (!validFormats.Contains(fileExtension))
-                {
-                    return BadRequest("Invalid photo format. Only JPG and PNG are allowed.");
-                }
+                var createdProduct = await _productService.AddProductAsync(productDto);
+                return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, createdProduct);
             }
-
-            var createdProduct = await _productService.AddProductAsync(productDto, producer.Id);
-            return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.Id }, createdProduct);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+            
         }
 
         [HttpPut("{id}")]
