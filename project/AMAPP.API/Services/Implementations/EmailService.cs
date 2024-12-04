@@ -27,7 +27,7 @@ namespace AMAPP.API.Services.Implementations
         private MimeMessage CreateEmailMessage(MessageDto message)
         {
             var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress(_emailConfig.From, _emailConfig.Username));
+            emailMessage.From.Add(new MailboxAddress(_emailConfig.From, Environment.GetEnvironmentVariable(_emailConfig.EmailEnvUsername, EnvironmentVariableTarget.Machine) ));
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
             emailMessage.Body = new TextPart(TextFormat.Html) { Text = message.Body };
@@ -42,8 +42,9 @@ namespace AMAPP.API.Services.Implementations
                 try
                 {
                     await client.ConnectAsync(_emailConfig.SmtpServer, _emailConfig.Port, SecureSocketOptions.StartTls);
-                    await client.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password);
+                    await client.AuthenticateAsync(Environment.GetEnvironmentVariable(_emailConfig.EmailEnvUsername, EnvironmentVariableTarget.Machine), Environment.GetEnvironmentVariable(_emailConfig.EmailEnvPassword, EnvironmentVariableTarget.Machine));
                     await client.SendAsync(emailMessage);
+                    Console.WriteLine("Enviou email");
 
                 }
                 catch (Exception)

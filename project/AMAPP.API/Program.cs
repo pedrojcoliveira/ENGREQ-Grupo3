@@ -17,7 +17,6 @@ using AMAPP.API.Middlewares;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.SelectedProductOfferRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
-using AMAPP.API.Repository.SubscriptionRepository;
 using AMAPP.API.Services;
 using AMAPP.API.Utils;
 using FluentValidation.AspNetCore;
@@ -81,8 +80,6 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
             builder.Services.AddScoped<ISubscriptionPeriodService, SubscriptionPeriodService>();
             builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
-            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-            builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
             builder.Services.AddScoped<ISelectedProductOfferRepository, SelectedProductOfferRepository>();
 

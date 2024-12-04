@@ -14,18 +14,12 @@ namespace AMAPP.API.Services
     public class SubscriptionPeriodService : ISubscriptionPeriodService
     {
         private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
-        private readonly IProductOfferRepository _productOfferRepository;
-        private readonly ISelectedProductOfferRepository _selectedProductOfferRepository;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository,
-            IProductOfferRepository productOfferRepository,
-            ISelectedProductOfferRepository selectedProductOfferRepository, IMapper mapper, IMediator mediator)
+        public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator)
         {
             _subscriptionPeriodRepository = subscriptionPeriodRepository;
-            _productOfferRepository = productOfferRepository;
-            _selectedProductOfferRepository = selectedProductOfferRepository;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -38,10 +32,13 @@ namespace AMAPP.API.Services
                     subscriptionPeriodDto);
 
             await _subscriptionPeriodRepository.AddAsync(subscriptionPeriod);
-            await _mediator.Publish(new SubscriptionPeriodCreatedEvent
+            await Task.Run(() =>
             {
-                NewlyCreatedSubscriptionPeriod = subscriptionPeriod
-            });
+                _mediator.Publish(new SubscriptionPeriodCreatedEvent
+                {
+                    NewlyCreatedSubscriptionPeriod = subscriptionPeriod
+                });                
+            }); 
             
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
         }
@@ -84,12 +81,26 @@ namespace AMAPP.API.Services
             // Ensure EndDate is not earlier than StartDate
             if (subscriptionPeriod.StartDate > subscriptionPeriod.EndDate)
                 throw new ArgumentException("EndDate cannot be earlier than StartDate.");
-
-            // Map additional fields from DTO to the entity if necessary
-            _mapper.Map(subscriptionPeriodDto, subscriptionPeriod);
+            
+            // Update DeliveryDatesList if provided
+            if (subscriptionPeriodDto.Dates != null)
+            {
+                subscriptionPeriod.DeliveryDatesList = subscriptionPeriodDto.Dates
+                    .Select(date => new DeliveryDateBase { Date = date })
+                    .ToList();
+            }    
+            
 
             // Persist the updated entity to the repository
             await _subscriptionPeriodRepository.UpdateAsync(subscriptionPeriod);
+            
+            await Task.Run(() =>
+            {
+                _mediator.Publish(new SubscriptionPeriodUpdatedEvent
+                {
+                    NewlyUpdatedSubscriptionPeriod = subscriptionPeriod
+                });
+            }); 
 
             // Map the updated entity to the response DTO
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
@@ -105,49 +116,5 @@ namespace AMAPP.API.Services
             return true;
         }
         
-        public async Task<ResponseSubscriptionPeriodPlanDto> AddSubscriptionPeriodPlanAsync(CreateSubscriptionPeriodPlanDto subscriptionPeriodPlanDto)
-{
-    /*
-     *logic to be implemented here
-     * 
-     */
-
-    //validate if they exist by id
-    var selectedProductOfferIds = subscriptionPeriodPlanDto.SelectedProductOfferIds;
-    var productOfferIds = subscriptionPeriodPlanDto.ProductOfferIds;
-    //if they exist generate
-    var selectedProductOfferList = new List<SelectedProductOffer>();
-    var productOfferList = new List<ProductOffer>();
-    // create the SubscriptionPeriod model -> call repository like in AddSubscriptionPeriodAsync and get the id
-    //update each SelectedProductOffer and ProductOffer with the SubscriptionPeriodId and call the respective repository update method
-    //return all the data from the models and build the composite ResponseSubscriptionPeriodPlanDto
-    
-    /*
-    // Validate the subscription period
-    var subscriptionPeriod = _mapper.Map<SubscriptionPeriod>(subscriptionPeriodPlanDto.SubscriptionPeriod);
-    await _subscriptionPeriodRepository.AddAsync(subscriptionPeriod);
-
-    // Validate and map the selected product offers
-    var selectedProductOffers = await Task.WhenAll(subscriptionPeriodPlanDto.SelectedProductOfferIds.Select(id => _selectedProductOfferRepository.GetByIdAsync(id)));
-    if (selectedProductOffers.Any(spo => spo == null))
-        throw new Exception("One or more SelectedProductOffer IDs are invalid.");
-
-    // Validate and map the product offers
-    var productOffers = await Task.WhenAll(subscriptionPeriodPlanDto.ProductOfferIds.Select(id => _productOfferRepository.GetByIdAsync(id)));
-    if (productOffers.Any(po => po == null))
-        throw new Exception("One or more ProductOffer IDs are invalid.");
-
-    // Create the response DTO
-    var response = new ResponseSubscriptionPeriodPlanDto
-    {
-        SubscriptionPeriod = _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod),
-        SelectedProductOffers = _mapper.Map<List<ResponseSelectedProductOfferDto>>(selectedProductOffers),
-        ProductOffers = _mapper.Map<List<ResponseProductOfferDto>>(productOffers)
-    };
-
-    return response;
-    */
-    throw new NotImplementedException();
-}
     }
 }

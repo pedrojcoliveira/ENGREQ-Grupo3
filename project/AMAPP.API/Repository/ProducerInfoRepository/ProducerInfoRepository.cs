@@ -22,5 +22,12 @@ namespace AMAPP.API.Repository.ProducerInfoRepository
                 .Include(p => p.User) // Include the User property
                 .ToListAsync();
         }
+        
+        public new IEnumerable<ProducerInfo> GetAll()
+        {
+            return _context.ProducersInfo
+                .Include(p => p.User) // Include the User property
+                .ToList();
+        }
     }
 }

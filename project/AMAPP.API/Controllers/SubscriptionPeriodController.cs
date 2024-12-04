@@ -48,7 +48,7 @@ public class SubscriptionPeriodController : ControllerBase
             return Ok(subscriptionPeriod);
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<ResponseSubscriptionPeriodDto>> UpdateSubscriptionPeriod(int id, [FromBody] SubscriptionPeriodDto subscriptionPeriodDto)
         {
             if (!ModelState.IsValid)
@@ -69,17 +69,6 @@ public class SubscriptionPeriodController : ControllerBase
                 return NotFound();
 
             return NoContent();
-        }
-        
-       [HttpPost("planning")]
-        public async Task<ActionResult<ResponseSubscriptionPeriodPlanDto>> AddSubscriptionPeriodPan([FromBody] CreateSubscriptionPeriodPlanDto subscriptionPeriodPanDto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            //WIP
-            var createdSubscriptionPeriodPlan = await _subscriptionPeriodService.AddSubscriptionPeriodPlanAsync(subscriptionPeriodPanDto);
-            return StatusCode(201, createdSubscriptionPeriodPlan);
         }
 
 }

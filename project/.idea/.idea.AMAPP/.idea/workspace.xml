@@ -13,26 +13,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Events/SubscriptionPeriodCreatedEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Models/DeliveryDateBase.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Repository/DeliveryDateRepository/DeliveryDateRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Repository/DeliveryDateRepository/IDeliveryDateRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Handlers/SubscriptionPeriodCreatedEventHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Events/SubscriptionPeriodUpdatedEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Handlers/SubscriptionPeriodUpdatedEventHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/AMAPP.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/AMAPP.API.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/CreateSubscriptionDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/CreateSubscriptionDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/Validators/CreateSubscriptionDtoValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/Validators/CreateSubscriptionDtoValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionDuration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Configurations/EmailConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Configurations/EmailConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPeriodController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPeriodController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/CheckingAccount/ResponseCheckingAccountDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/CoproducerInfo/ResponseCoproducerInfoDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/ResponseProductOfferDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedDeliveryDate/ResponseSelectedDeliveryDateDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/ResponseSelectedProductOfferDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/CreateSubscriptionDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/ResponseSubscriptionDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/SubscritptionDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/Validators/CreateSubscriptionDtoValidator.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/ResponseSubscriptionPeriodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/ResponseSubscriptionPeriodDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodPlanDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/ResponseSubscriptionPeriodPlanDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/SubscriptionPeriodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/SubscriptionPeriodDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodDtoValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodDtoValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Models/SubscriptionPeriod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Models/SubscriptionPeriod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodPlanDtoValidator.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/ProducerInfoRepository/ProducerInfoRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/ProducerInfoRepository/ProducerInfoRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPeriodRepository/SubscriptionPeriodRepository..cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPeriodRepository/SubscriptionPeriodRepository..cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/ISubscriptionRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository..cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Handlers/SubscriptionPeriodCreatedEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Handlers/SubscriptionPeriodCreatedEventHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPeriodService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionService.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,15 +63,18 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4b21fc3f8a3abb5d25f06c622276fbec0fd3932f169cc6af520bf5abc6a46b4/DbSet.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5aeaf34e3a929e754e448d9dd811825f0433c7d3f959b3da8b1ba51b62ef21/ModelStateDictionary.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ecc6246fd855ee6a4602ae9988369e56f35ce0107895f34cfd2b9274e27ac1/FluentValidationMvcExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodPlanDtoValidator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Models/SubscriptionPeriod.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/IProductOfferRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/ProductOfferRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPeriodRepository/ISubscriptionPeriodRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/jquery/dist/jquery.min.map" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -202,7 +217,8 @@
       <workItem from="1733083578440" duration="820000" />
       <workItem from="1733164285088" duration="7231000" />
       <workItem from="1733179168673" duration="4969000" />
-      <workItem from="1733261007078" duration="7684000" />
+      <workItem from="1733261007078" duration="8288000" />
+      <workItem from="1733340581730" duration="11112000" />
     </task>
     <servers />
   </component>
@@ -219,13 +235,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>72</line>
+          <line>74</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="3125" />
+              <option value="2775" />
             </startOffsets>
             <endOffsets>
-              <option value="3179" />
+              <option value="2829" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
@@ -235,23 +251,23 @@
           <line>53</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Controllers\SubscriptionPeriodController.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriod'">
             <startOffsets>
-              <option value="2056" />
+              <option value="2058" />
             </startOffsets>
             <endOffsets>
-              <option value="2080" />
+              <option value="2082" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>67</line>
+          <line>69</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="2917" />
+              <option value="2567" />
             </startOffsets>
             <endOffsets>
-              <option value="2995" />
+              <option value="2645" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
@@ -277,7 +293,7 @@
               <option value="885" />
             </startOffsets>
             <endOffsets>
-              <option value="944" />
+              <option value="933" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="6" />
@@ -287,10 +303,10 @@
           <line>28</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Handlers\SubscriptionPeriodCreatedEventHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="1145" />
+              <option value="1134" />
             </startOffsets>
             <endOffsets>
-              <option value="1333" />
+              <option value="1350" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="7" />
@@ -300,10 +316,10 @@
           <line>29</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Handlers\SubscriptionPeriodCreatedEventHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="1350" />
+              <option value="1367" />
             </startOffsets>
             <endOffsets>
-              <option value="1393" />
+              <option value="1410" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="8" />
@@ -313,10 +329,10 @@
           <line>25</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Handlers\SubscriptionPeriodCreatedEventHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="1027" />
+              <option value="1016" />
             </startOffsets>
             <endOffsets>
-              <option value="1081" />
+              <option value="1070" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="9" />
@@ -352,10 +368,10 @@
           <line>43</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\EmailService.cs" containingFunctionPresentation="Method 'SendEmail'">
             <startOffsets>
-              <option value="1352" />
+              <option value="1432" />
             </startOffsets>
             <endOffsets>
-              <option value="1452" />
+              <option value="1532" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="12" />
@@ -365,36 +381,36 @@
           <line>45</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\EmailService.cs" containingFunctionPresentation="Method 'SendEmail'">
             <startOffsets>
-              <option value="1571" />
+              <option value="1809" />
             </startOffsets>
             <endOffsets>
-              <option value="1608" />
+              <option value="1846" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs</url>
-          <line>55</line>
+          <line>56</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\EmailService.cs" containingFunctionPresentation="Method 'SendEmail'">
             <startOffsets>
-              <option value="1861" />
+              <option value="2154" />
             </startOffsets>
             <endOffsets>
-              <option value="1885" />
+              <option value="2178" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs</url>
-          <line>56</line>
+          <line>57</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\EmailService.cs" containingFunctionPresentation="Method 'SendEmail'">
             <startOffsets>
-              <option value="1906" />
+              <option value="2199" />
             </startOffsets>
             <endOffsets>
-              <option value="1923" />
+              <option value="2216" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />
@@ -404,13 +420,117 @@
           <line>44</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\EmailService.cs" containingFunctionPresentation="Method 'SendEmail'">
             <startOffsets>
-              <option value="1473" />
+              <option value="1553" />
             </startOffsets>
             <endOffsets>
-              <option value="1550" />
+              <option value="1788" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs</url>
+          <line>29</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\EmailService.cs" containingFunctionPresentation="Method 'CreateEmailMessage'">
+            <startOffsets>
+              <option value="838" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1002" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs</url>
+          <line>30</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\EmailService.cs" containingFunctionPresentation="Method 'CreateEmailMessage'">
+            <startOffsets>
+              <option value="1015" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1052" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPeriodController.cs</url>
+          <line>56</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Controllers\SubscriptionPeriodController.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriod'">
+            <startOffsets>
+              <option value="2143" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2265" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
+          <line>75</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
+            <startOffsets>
+              <option value="2846" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2899" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
+          <line>99</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
+            <startOffsets>
+              <option value="4080" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4148" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/RepositoryBase.cs</url>
+          <line>93</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\RepositoryBase.cs" containingFunctionPresentation="Method 'UpdateAsync'">
+            <startOffsets>
+              <option value="2637" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2691" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
+          <line>86</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
+            <startOffsets>
+              <option value="3503" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3565" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
+          <line>70</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
+            <startOffsets>
+              <option value="2658" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2689" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
