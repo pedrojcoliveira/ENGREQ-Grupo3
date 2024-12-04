@@ -1,7 +1,7 @@
-﻿using AMAPP.API.DTOs.Subscription;
-using AMAPP.API.Models;
+﻿using AMAPP.API.Models;
 using System.Threading.Tasks;
 using AMAPP.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AMAPP.API.Repository.SubscriptionPeriodRepository
 {
@@ -10,5 +10,19 @@ namespace AMAPP.API.Repository.SubscriptionPeriodRepository
         public SubscriptionPeriodRepository(ApplicationDbContext context) : base(context)
         {
         }
+        public new async Task<IEnumerable<SubscriptionPeriod>> GetAllAsync()
+        {
+            return await _context.SubscriptionPeriods
+                .Include(sp => sp.DeliveryDatesList) 
+                .ToListAsync();
+        }
+        
+        public new async Task<SubscriptionPeriod?> GetByIdAsync(int id)
+        {
+            return await _context.SubscriptionPeriods
+                .Include(sp => sp.DeliveryDatesList) 
+                .FirstOrDefaultAsync(sp => sp.Id == id);
+        }
+        
     }
 }

@@ -1,4 +1,4 @@
-﻿using AMAPP.API.DTOs.Subscription;
+﻿using AMAPP.API.DTOs.Product;
 using FluentValidation;
 using System.Xml.Linq;
 

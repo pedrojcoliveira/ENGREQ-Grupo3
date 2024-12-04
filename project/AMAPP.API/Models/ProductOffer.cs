@@ -10,7 +10,7 @@
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        public List<SelectedDeliveryDate> SelectedDeliveryDates { get; set; } = new List<SelectedDeliveryDate>();
+        public List<SelectedDeliveryDate> SelectedDeliveryDates { get; set; } = new ();
 
         //public string PaymentMethod { get; set; } // Ex: "MBway", "TransferenciaMultibanco"
         //public string PaymentMode { get; set; } // Ex: "Integral", "Fracionado"

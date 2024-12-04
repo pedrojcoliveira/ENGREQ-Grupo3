@@ -48,7 +48,7 @@ public class SubscriptionPeriodController : ControllerBase
             return Ok(subscriptionPeriod);
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<ResponseSubscriptionPeriodDto>> UpdateSubscriptionPeriod(int id, [FromBody] SubscriptionPeriodDto subscriptionPeriodDto)
         {
             if (!ModelState.IsValid)
@@ -70,7 +70,5 @@ public class SubscriptionPeriodController : ControllerBase
 
             return NoContent();
         }
-        
-        
 
 }

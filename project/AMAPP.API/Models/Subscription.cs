@@ -13,7 +13,7 @@
         public SubscriptionPeriod SubscriptionPeriod { get; set; }
 
         // Produtos selecionados pelo coprodutor 
-        public List<SelectedProductOffer> SelectedProducts { get; set; } = new List<SelectedProductOffer>();
+        public List<SelectedProductOffer> SelectedProducts { get; set; } = new ();
 
     }
 }

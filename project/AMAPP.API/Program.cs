@@ -1,8 +1,8 @@
+using System.Reflection;
 using AMAPP.API.Configurations;
 using AMAPP.API.Data;
 using AMAPP.API.Models;
 using AMAPP.API.Repository.ProducerInfoRepository;
-using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Services.Implementations;
 using AMAPP.API.Services.Interfaces;
@@ -17,13 +17,12 @@ using AMAPP.API.Middlewares;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.SelectedProductOfferRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
-using AMAPP.API.Repository.SubscriptionRepository;
 using AMAPP.API.Services;
 using AMAPP.API.Utils;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using AMAPP.API.Validators;
-using FluentValidation;
+using MediatR;
+using System.Reflection;
 
 namespace AMAPP.API
 {
@@ -79,13 +78,10 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
-            builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
+            builder.Services.AddScoped<ISubscriptionPeriodService, SubscriptionPeriodService>();
             builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductOfferService, ProductOfferService>();
-            builder.Services.AddValidatorsFromAssemblyContaining<ProductOfferDtoValidator>();
-
-
+            builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
+            builder.Services.AddScoped<ISelectedProductOfferRepository, SelectedProductOfferRepository>();
 
             builder.Services.AddRouting(options =>
             {
@@ -102,7 +98,8 @@ namespace AMAPP.API
                 .AddFluentValidationClientsideAdapters();
             
 
-
+            // Add MediatR
+            builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

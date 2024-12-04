@@ -1,51 +1,45 @@
 ﻿using AMAPP.API.DTOs.Product;
 using AMAPP.API.Services.Interfaces;
 using AMAPP.API.DTOs.SubscriptionPeriod;
+using AMAPP.API.Events;
 using AMAPP.API.Models;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.SelectedProductOfferRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AutoMapper;
+using MediatR;
 
 namespace AMAPP.API.Services
 {
     public class SubscriptionPeriodService : ISubscriptionPeriodService
     {
         private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
-        private readonly IProductOfferRepository _productOfferRepository;
-        private readonly ISelectedProductOfferRepository _selectedProductOfferRepository;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository,
-            IProductOfferRepository productOfferRepository,
-            ISelectedProductOfferRepository selectedProductOfferRepository, IMapper mapper)
+        public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator)
         {
             _subscriptionPeriodRepository = subscriptionPeriodRepository;
-            _productOfferRepository = productOfferRepository;
-            _selectedProductOfferRepository = selectedProductOfferRepository;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         public async Task<ResponseSubscriptionPeriodDto> AddSubscriptionPeriodAsync(
             CreateSubscriptionPeriodDto subscriptionPeriodDto)
         {
-            /*
-            var productOffers =
-                await Task.WhenAll(
-                    subscriptionPeriodDto.ProductOfferIds.Select(id => _productOfferRepository.GetByIdAsync(id)));
-            if (productOffers.Any(po => po == null)) throw new Exception("One or more ProductOffer IDs are invalid.");
-
-            var selectedProductOffers =
-                await Task.WhenAll(subscriptionPeriodDto.SelectedProductOfferIds.Select(id =>
-                    _selectedProductOfferRepository.GetByIdAsync(id)));
-            if (selectedProductOffers.Any(spo => spo == null))
-                throw new Exception("One or more SelectedProductOffer IDs are invalid.");*/
-
             var subscriptionPeriod =
                 _mapper.Map<SubscriptionPeriod>(
-                    subscriptionPeriodDto /*(subscriptionPeriodDto, productOffers, selectedProductOffers)*/);
+                    subscriptionPeriodDto);
 
             await _subscriptionPeriodRepository.AddAsync(subscriptionPeriod);
+            await Task.Run(() =>
+            {
+                _mediator.Publish(new SubscriptionPeriodCreatedEvent
+                {
+                    NewlyCreatedSubscriptionPeriod = subscriptionPeriod
+                });                
+            }); 
+            
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
         }
 
@@ -87,12 +81,26 @@ namespace AMAPP.API.Services
             // Ensure EndDate is not earlier than StartDate
             if (subscriptionPeriod.StartDate > subscriptionPeriod.EndDate)
                 throw new ArgumentException("EndDate cannot be earlier than StartDate.");
-
-            // Map additional fields from DTO to the entity if necessary
-            _mapper.Map(subscriptionPeriodDto, subscriptionPeriod);
+            
+            // Update DeliveryDatesList if provided
+            if (subscriptionPeriodDto.Dates != null)
+            {
+                subscriptionPeriod.DeliveryDatesList = subscriptionPeriodDto.Dates
+                    .Select(date => new DeliveryDateBase { Date = date })
+                    .ToList();
+            }    
+            
 
             // Persist the updated entity to the repository
             await _subscriptionPeriodRepository.UpdateAsync(subscriptionPeriod);
+            
+            await Task.Run(() =>
+            {
+                _mediator.Publish(new SubscriptionPeriodUpdatedEvent
+                {
+                    NewlyUpdatedSubscriptionPeriod = subscriptionPeriod
+                });
+            }); 
 
             // Map the updated entity to the response DTO
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
@@ -107,5 +115,6 @@ namespace AMAPP.API.Services
             await _subscriptionPeriodRepository.RemoveAsync(subscriptionPeriod);
             return true;
         }
+        
     }
 }
