@@ -10,12 +10,19 @@ namespace AMAPP.API
             TransferenciaBancaria,
         }
 
-
         // Payment methods
         public enum PaymentMode
         {
             Integral,
             Fracionado
+        }
+
+        public enum DeliveryUnit
+        {
+            Unidade,
+            Kg,
+            Gramas,
+            Litros
         }
 
         // File size limits
