@@ -12,41 +12,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Events/SubscriptionPeriodUpdatedEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Handlers/SubscriptionPeriodUpdatedEventHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Configurations/EmailConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Configurations/EmailConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPeriodController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPeriodController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/CheckingAccount/ResponseCheckingAccountDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/CoproducerInfo/ResponseCoproducerInfoDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/ResponseProductOfferDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedDeliveryDate/ResponseSelectedDeliveryDateDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/ResponseSelectedProductOfferDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/CreateSubscriptionDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/ResponseSubscriptionDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/SubscritptionDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Subscription/Validators/CreateSubscriptionDtoValidator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodPlanDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/ResponseSubscriptionPeriodPlanDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/SubscriptionPeriodDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/SubscriptionPeriodDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodDtoValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodDtoValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodPlanDtoValidator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/ProducerInfoRepository/ProducerInfoRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/ProducerInfoRepository/ProducerInfoRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPeriodRepository/SubscriptionPeriodRepository..cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPeriodRepository/SubscriptionPeriodRepository..cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/ISubscriptionRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository..cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Handlers/SubscriptionPeriodCreatedEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Handlers/SubscriptionPeriodCreatedEventHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/EmailService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPeriodService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/appsettings.json" afterDir="false" />
-    </list>
+    <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -218,7 +184,7 @@
       <workItem from="1733164285088" duration="7231000" />
       <workItem from="1733179168673" duration="4969000" />
       <workItem from="1733261007078" duration="8288000" />
-      <workItem from="1733340581730" duration="11112000" />
+      <workItem from="1733340581730" duration="11535000" />
     </task>
     <servers />
   </component>
