@@ -12,23 +12,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/ProductOfferController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/Product/Validators/CreateProductDtoValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/ProductOfferDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/Validators/ProductOfferDtoValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/ProductOfferProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/ProductOfferService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/IProductOfferService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Controllers/ProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/ProductController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/Product/CreateProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/Product/CreateProductDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/IProductOfferRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/IProductOfferRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/ProductOfferRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/ProductOfferRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/ProductService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/ProductService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/IProductService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/IProductService.cs" afterDir="false" />
-    </list>
+    <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +60,7 @@
     ".NET Launch Settings Profile.AMAPP.API: IIS Express.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging feature/s1-ilidio",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
