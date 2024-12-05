@@ -23,6 +23,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using MediatR;
 using System.Reflection;
+using AMAPP.API.DTOs.SelectedProductOffer.Validators;
+using FluentValidation;
 
 namespace AMAPP.API
 {
@@ -97,6 +99,7 @@ namespace AMAPP.API
             });
             builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateSelectedProductOfferDtoValidator>();
             
 
             // Add MediatR

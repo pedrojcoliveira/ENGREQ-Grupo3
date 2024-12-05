@@ -44,7 +44,7 @@ namespace AMAPP.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<ResponseSelectedProductOfferDto>> UpdateSelectedProductOffer(int id, [FromBody] CreateSelectedProductOfferDto updateSelectedProductOfferDto)
+        public async Task<ActionResult<ResponseSelectedProductOfferDto>> UpdateSelectedProductOffer(int id, [FromBody] SelectedProductOfferDto updateSelectedProductOfferDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

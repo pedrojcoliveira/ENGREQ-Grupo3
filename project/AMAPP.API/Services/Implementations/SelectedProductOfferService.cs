@@ -43,7 +43,7 @@ public class SelectedProductOfferService : ISelectedProductOfferService
         return mapper.Map<ResponseSelectedProductOfferDto>(selectedProductOffer);
     }
 
-public async Task<ResponseSelectedProductOfferDto> UpdateSelectedProductOfferAsync(int id, CreateSelectedProductOfferDto updateSelectedProductOfferDto)
+public async Task<ResponseSelectedProductOfferDto> UpdateSelectedProductOfferAsync(int id, SelectedProductOfferDto updateSelectedProductOfferDto)
 {
     // Retrieve the existing SelectedProductOffer by ID
     var selectedProductOffer = await selectedProductOfferRepository.GetByIdAsync(id);
@@ -65,7 +65,7 @@ public async Task<ResponseSelectedProductOfferDto> UpdateSelectedProductOfferAsy
         selectedProductOffer.SubscriptionId = updateSelectedProductOfferDto.SubscriptionId;
 
     // Update Quantity if provided and greater than 0
-    if (updateSelectedProductOfferDto.Quantity > 0)
+    if (updateSelectedProductOfferDto.Quantity >= 0)
         selectedProductOffer.Quantity = updateSelectedProductOfferDto.Quantity;
 
     // Persist the updated entity to the repository
