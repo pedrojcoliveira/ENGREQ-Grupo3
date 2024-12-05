@@ -65,16 +65,31 @@ namespace AMAPP.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, [FromBody] ProductDto productDto)
+        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, [FromForm] UpdateProductDto productDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var updatedProduct = await _productService.UpdateProductAsync(id, productDto);
-            if (updatedProduct == null)
-                return NotFound();
+            try
+            {
+                var updatedProduct = await _productService.UpdateProductAsync(id, productDto);
+                if (updatedProduct == null)
+                    return NotFound();
 
-            return Ok(updatedProduct);
+                return Ok(updatedProduct);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
         }
 
         [HttpDelete("{id}")]

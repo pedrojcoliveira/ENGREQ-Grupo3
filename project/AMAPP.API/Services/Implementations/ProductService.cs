@@ -93,7 +93,7 @@ namespace AMAPP.API.Services.Implementations
             return _mapper.Map<ProductDto>(product);
         }
 
-        public async Task<ProductDto> UpdateProductAsync(int id, ProductDto productDto)
+        public async Task<ProductDto> UpdateProductAsync(int id, UpdateProductDto productDto)
         {
             var existingProduct = await _productRepository.GetByIdAsync(id);
 
