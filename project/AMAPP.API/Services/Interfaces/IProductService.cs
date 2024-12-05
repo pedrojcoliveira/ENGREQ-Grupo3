@@ -7,7 +7,7 @@ namespace AMAPP.API.Services.Interfaces
         Task<List<ProductDto>> GetAllProductsAsync();
         Task<ProductDto> GetProductByIdAsync(int id);
         Task<ProductDto> AddProductAsync(CreateProductDto productDto);
-        Task<ProductDto> UpdateProductAsync(int id, ProductDto productDto);
+        Task<ProductDto> UpdateProductAsync(int id, UpdateProductDto productDto);
         Task<bool> DeleteProductAsync(int id);
     }
 }
