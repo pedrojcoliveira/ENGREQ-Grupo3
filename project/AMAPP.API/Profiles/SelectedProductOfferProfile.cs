@@ -10,6 +10,7 @@ namespace AMAPP.API.Profiles
         {
             CreateMap<CreateSelectedProductOfferDto, SelectedProductOffer>();
             CreateMap<SelectedProductOffer, ResponseSelectedProductOfferDto>();
+            CreateMap<SelectedProductOfferDto, SelectedProductOffer>();
         }
         
     }
