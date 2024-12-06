@@ -8,19 +8,18 @@ namespace AMAPP.API.DTOs.SelectedProductOffer.Validators
         public CreateSelectedProductOfferDtoValidator()
         {
             RuleFor(x => x.DeliveryDate)
-                .NotEmpty().WithMessage("DeliveryDate is required.")
-                .Must(date => date != default(DateTime))
-                .WithMessage("DeliveryDate must not be a default value.");
+                .NotEmpty().WithMessage("A data de entrega é obrigatória.")
+                .Must(date => date != default(DateTime)).WithMessage("A data de entrega não deve ser um valor padrão.")
+                .GreaterThanOrEqualTo(DateTime.Now).WithMessage("A data de entrega deve ser hoje ou no futuro.");
 
             RuleFor(x => x.ProductOfferId)
-                .GreaterThan(0).WithMessage("ProductOfferId must be greater than 0.");
+                .GreaterThan(0).WithMessage("O ID da oferta de produto deve ser maior que 0.");
 
             RuleFor(x => x.SubscriptionId)
-                .GreaterThan(0).WithMessage("SubscriptionId must be greater than 0.");
+                .GreaterThan(0).WithMessage("O ID da assinatura deve ser maior que 0.");
 
             RuleFor(x => x.Quantity)
-                .GreaterThan(0).WithMessage("Quantity must be greater than 0.");
-            
+                .GreaterThan(0).WithMessage("A quantidade deve ser maior que 0.");
         }
     }
 }
