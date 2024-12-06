@@ -12,8 +12,8 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <div class="container-fluid" style="margin:0 5% 0 5%">
+                <a class="navbar-brand" asp-area="" asp-controller="" asp-action="">
                     <img src="~/images/logo.png" alt="Logo AMAP" style="width: 40px; height: auto; margin-right: 10px;" />
                     <div>
                         <span>AMAP · CSA</span>
@@ -32,7 +32,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="List">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -57,19 +57,4 @@
 </body>
 </html>
 
-<style>
-    .navbar-brand {
-        display: flex;
-        align-items: center;
-    }
-
-    .navbar-brand img {
-        margin-right: 10px;
-    }
-
-    .navbar-brand small {
-        font-size: 0.8rem;
-        color: gray;
-    }
-</style>
 
