@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using MediatR;
 using System.Reflection;
 using AMAPP.API.DTOs.SelectedProductOffer.Validators;
+using AMAPP.API.Repository.SubscriptionRepository;
 using FluentValidation;
 
 namespace AMAPP.API
@@ -82,6 +83,7 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
             builder.Services.AddScoped<ISubscriptionPeriodService, SubscriptionPeriodService>();
             builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
+            builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
             builder.Services.AddScoped<ISelectedProductOfferService, SelectedProductOfferService>();
             builder.Services.AddScoped<ISelectedProductOfferRepository, SelectedProductOfferRepository>();

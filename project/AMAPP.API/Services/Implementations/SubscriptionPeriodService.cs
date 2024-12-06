@@ -6,6 +6,7 @@ using AMAPP.API.Models;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.SelectedProductOfferRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
+using AMAPP.API.Utils;
 using AutoMapper;
 using MediatR;
 
@@ -53,7 +54,7 @@ namespace AMAPP.API.Services
         {
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(id);
             if (subscriptionPeriod == null)
-                return null;
+                throw new NotFoundException("O Período de Subscrição  não existe");
 
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
         }
@@ -64,7 +65,7 @@ namespace AMAPP.API.Services
             // Retrieve the existing SubscriptionPeriod by ID
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(id);
             if (subscriptionPeriod == null)
-                return null;
+                throw new NotFoundException("O Período de Subscrição  não existe");
 
             // Update the Name if provided
             if (!string.IsNullOrEmpty(subscriptionPeriodDto.Name))
@@ -111,7 +112,7 @@ namespace AMAPP.API.Services
         {
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(id);
             if (subscriptionPeriod == null)
-                return false;
+                throw new NotFoundException("O Período de Subscrição  não existe");
 
             await _subscriptionPeriodRepository.RemoveAsync(subscriptionPeriod);
             return true;
