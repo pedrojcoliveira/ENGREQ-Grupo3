@@ -20,3 +20,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+.navbar-brand small {
+    font-size: 0.8rem;
+    color: gray;
+}
