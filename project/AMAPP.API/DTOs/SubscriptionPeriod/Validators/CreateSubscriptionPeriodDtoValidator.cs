@@ -10,15 +10,14 @@ namespace AMAPP.API.DTOs.SubscriptionPeriod.Validators
         {
             
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Name is required.")
-                .Length(2, 50).WithMessage("Name must be between 2 and 50 characters.");
-            
+                .NotEmpty().WithMessage("O nome é obrigatório.")
+                .Length(2, 50).WithMessage("O nome deve ter entre 2 e 50 caracteres.");
 
             RuleFor(x => x.StartDate)
-                .GreaterThan(DateTime.Now).WithMessage("Start date must be in the future.");
+                .GreaterThanOrEqualTo(DateTime.Now).WithMessage("A data de início deve ser hoje ou no futuro.");
 
             RuleFor(x => x.EndDate)
-                .GreaterThan(x => x.StartDate).WithMessage("End date must be after the start date.");
+                .GreaterThan(x => x.StartDate).WithMessage("A data de término deve ser após a data de início.");
         }
     }
 }
