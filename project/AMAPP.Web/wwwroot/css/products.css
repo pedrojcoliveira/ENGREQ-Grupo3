@@ -17,3 +17,52 @@
     transform: scale(1.05); /* Cresce o card em 5% */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adiciona sombra para destacar */
 }
+
+/* Container geral */
+.container {
+    margin-top: 3rem;
+    margin-bottom: 100px;
+}
+
+/* Título principal */
+.title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #5d391a;
+}
+
+/* Botão de adicionar produto */
+.btn-create {
+    background-color: #92a83b; /* Verde */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-create:hover {
+    background-color: #5d391a; /* Castanho escuro */
+    color: white;
+}
+
+/* Layout de cartões */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    border: 1px solid #5d391a; /* Verde */
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-title {
+    color: #5d391a; /* Castanho */
+}
+
+.card-text {
+    color: #6c757d; /* Cinza claro */
+}
