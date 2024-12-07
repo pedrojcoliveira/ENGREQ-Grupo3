@@ -8,6 +8,7 @@ namespace AMAPP.API.Repository.ProductOfferRepository
     {
         Task<List<ProductOffer>> GetByProducerIdAsync(int producerId);
         Task<List<ProductOffer>> GetBySubscriptionPeriodIdAsync(int subscriptionPeriodId);
+        Task<List<ProductOffer>> GetAllProductOffersWithDetailsAsync();
     }
 }
 

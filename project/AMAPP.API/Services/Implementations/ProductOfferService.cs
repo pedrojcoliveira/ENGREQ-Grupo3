@@ -25,6 +25,7 @@ namespace AMAPP.API.Services.Implementations
             IProductRepository productRepository,
             IMapper mapper,
             IValidator<ProductOfferDto> productOfferDtoValidator)
+
         {
             _productOfferRepository = productOfferRepository;
             _subscriptionPeriodRepository = subscriptionPeriodRepository;
@@ -35,7 +36,9 @@ namespace AMAPP.API.Services.Implementations
 
         public async Task<ProductOfferDto> CreateProductOfferAsync(ProductOfferDto productOfferDto)
         {
-            var validationResult = await _productOfferDtoValidator.ValidateAsync(productOfferDto);
+
+            // Validação do DTO
+            var validationResult = await _productOfferDtoValidator.ValidateAsync(_mapper.Map<ProductOfferDto>(productOfferDto));
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.ToString());
@@ -70,6 +73,7 @@ namespace AMAPP.API.Services.Implementations
             return _mapper.Map<ProductOfferDto>(productOffer);
         }
 
+
         public async Task<ProductOfferDto> GetProductOfferByIdAsync(int id)
         {
             var productOffer = await _productOfferRepository.GetByIdAsync(id);
@@ -84,7 +88,7 @@ namespace AMAPP.API.Services.Implementations
 
         public async Task<List<ProductOfferDto>> GetAllProductOffersAsync()
         {
-            var productOffers = await _productOfferRepository.GetAllAsync();
+            var productOffers = await _productOfferRepository.GetAllProductOffersWithDetailsAsync();
             return _mapper.Map<List<ProductOfferDto>>(productOffers);
         }
 
@@ -141,6 +145,12 @@ namespace AMAPP.API.Services.Implementations
 
             await _productOfferRepository.RemoveAsync(productOffer);
             return true;
+        }
+
+        public async Task<List<ProductOfferResultDto>> GetAllProductOffersWithDetailsAsync()
+        {
+            var productOffers = await _productOfferRepository.GetAllProductOffersWithDetailsAsync();
+            return _mapper.Map<List<ProductOfferResultDto>>(productOffers);
         }
     }
 }
