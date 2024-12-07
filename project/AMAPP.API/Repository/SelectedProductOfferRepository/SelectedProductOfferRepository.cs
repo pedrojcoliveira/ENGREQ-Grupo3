@@ -7,4 +7,11 @@ public class SelectedProductOfferRepository : RepositoryBase<SelectedProductOffe
     public SelectedProductOfferRepository(ApplicationDbContext context) : base(context)
     {
     }
+    /*public new async Task<IEnumerable<SelectedProductOffer>> GetAllAsync()
+        {
+            return await _context.SubscriptionPeriods
+                .Include(sp => sp.DeliveryDatesList) 
+                .ToListAsync();
+        }
+    */
 }

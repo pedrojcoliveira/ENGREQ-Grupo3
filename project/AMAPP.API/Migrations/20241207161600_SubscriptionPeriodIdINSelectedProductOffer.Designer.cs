@@ -3,6 +3,7 @@ using System;
 using AMAPP.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AMAPP.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207161600_SubscriptionPeriodIdINSelectedProductOffer")]
+    partial class SubscriptionPeriodIdINSelectedProductOffer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +92,27 @@ namespace AMAPP.API.Migrations
                     b.HasIndex("SubscriptionPeriodId");
 
                     b.ToTable("DeliveryDates");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.DeliveryDateBase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("SubscriptionPeriodId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionPeriodId");
+
+                    b.ToTable("DeliveryDateBase");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
@@ -443,25 +467,25 @@ namespace AMAPP.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8546c049-6605-46af-b72c-4c4c440bae6f",
+                            Id = "9a487c26-f7ba-45ff-bb38-0320d9a5cd3f",
                             Name = "Administrator",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "99f18f81-8eda-4e17-a34d-22eb5cbb549c",
+                            Id = "e8e68a30-2ce2-4a41-8545-d0ef118777cc",
                             Name = "Amap",
                             NormalizedName = "AMAP"
                         },
                         new
                         {
-                            Id = "e2f60f3d-70f1-44db-a9b8-cdf0dd0f6a3a",
+                            Id = "2668a188-2bcb-43dc-927e-d93510f58577",
                             Name = "Producer",
                             NormalizedName = "PROD"
                         },
                         new
                         {
-                            Id = "d4139b00-1445-4c5e-b0c1-b5969b043bdc",
+                            Id = "2e79c406-9476-483d-a9e1-3ea3f97ccbdc",
                             Name = "CoProducer",
                             NormalizedName = "COPR"
                         });
@@ -623,6 +647,15 @@ namespace AMAPP.API.Migrations
                         .IsRequired();
 
                     b.Navigation("SubscriptionPeriod");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.DeliveryDateBase", b =>
+                {
+                    b.HasOne("AMAPP.API.Models.SubscriptionPeriod", null)
+                        .WithMany("DeliveryDatesList")
+                        .HasForeignKey("SubscriptionPeriodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
@@ -837,6 +870,8 @@ namespace AMAPP.API.Migrations
             modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
                 {
                     b.Navigation("DeliveryDates");
+
+                    b.Navigation("DeliveryDatesList");
 
                     b.Navigation("ProductOffers");
                 });
