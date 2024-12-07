@@ -5,70 +5,63 @@
     ViewData["Title"] = "Create Product";
 }
 
-<h1>Create a New Product</h1>
-
-<form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-    <div class="row">
-        <!-- Primeira coluna -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ReferencePrice" class="form-label"></label>
-                <div class="input-group">
-                    <span class="input-group-text">€</span>
-                    <input asp-for="ReferencePrice" class="form-control" type="number" step="0.01" />
-                </div>
-                <span asp-validation-for="ReferencePrice" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Description" class="form-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+<div class="container mt-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Create a New Product</h2>
         </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Product Name</label>
+                    <input asp-for="Name" class="form-control" required placeholder="Enter the product name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
 
-        <!-- Segunda coluna -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Photo" class="form-label"></label>
-                <input type="file" name="Photo" class="form-control" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <label asp-for="DeliveryUnit" class="form-label"></label>
-                <input asp-for="DeliveryUnit" class="form-control" placeholder="Digite a unidade de entrega (por exemplo, kg, litro, etc.)" />
-                <span asp-validation-for="DeliveryUnit" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="ReferencePrice" class="form-label">Reference Price (€)</label>
+                    <input asp-for="ReferencePrice" class="form-control" type="number" step="0.01" required placeholder="Enter the reference price" />
+                    <span asp-validation-for="ReferencePrice" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="ProductTypeId" class="form-label"></label>
-                <select asp-for="ProductTypeId" class="form-control">
-                    <option value="">Selecione o tipo de produto</option>
-                    <!-- Adicionar aqui as opções de tipos de produto -->
-                    <option value="0">Tipo 0</option>
-                    <option value="1">Tipo 1</option>
-                    <option value="2">Tipo 2</option>
-                    @* Para implementar mais tarde: @foreach (var type in ViewBag.ProductTypes) {
-                    <option value="@type.Id">@type.Name</option>
-                    }*@
-                </select>
-                <span asp-validation-for="ProductTypeId" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" required placeholder="Enter a description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Photo" class="form-label">Photo</label>
+                    <input type="file" name="Photo" class="form-control" required />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DeliveryUnit" class="form-label">Delivery Unit</label>
+                    <input asp-for="DeliveryUnit" class="form-control" required placeholder="Enter the delivery unit (e.g., kg, liter, etc.)" />
+                    <span asp-validation-for="DeliveryUnit" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ProductTypeId" class="form-label">Product Type</label>
+                    <select asp-for="ProductTypeId" class="form-control" required>
+                        <option value="">Select product type</option>
+                        <option value="0">Type 0</option>
+                        <option value="1">Type 1</option>
+                        <option value="2">Type 2</option>
+                    </select>
+                    <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="bi bi-check-circle-fill"></i> Create
+                    </button>
+                    <a asp-action="List" class="btn btn-secondary">
+                        <i class="bi bi-x-circle-fill"></i> Cancel
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
-
-    <button type="submit" class="btn btn-primary mt-3">Create</button>
-</form>
-
-
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.0/jquery.validate.unobtrusive.min.js"></script>
-}
+</div>

@@ -9,12 +9,10 @@ namespace AMAPP.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Configurar o HttpClientFactory para uso em todos os controladores
-            builder.Services.AddHttpClient("AMAPPClient", client =>
+            // Register HttpClient with BaseAddress
+            builder.Services.AddHttpClient("APIClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7237"); // Endpoint da API
-                client.Timeout = TimeSpan.FromSeconds(30);
-                client.DefaultRequestHeaders.Add("Accept", "application/json"); // Headers padrão
+                client.BaseAddress = new Uri("https://localhost:7237/"); 
             });
 
             var app = builder.Build();

@@ -1,0 +1,31 @@
+﻿@model List<ProductOffer>
+
+<h2>Product Offers</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Períodos de Assinatura</th>
+            <th>Datas de Entrega</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var offer in Model)
+        {
+            <tr>
+                <td>@offer.ProductName</td>
+                <td>@offer.SubscriptionPeriodName</td>
+                <td>@string.Join(", ", offer.SelectedDeliveryDates)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-warning btn-sm">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Create New Offer</a>
+
+

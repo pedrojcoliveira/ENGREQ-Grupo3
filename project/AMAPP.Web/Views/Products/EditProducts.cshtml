@@ -5,70 +5,62 @@
     ViewData["Title"] = "Edit Product";
 }
 
-<h1>Edit Product</h1>
+<div class="container mt-5">
+    <h1 class="title">Edit Product</h1>
 
-<form asp-action="Edit" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
-    <div class="row">
-        <!-- Primeira coluna -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+    <div class="form-container">
+        <form asp-action="Edit" method="post" class="form-edit" enctype="multipart/form-data">
+            <div class="row">
+                <!-- Primeira coluna -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="form-label">Product Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="ReferencePrice" class="form-label"></label>
-                <div class="input-group">
-                    <span class="input-group-text">€</span>
-                    <input asp-for="ReferencePrice" class="form-control" type="number" step="0.01" />
+                    <div class="form-group">
+                        <label asp-for="ReferencePrice" class="form-label">Reference Price</label>
+                        <input asp-for="ReferencePrice" class="form-control" type="number" step="0.01" />
+                        <span asp-validation-for="ReferencePrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
                 </div>
-                <span asp-validation-for="ReferencePrice" class="text-danger"></span>
+
+                <!-- Segunda coluna -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Photo" class="form-label">Upload New Photo</label>
+                        <input type="file" name="Photo" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DeliveryUnit" class="form-label">Delivery Unit</label>
+                        <input asp-for="DeliveryUnit" class="form-control" placeholder="e.g., kg, liter" />
+                        <span asp-validation-for="DeliveryUnit" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductTypeId" class="form-label">Product Type</label>
+                        <select asp-for="ProductTypeId" class="form-control">
+                            <option value="">Select Product Type</option>
+                            <option value="0">Type 0</option>
+                            <option value="1">Type 1</option>
+                            <option value="2">Type 2</option>
+                        </select>
+                        <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Description" class="form-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-save">Save Changes</button>
             </div>
-        </div>
-
-        <!-- Segunda coluna -->
-        <div class="col-md-6">
-
-            <!-- Campo para upload de nova foto -->
-            <div class="form-group">
-                <label for="Photo" class="form-label">Carregar Nova Foto:</label>
-                <input type="file" name="Photo" class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DeliveryUnit" class="form-label"></label>
-                <input asp-for="DeliveryUnit" class="form-control" placeholder="Digite a unidade de entrega (por exemplo, kg, litro, etc.)" />
-                <span asp-validation-for="DeliveryUnit" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ProductTypeId" class="form-label"></label>
-                <select asp-for="ProductTypeId" class="form-control">
-                    <option value="">Selecione o tipo de produto</option>
-                    <!-- Adicionar aqui as opções de tipos de produto -->
-                    <option value="0">Tipo 0</option>
-                    <option value="1">Tipo 1</option>
-                    <option value="2">Tipo 2</option>
-                    @* Para implementar mais tarde: @foreach (var type in ViewBag.ProductTypes) {
-                    <option value="@type.Id">@type.Name</option>
-                    }*@
-                </select>
-                <span asp-validation-for="ProductTypeId" class="text-danger"></span>
-            </div>
-        </div>
+        </form>
     </div>
-
-    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
-</form>
-
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.0/jquery.validate.unobtrusive.min.js"></script>
-}
+</div>
