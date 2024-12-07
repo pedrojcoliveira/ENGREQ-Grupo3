@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AMAPP.Web.Models;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace AMAPP.Web.Controllers
 {
@@ -17,7 +18,7 @@ namespace AMAPP.Web.Controllers
         }
 
         //-------------------------------------------------------------------------------------------
-        //-------------------------------------- ListProducts----------------------------------------
+        //--------------------------------------ListProducts----------------------------------------
         //-------------------------------------------------------------------------------------------
         public async Task<IActionResult> List()
         {
@@ -36,6 +37,15 @@ namespace AMAPP.Web.Controllers
                 var json = await response.Content.ReadAsStringAsync();
                 var products = JsonConvert.DeserializeObject<List<Product>>(json);
 
+                // Transformar as fotos para Base64
+                foreach (var product in products)
+                {
+                    if (product.Photo != null)
+                    {
+                        product.PhotoBase64 = $"data:image/png;base64,{Convert.ToBase64String(product.Photo)}";
+                    }
+                }
+
                 // Passar os dados para a view
                 return View("ListProducts", products);
             }
@@ -46,7 +56,42 @@ namespace AMAPP.Web.Controllers
         }
 
         //-------------------------------------------------------------------------------------------
-        //-------------------------------------- CreateProducts--------------------------------------
+        //--------------------------------------ProductById-----------------------------------------
+        //-------------------------------------------------------------------------------------------
+        public async Task<IActionResult> Details(int id)
+        {
+            try
+            {
+                // Chamar a API para obter os detalhes do produto
+                var response = await _httpClient.GetAsync($"/api/Product/{id}"); // Endpoint para getProductById
+
+                // Verificar se a resposta foi bem-sucedida
+                if (!response.IsSuccessStatusCode)
+                {
+                    return View("Error");
+                }
+
+                // Ler e desserializar os dados da resposta
+                var json = await response.Content.ReadAsStringAsync();
+                var product = JsonConvert.DeserializeObject<Product>(json);
+
+                // Transformar a foto para Base64
+                if (product.Photo != null)
+                {
+                    product.PhotoBase64 = $"data:image/png;base64,{Convert.ToBase64String(product.Photo)}";
+                }
+
+                // Passar o produto para a view
+                return View("ProductById", product);
+            }
+            catch
+            {
+                return View("Error");
+            }
+        }
+
+        //-------------------------------------------------------------------------------------------
+        //--------------------------------------CreateProducts--------------------------------------
         //-------------------------------------------------------------------------------------------
         [HttpGet]
         public IActionResult Create()
@@ -59,7 +104,7 @@ namespace AMAPP.Web.Controllers
 
         // POST: Recebe os dados do formulário para criar um produto
         [HttpPost]
-        public async Task<IActionResult> Create(Product model/*, IFormFile Photo*/)
+        public async Task<IActionResult> Create(Product model, IFormFile Photo)
         {
             if (!ModelState.IsValid)
             {
@@ -68,29 +113,28 @@ namespace AMAPP.Web.Controllers
 
             try
             {
-                // Verifica se foi feito upload de um arquivo
-                /*if (Photo != null && Photo.Length > 0)
+                var content = new MultipartFormDataContent();
+                content.Add(new StringContent(model.Name), "Name");
+                content.Add(new StringContent(model.Description), "Description");
+                content.Add(new StringContent(model.ReferencePrice.ToString("F2")), "ReferencePrice");
+                content.Add(new StringContent(model.DeliveryUnit.ToString()), "DeliveryUnit");
+                content.Add(new StringContent(model.ProductTypeId.ToString()), "ProductTypeId");
+
+                if (Photo != null && Photo.Length > 0)
                 {
-                    // Gera um nome único para a foto
-                    var fileName = Path.GetFileName(Photo.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Products", fileName);
+                    var fileContent = new StreamContent(Photo.OpenReadStream());
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue(Photo.ContentType);
+                    content.Add(fileContent, "Photo", Photo.FileName);
+                }
 
-                    // Salva a foto na pasta "wwwroot/images/Products"
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await Photo.CopyToAsync(stream);
-                    }
+                var request = new HttpRequestMessage(HttpMethod.Post, "/api/product")
+                {
+                    Content = content
+                };
 
-                    // Salva o caminho relativo da imagem no modelo (para enviar para a API, se necessário)
-                    model.Photo = $"/images/Products/{fileName}";
-                }*/
+                request.Headers.Add("accept", "text/plain");
 
-                // Serializa o modelo para JSON
-                var jsonContent = JsonConvert.SerializeObject(model);
-                var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
-
-                // Chama a API para criar o produto
-                var response = await _httpClient.PostAsync("/api/Product", content);
+                var response = await _httpClient.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -109,10 +153,11 @@ namespace AMAPP.Web.Controllers
 
 
         //-------------------------------------------------------------------------------------------
-        //-------------------------------------- EditProducts----------------------------------------
+        //---------------------------------------EditProducts----------------------------------------
         //-------------------------------------------------------------------------------------------
 
         // GET: Editar Produto
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             try
@@ -146,38 +191,37 @@ namespace AMAPP.Web.Controllers
             }
 
             try
-            {   
-                /*
-                // Verifica se uma nova foto foi enviada
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new StringContent(model.Name), "Name");
+                content.Add(new StringContent(model.Description), "Description");
+                content.Add(new StringContent(model.ReferencePrice.ToString("F2")), "ReferencePrice");
+                content.Add(new StringContent(model.DeliveryUnit.ToString()), "DeliveryUnit");
+                content.Add(new StringContent(model.ProductTypeId.ToString()), "ProductTypeId");
+
                 if (Photo != null && Photo.Length > 0)
                 {
-                    // Gera um nome único para a foto
-                    var fileName = Path.GetFileName(Photo.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Products", fileName);
+                    var fileContent = new StreamContent(Photo.OpenReadStream());
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue(Photo.ContentType);
+                    content.Add(fileContent, "Photo", Photo.FileName);
+                }
 
-                    // Salva a nova foto na pasta "wwwroot/images/Products"
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await Photo.CopyToAsync(stream);
-                    }
+                var request = new HttpRequestMessage(HttpMethod.Put, $"/api/product/{model.Id}")
+                {
+                    Content = content
+                };
+                request.Headers.Add("accept", "text/plain");
 
-                    // Define o caminho relativo da nova imagem no modelo
-                    model.Photo = $"/images/Products/{fileName}";
-                }*/
+                var response = await _httpClient.SendAsync(request);
 
-                // Serializa o modelo para JSON
-                var jsonContent = JsonConvert.SerializeObject(model);
-                var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
-
-                // Chama a API para atualizar o produto
-                var response = await _httpClient.PutAsync($"/api/Product/{model.Id}", content);
+                var errorContent = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("List");
                 }
 
-                ModelState.AddModelError(string.Empty, "Erro ao atualizar o produto. Tente novamente.");
+                ModelState.AddModelError(string.Empty, "Erro ao editar o produto. Tente novamente.");
                 return View("EditProducts", model);
             }
             catch
@@ -191,7 +235,7 @@ namespace AMAPP.Web.Controllers
 
 
         //-------------------------------------------------------------------------------------------
-        //------------------------------------- DeleteProducts---------------------------------------
+        //-------------------------------------DeleteProducts---------------------------------------
         //-------------------------------------------------------------------------------------------
     }
 

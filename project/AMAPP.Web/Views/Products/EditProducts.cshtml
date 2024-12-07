@@ -35,27 +35,11 @@
 
         <!-- Segunda coluna -->
         <div class="col-md-6">
-            <!-- Foto Atual -->
-            @if (!string.IsNullOrEmpty(Model.Photo))
-            {
-                <div class="form-group">
-                    <label>Foto Atual:</label>
-                    <div>
-                        <img src="@Model.Photo" alt="Foto do Produto" style="max-width: 200px; max-height: 200px;" />
-                    </div>
-                </div>
-            }
 
-            @*<!-- Campo para upload de nova foto -->
+            <!-- Campo para upload de nova foto -->
             <div class="form-group">
                 <label for="Photo" class="form-label">Carregar Nova Foto:</label>
                 <input type="file" name="Photo" class="form-control" />
-            </div>*@
-
-            <div class="form-group">
-                <label asp-for="Photo" class="form-label"></label>
-                <input asp-for="Photo" class="form-control" type="text" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
 
             <div class="form-group">

@@ -1,3 +1,19 @@
 ﻿.form-group{
     margin-top: 30px;
 }
+
+.card-link {
+    text-decoration: none;
+    color: inherit; /* Mantém a cor do texto original */
+}
+
+/* Estilizar o card ao passar o rato por cima */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suavizar as transformações */
+    cursor: pointer; /* Muda o cursor para formato de mão */
+}
+
+.hover-card:hover {
+    transform: scale(1.05); /* Cresce o card em 5% */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adiciona sombra para destacar */
+}
