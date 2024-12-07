@@ -119,13 +119,15 @@ namespace AMAPP.API.Controllers
         /// Lista todas as ofertas de produtos.
         /// </summary>
         /// <returns>Lista de ofertas de produtos.</returns>
+        // GET: api/ProductOffer
         [HttpGet]
-        [ProducesResponseType(typeof(List<ProductOfferDto>), 200)]
+        [ProducesResponseType(typeof(List<ProductOfferResultDto>), 200)]
         public async Task<IActionResult> GetAllProductOffers()
         {
-            var productOffers = await _productOfferService.GetAllProductOffersAsync();
+            var productOffers = await _productOfferService.GetAllProductOffersWithDetailsAsync();
             return Ok(productOffers);
         }
+
 
         /// <summary>
         /// Atualiza uma oferta de produto existente.

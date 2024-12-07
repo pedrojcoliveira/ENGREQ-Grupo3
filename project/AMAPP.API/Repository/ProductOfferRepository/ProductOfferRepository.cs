@@ -27,6 +27,15 @@ namespace AMAPP.API.Repository.ProductOfferRepository
                 .Where(po => po.PeriodSubscriptionId == subscriptionPeriodId)
                 .ToListAsync();
         }
+
+        public async Task<List<ProductOffer>> GetAllProductOffersWithDetailsAsync()
+        {
+            return await _context.ProductOffers
+                .Include(po => po.Product)
+                .Include(po => po.SelectedDeliveryDates)
+                .Include(po => po.PeriodSubscription)
+                .ToListAsync();
+        }
     }
 }
 
