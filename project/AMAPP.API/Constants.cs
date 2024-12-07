@@ -25,6 +25,13 @@ namespace AMAPP.API
             Litros
         }
 
+        public enum PaymentStatus
+        {
+            Pendente,
+            Pago,
+            Cancelado
+        }
+
         // File size limits
         public const int MaxPhotoSizeInBytes = 5 * 1024 * 1024; // 5 MB
 

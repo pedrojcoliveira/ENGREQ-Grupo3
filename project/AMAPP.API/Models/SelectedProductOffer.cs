@@ -1,4 +1,6 @@
-﻿namespace AMAPP.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AMAPP.API.Models
 {
     public class SelectedProductOffer
     {
@@ -13,5 +15,9 @@
         public Subscription Subscription { get; set; }
 
         public int Quantity { get; set; }
+
+        // Pagamentos da subscrição
+        public List<SubscriptionPayment> SubscriptionPayments { get; set; } = new();
+
     }
 }

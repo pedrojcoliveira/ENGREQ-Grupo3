@@ -3,6 +3,7 @@ using System;
 using AMAPP.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AMAPP.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207132208_SubscriptionPayments")]
+    partial class SubscriptionPayments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +35,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CheckingAccounts", (string)null);
+                    b.ToTable("CheckingAccounts");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.CompoundProductProduct", b =>
@@ -47,7 +50,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CompoundProductProducts", (string)null);
+                    b.ToTable("CompoundProductProducts");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.CoproducerInfo", b =>
@@ -67,7 +70,7 @@ namespace AMAPP.API.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("CoproducersInfo", (string)null);
+                    b.ToTable("CoproducersInfo");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.DeliveryDate", b =>
@@ -88,7 +91,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionPeriodId");
 
-                    b.ToTable("DeliveryDates", (string)null);
+                    b.ToTable("DeliveryDates");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.DeliveryDateBase", b =>
@@ -109,7 +112,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionPeriodId");
 
-                    b.ToTable("DeliveryDateBase", (string)null);
+                    b.ToTable("DeliveryDateBase");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
@@ -129,7 +132,7 @@ namespace AMAPP.API.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("ProducersInfo", (string)null);
+                    b.ToTable("ProducersInfo");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.Product", b =>
@@ -170,7 +173,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProductOffer", b =>
@@ -193,7 +196,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductOffers", (string)null);
+                    b.ToTable("ProductOffers");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProductType", b =>
@@ -214,7 +217,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductTypes", (string)null);
+                    b.ToTable("ProductTypes");
 
                     b.HasData(
                         new
@@ -249,7 +252,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("ProductOfferId");
 
-                    b.ToTable("SelectedDeliveryDates", (string)null);
+                    b.ToTable("SelectedDeliveryDates");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SelectedProductOffer", b =>
@@ -283,7 +286,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionPeriodId");
 
-                    b.ToTable("SelectedProductOffer", (string)null);
+                    b.ToTable("SelectedProductOffer");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
@@ -306,7 +309,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionPeriodId");
 
-                    b.ToTable("Subscriptions", (string)null);
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SubscriptionPayment", b =>
@@ -338,7 +341,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("SubscriptionPayment", (string)null);
+                    b.ToTable("SubscriptionPayment");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
@@ -361,7 +364,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubscriptionPeriods", (string)null);
+                    b.ToTable("SubscriptionPeriods");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.User", b =>

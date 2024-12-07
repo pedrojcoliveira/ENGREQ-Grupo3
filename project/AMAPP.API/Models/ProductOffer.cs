@@ -1,4 +1,6 @@
-﻿namespace AMAPP.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AMAPP.API.Models
 {
     public class ProductOffer
     {

@@ -11,7 +11,7 @@ namespace AMAPP.API.DTOs.Product
         [Required]
         public string Description { get; set; }
         [Required]
-        public string Photo { get; set; }
+        public byte[]? Photo { get; set; }
         [Required]
         public double ReferencePrice { get; set; }
         [Required]
