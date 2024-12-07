@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AMAPP.API.Migrations
 {
     /// <inheritdoc />
-    public partial class RevertDeliveryDates : Migration
+    public partial class UpdateDeliveryDate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,10 +42,10 @@ namespace AMAPP.API.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "8546c049-6605-46af-b72c-4c4c440bae6f", null, "Administrator", "ADMIN" },
-                    { "99f18f81-8eda-4e17-a34d-22eb5cbb549c", null, "Amap", "AMAP" },
-                    { "d4139b00-1445-4c5e-b0c1-b5969b043bdc", null, "CoProducer", "COPR" },
-                    { "e2f60f3d-70f1-44db-a9b8-cdf0dd0f6a3a", null, "Producer", "PROD" }
+                    { "010da128-a5a2-4c75-bf6b-1e22ab7fa5cc", null, "Administrator", "ADMIN" },
+                    { "a56c8c9c-413b-4d27-b13a-b75a6b732b48", null, "Producer", "PROD" },
+                    { "ddbc04c3-858f-47f7-892f-80c5471c85b5", null, "CoProducer", "COPR" },
+                    { "ffdea180-7651-450f-9661-b42bf5c6db99", null, "Amap", "AMAP" }
                 });
         }
 
@@ -55,22 +55,22 @@ namespace AMAPP.API.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "8546c049-6605-46af-b72c-4c4c440bae6f");
+                keyValue: "010da128-a5a2-4c75-bf6b-1e22ab7fa5cc");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "99f18f81-8eda-4e17-a34d-22eb5cbb549c");
+                keyValue: "a56c8c9c-413b-4d27-b13a-b75a6b732b48");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "d4139b00-1445-4c5e-b0c1-b5969b043bdc");
+                keyValue: "ddbc04c3-858f-47f7-892f-80c5471c85b5");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "e2f60f3d-70f1-44db-a9b8-cdf0dd0f6a3a");
+                keyValue: "ffdea180-7651-450f-9661-b42bf5c6db99");
 
             migrationBuilder.CreateTable(
                 name: "DeliveryDateBase",
