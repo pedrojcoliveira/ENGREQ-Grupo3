@@ -66,8 +66,15 @@ namespace AMAPP.API.Services.Implementations
                 .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = productOffer })
                 .ToList();
 
-            // Salvar no repositório
-            await _productOfferRepository.AddAsync(productOffer);
+            try {
+                // Salvar no repositório
+                await _productOfferRepository.AddAsync(productOffer);
+            }
+            catch (Exception ex)
+            {
+                _ = ex;
+            }
+            
 
             // Retornar o DTO da oferta de produto criada
             return _mapper.Map<ProductOfferDto>(productOffer);
