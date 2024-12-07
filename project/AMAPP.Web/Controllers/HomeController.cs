@@ -65,7 +65,7 @@ namespace AMAPP.Web.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     // Redireciona para ProductController > List após login bem-sucedido
-                    return RedirectToAction("List", "Product");
+                    return RedirectToAction("List", "Products");
                 }
 
                 // Adiciona mensagem de erro para tentativas inválidas

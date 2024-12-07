@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<AMAPP.Web.Models.Product>
+<link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
 
 @{
     ViewData["Title"] = "Product List";
@@ -15,23 +16,20 @@
     <div class="row row-cols-1 row-cols-md-5 g-6">
         @foreach (var product in Model)
         {
-            <div class="col">
-                <div class="card h-100">
-                    <img src="~/images/Products/@product.Photo" class="card-img-top" alt="@product.Name" />
-                    <div class="card-body">
-                        <h5 class="card-title">@product.Name</h5>
-                        <p class="card-text">@product.Description</p>
-                        <p class="card-text"><strong>Price:</strong> €@product.ReferencePrice</p>
-                        <p class="card-text"><strong>Delivery Unit:</strong> @product.DeliveryUnit</p>
-                        <p class="card-text"><strong>Product Type ID:</strong> @product.ProductTypeId</p>
-                    </div>
-                    <div class="card-footer text-end">
-                        <!-- Botões de Editar e Apagar -->
-                        <a class="btn btn-warning btn-sm" asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                        <a class="btn btn-danger btn-sm" asp-area="" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+            <a class="card-link" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+                <div class="col">
+                    <div class="card h-100 hover-card">
+                        <img src="@product.PhotoBase64" class="card-img-top" alt="@product.Name" />
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text"><strong>Price:</strong> €@product.ReferencePrice</p>
+                            <p class="card-text"><strong>Delivery Unit:</strong> @product.DeliveryUnit</p>
+                            <p class="card-text"><strong>Product Type ID:</strong> @product.ProductTypeId</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         }
     </div>
 
