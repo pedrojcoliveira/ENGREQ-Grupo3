@@ -11,5 +11,7 @@ namespace AMAPP.API.DTOs.SubscriptionPeriod
         [Required]
         public DateTime EndDate { get; set; }
         
+        [Required]
+        public List<DateTime> Dates { get; set; } = new ();
     }
 }

@@ -443,25 +443,25 @@ namespace AMAPP.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8546c049-6605-46af-b72c-4c4c440bae6f",
+                            Id = "010da128-a5a2-4c75-bf6b-1e22ab7fa5cc",
                             Name = "Administrator",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "99f18f81-8eda-4e17-a34d-22eb5cbb549c",
+                            Id = "ffdea180-7651-450f-9661-b42bf5c6db99",
                             Name = "Amap",
                             NormalizedName = "AMAP"
                         },
                         new
                         {
-                            Id = "e2f60f3d-70f1-44db-a9b8-cdf0dd0f6a3a",
+                            Id = "a56c8c9c-413b-4d27-b13a-b75a6b732b48",
                             Name = "Producer",
                             NormalizedName = "PROD"
                         },
                         new
                         {
-                            Id = "d4139b00-1445-4c5e-b0c1-b5969b043bdc",
+                            Id = "ddbc04c3-858f-47f7-892f-80c5471c85b5",
                             Name = "CoProducer",
                             NormalizedName = "COPR"
                         });
@@ -616,13 +616,11 @@ namespace AMAPP.API.Migrations
 
             modelBuilder.Entity("AMAPP.API.Models.DeliveryDate", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.SubscriptionPeriod", "SubscriptionPeriod")
-                        .WithMany()
+                    b.HasOne("AMAPP.API.Models.SubscriptionPeriod", null)
+                        .WithMany("DeliveryDates")
                         .HasForeignKey("SubscriptionPeriodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("SubscriptionPeriod");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
@@ -700,7 +698,7 @@ namespace AMAPP.API.Migrations
                         .IsRequired();
 
                     b.HasOne("AMAPP.API.Models.SubscriptionPeriod", null)
-                        .WithMany("DeliveryDates")
+                        .WithMany("SelectedProductOffers")
                         .HasForeignKey("SubscriptionPeriodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -839,6 +837,8 @@ namespace AMAPP.API.Migrations
                     b.Navigation("DeliveryDates");
 
                     b.Navigation("ProductOffers");
+
+                    b.Navigation("SelectedProductOffers");
                 });
 #pragma warning restore 612, 618
         }
