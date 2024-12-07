@@ -42,6 +42,8 @@ public class SelectedProductOfferService : ISelectedProductOfferService
         }
         
         var selectedProductOffer = mapper.Map<SelectedProductOffer>(createSelectedProductOfferDto);
+        //add subscription period id from the subscription
+        selectedProductOffer.SubscriptionPeriodId = subscription.SubscriptionPeriodId;
     
         await selectedProductOfferRepository.AddAsync(selectedProductOffer);
     
@@ -49,11 +51,12 @@ public class SelectedProductOfferService : ISelectedProductOfferService
     
     }
 
-    public async Task<List<ResponseSelectedProductOfferDto>> GetAllSelectedProductOffersAsync()
-    {
-        var selectedProductOffers = await selectedProductOfferRepository.GetAllAsync();
-        return mapper.Map<List<ResponseSelectedProductOfferDto>>(selectedProductOffers);
-    }
+public async Task<List<ResponseSelectedProductOfferDto>> GetAllSelectedProductOffersAsync()
+{
+    var selectedProductOffers = (await selectedProductOfferRepository.GetAllAsync()).ToList();
+    
+    return mapper.Map<List<ResponseSelectedProductOfferDto>>(selectedProductOffers);
+}
 
     public async Task<ResponseSelectedProductOfferDto> GetSelectedProductOfferByIdAsync(int id)
     {
@@ -97,7 +100,9 @@ public class SelectedProductOfferService : ISelectedProductOfferService
             {
                 throw new NotFoundException("A Subscrição selecionada não existe");
             }
-            selectedProductOffer.SubscriptionId = updateSelectedProductOfferDto.SubscriptionId;
+            selectedProductOffer.SubscriptionId = updateSelectedProductOfferDto.SubscriptionId; 
+            //add subscription period id from the updated subscription
+            selectedProductOffer.SubscriptionPeriodId = subscriptionExists.SubscriptionPeriodId;
         }
 
         // Update Quantity if provided and greater than 0

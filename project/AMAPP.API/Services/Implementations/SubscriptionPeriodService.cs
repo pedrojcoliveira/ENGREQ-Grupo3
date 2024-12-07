@@ -83,16 +83,6 @@ namespace AMAPP.API.Services
             if (subscriptionPeriod.StartDate > subscriptionPeriod.EndDate)
                 throw new ArgumentException("EndDate cannot be earlier than StartDate.");
             
-            // Update DeliveryDatesList if provided
-            if (subscriptionPeriodDto.Dates != null && subscriptionPeriodDto.Dates.Any(date => date != default))
-            {
-                subscriptionPeriod.DeliveryDatesList = subscriptionPeriodDto.Dates
-                    .Where(date => date != default)
-                    .Select(date => new DeliveryDateBase { Date = date })
-                    .ToList();
-            } 
-            
-
             // Persist the updated entity to the repository
             await _subscriptionPeriodRepository.UpdateAsync(subscriptionPeriod);
             

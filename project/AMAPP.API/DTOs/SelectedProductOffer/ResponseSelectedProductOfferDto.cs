@@ -9,4 +9,5 @@ public class ResponseSelectedProductOfferDto
         public int ProductOfferId { get; set; }
         public int SubscriptionId { get; set; }
         public int Quantity { get; set; }
+        public int SubscriptionPeriodId  { get; set; }
 }
