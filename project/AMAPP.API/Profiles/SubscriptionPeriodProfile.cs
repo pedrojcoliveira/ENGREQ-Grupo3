@@ -12,14 +12,12 @@ public class SubscriptionPeriodProfile : Profile
         CreateMap<CreateSubscriptionPeriodDto, SubscriptionPeriod>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
-            .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
-            .ForMember(dest => dest.DeliveryDatesList, opt => opt.MapFrom(src => src.Dates.Select(dd => new DeliveryDateBase { Date = dd }).ToList()));
+            .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate));
     
             CreateMap<SubscriptionPeriodDto, SubscriptionPeriod>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
-            .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
-            .ForMember(dest => dest.DeliveryDatesList, opt => opt.MapFrom(src => src.Dates.Select(dd => new DeliveryDateBase { Date = dd }).ToList()));
+            .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate));
             
         
         // Mapping from SubscriptionPeriod model to Response DTO
@@ -27,8 +25,7 @@ public class SubscriptionPeriodProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
-            .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
-            .ForMember(dest => dest.DeliveryDates, opt => opt.MapFrom(src => src.DeliveryDatesList.Select(dd => dd.Date).ToList()));
-        
+            .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate));
+
     }
 }

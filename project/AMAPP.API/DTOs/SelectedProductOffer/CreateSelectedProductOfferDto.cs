@@ -12,4 +12,5 @@ public class CreateSelectedProductOfferDto
         public int SubscriptionId { get; set; }
         [Required]
         public int Quantity { get; set; }
+        
 }

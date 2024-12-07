@@ -18,6 +18,9 @@ namespace AMAPP.API.Models
 
         // Pagamentos da subscrição
         public List<SubscriptionPayment> SubscriptionPayments { get; set; } = new();
+        
+        //novo com base na bd
+        public int SubscriptionPeriodId { get; set; }
 
     }
 }
