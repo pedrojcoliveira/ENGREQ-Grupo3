@@ -128,10 +128,10 @@ namespace AMAPP.API.Data
                 .WithMany(s => s.SelectedProducts)
                 .HasForeignKey(ps => ps.SubscriptionId);
             
-            /*modelBuilder.Entity<SubscriptionPeriod>()
-                .HasMany(sp  => sp.DeliveryDatesList)
+            modelBuilder.Entity<SubscriptionPeriod>()
+                .HasMany(sp  => sp.DeliveryDates)
                 .WithOne()
-                .HasForeignKey(ps => ps.SubscriptionPeriodId).IsRequired();*/
+                .HasForeignKey(ps => ps.SubscriptionPeriodId).IsRequired();
 
             // Configuração para SubscriptionPayment
             modelBuilder.Entity<SubscriptionPayment>()
