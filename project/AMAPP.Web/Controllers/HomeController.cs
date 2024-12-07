@@ -13,7 +13,7 @@ namespace AMAPP.Web.Controllers
         public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
-            _httpClient = httpClientFactory.CreateClient("AMAPPClient");
+            _httpClient = httpClientFactory.CreateClient("APIClient");
         }
         public IActionResult Index()
         {
