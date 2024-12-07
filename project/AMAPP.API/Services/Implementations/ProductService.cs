@@ -98,9 +98,39 @@ namespace AMAPP.API.Services.Implementations
             var existingProduct = await _productRepository.GetByIdAsync(id);
 
             if (existingProduct == null)
-                return null;
+                throw new KeyNotFoundException("Producer not found.");
+
+
+            if (productDto.Photo != null)
+            {
+                if (productDto.Photo.Length > 5 * 1024 * 1024) // 5 MB limit
+                {
+                    throw new ArgumentException("Photo size exceeds the 5MB limit.");
+                }
+
+                var validFormats = new[] { ".jpg", ".jpeg", ".png" };
+                var fileExtension = Path.GetExtension(productDto.Photo.FileName).ToLower();
+                if (!validFormats.Contains(fileExtension))
+                {
+                    throw new ArgumentException("Invalid photo format. Only JPG and PNG are allowed.");
+                }
+            }
+
+            // Convert the uploaded image to a byte array
+            byte[]? photoBytes = null;
+            if (productDto.Photo != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await productDto.Photo.CopyToAsync(memoryStream);
+                    photoBytes = memoryStream.ToArray();
+                }
+            }
 
             _mapper.Map(productDto, existingProduct);
+
+            existingProduct.Photo = photoBytes;
+
             await _productRepository.UpdateAsync(existingProduct);
 
             return _mapper.Map<ProductDto>(existingProduct);

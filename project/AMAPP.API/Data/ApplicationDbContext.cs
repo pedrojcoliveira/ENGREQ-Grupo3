@@ -42,6 +42,7 @@ namespace AMAPP.API.Data
                 .WithOne()
                 .HasForeignKey<CoproducerInfo>(c => c.UserId);
 
+
             modelBuilder.Entity<Product>()
                 .Property(p => p.Photo)
                 .HasColumnType("BYTEA") // Map to BYTEA column in PostgreSQL
@@ -130,7 +131,22 @@ namespace AMAPP.API.Data
             modelBuilder.Entity<SubscriptionPeriod>()
                 .HasMany(sp  => sp.DeliveryDatesList)
                 .WithOne()
-                .HasForeignKey(ps => ps.SubscriptionPeriodId).IsRequired();            
+                .HasForeignKey(ps => ps.SubscriptionPeriodId).IsRequired();
+
+            // Configuração para SubscriptionPayment
+            modelBuilder.Entity<SubscriptionPayment>()
+                .HasOne(sp => sp.Subscription)
+                .WithMany(s => s.SubscriptionPayments)
+                .HasForeignKey(sp => sp.SubscriptionId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<SubscriptionPayment>()
+                .HasOne(sp => sp.SelectedProductOffer)
+                .WithMany(s => s.SubscriptionPayments)
+                .HasForeignKey(sp => sp.SelectedProductOfferId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<IdentityRole>().HasData(
