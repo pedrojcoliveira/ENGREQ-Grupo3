@@ -1,0 +1,29 @@
+﻿@startuml
+
+!define ENTITY(e_alias, e_label, e_stereotype) class e_alias as "e_label" <<e_stereotype>>
+
+ENTITY(User, "User", "Entity")
+ENTITY(Producer, "Producer", "Entity")
+ENTITY(CoProducer, "Co-Producer", "Entity")
+ENTITY(Product, "Product", "Entity")
+ENTITY(Subscription, "Subscription", "Entity")
+ENTITY(Offer, "Product Offer", "Entity")
+ENTITY(Delivery, "Delivery", "Entity")
+ENTITY(KPI, "KPI Metrics", "Entity")
+ENTITY(SubscriptionPeriod, "Subscription Period", "Entity")
+ENTITY(Payment, "Payment", "Entity")
+
+User --> Producer : "acts as"
+User --> CoProducer : "acts as"
+Producer --> Product : "creates"
+Producer --> Offer : "manages"
+CoProducer --> Offer : "subscribes to"
+Offer --> Subscription : "links to"
+Subscription --> Delivery : "triggers"
+Delivery --> KPI : "updates"
+Producer --> SubscriptionPeriod : "defines"
+SubscriptionPeriod --> Offer : "includes"
+CoProducer --> Payment : "makes"
+Payment --> Subscription : "settles"
+
+@enduml
