@@ -148,6 +148,10 @@ namespace AMAPP.API.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //modelBuilder.Entity<SubscriptionPayment>()
+            //    .Property(p => p.PaymentStatus)
+            //    .HasConversion<string>(); // Store enum as a string in the database
+
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Name = "Administrator", NormalizedName = "ADMIN" },

@@ -88,6 +88,7 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProductOfferService, ProductOfferService>();
             builder.Services.AddScoped<ISelectedProductOfferService, SelectedProductOfferService>();
             builder.Services.AddScoped<ISelectedProductOfferRepository, SelectedProductOfferRepository>();
+            builder.Services.AddScoped<ISubscriptionPaymentService, SubscriptionPaymentService>();
             builder.Services.AddScoped<ISubscriptionPaymentRepository, SubscriptionPaymentRepository>();
 
             builder.Services.AddRouting(options =>
