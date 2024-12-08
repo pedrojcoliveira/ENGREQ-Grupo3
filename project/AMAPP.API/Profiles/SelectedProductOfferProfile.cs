@@ -11,7 +11,9 @@ namespace AMAPP.API.Profiles
             CreateMap<CreateSelectedProductOfferDto, SelectedProductOffer>();
             CreateMap<SelectedProductOffer, ResponseSelectedProductOfferDto>();
             CreateMap<SelectedProductOfferDto, SelectedProductOffer>();
+            CreateMap<UpdateSelectedProductOfferQuantityDto, SelectedProductOffer>()
+               .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
         }
-        
     }
+        
 }

@@ -9,4 +9,5 @@ public interface ISelectedProductOfferService
         Task<ResponseSelectedProductOfferDto> GetSelectedProductOfferByIdAsync(int id);
         Task<ResponseSelectedProductOfferDto> UpdateSelectedProductOfferAsync(int id, SelectedProductOfferDto updateSelectedProductOfferDto);
         Task<bool> DeleteSelectedProductOfferAsync(int id);
+        Task<bool> UpdateSelectedProductOfferQuantityAsync(int id, int quantity);
 }
