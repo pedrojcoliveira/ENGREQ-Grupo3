@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AMAPP.Web.Models.Subscription>
+﻿@model IEnumerable<AMAPP.Web.Models.SubscriptionViewModel>
 <link rel="stylesheet" href="~/css/subscriptionperiod.css" asp-append-version="true" />
 
 @{
@@ -6,54 +6,72 @@
 }
 
 <div class="container mt-5">
-    <h1 class="title">@ViewData["Title"]</h1>
+    <h1 class="title">Subscrições</h1>
 
     <div class="header">
-        <p class="subtitle">Gerencie as subscrições abaixo.</p>
+        <p class="subtitle"></p>
         <a asp-action="Create" class="btn btn-create">
             <i class="bi bi-plus-circle-fill"></i> Criar Nova Subscrição
         </a>
     </div>
 
-    @if (Model != null && Model.Any())
-    {
-        <div class="table-responsive">
-            <table class="table subscription-table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Coprodutor</th>
-                        <th>Período</th>
-                        <th>Produtos</th>
-                        <th>Total de Pagamentos (€)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var subscription in Model)
-                    {
-                        <tr>
-                            <td>@subscription.Id</td>
-                            <td>@subscription.CoproducerName</td>
-                            <td>@subscription.PeriodDescription</td>
-                            <td>
-                                <ul class="dates-list">
-                                    @foreach (var product in subscription.Products)
-                                    {
-                                        <li><i class="bi bi-box date-icon"></i>@product</li>
-                                    }
-                                </ul>
-                            </td>
-                            <td>@subscription.TotalPayments.ToString("F2")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-    else
-    {
-        <div class="alert no-data-alert">
-            <i class="bi bi-exclamation-circle"></i> Nenhuma subscrição encontrada.
-        </div>
-    }
+<div class="table-responsive">
+    <table class="table subscription-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data de Entrega</th>
+                <th>Oferta do Produto</th>
+                <th>ID da Subscrição</th>
+                <th>Quantidade</th>
+                <th>Pagamentos</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subscription in Model)
+            {
+                <tr>
+                    <td>@subscription.Id</td>
+                    <td>@subscription.DeliveryDate</td>
+                    <td>@subscription.ProductOfferId</td>
+                    <td>@subscription.SubscriptionId</td>
+                    <td>
+                        <form asp-action="UpdateQuantity" method="post" class="d-flex">
+                            <input type="hidden" name="id" value="@subscription.Id" />
+                            <input type="number" name="quantity" value="@subscription.Quantity" class="form-control me-2" style="max-width: 80px;" required />
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="bi bi-save"></i> Salvar
+                            </button>
+                        </form>
+                    </td>
+
+                    <td>
+                        @if (subscription.Payments != null && subscription.Payments.Any())
+                        {
+                            <ul>
+                                @foreach (var payment in subscription.Payments)
+                                {
+                                    <li>@payment.Amount € - @payment.PaymentDate</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>Sem pagamentos</p>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@subscription.Id" class="btn btn-info btn-sm">
+                            <i class="bi bi-info-circle"></i> Detalhes
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@subscription.Id" class="btn btn-danger btn-sm"
+                           onclick="return confirm('Tem certeza de que deseja excluir esta subscrição?');">
+                            <i class="bi bi-trash-fill"></i> Excluir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
