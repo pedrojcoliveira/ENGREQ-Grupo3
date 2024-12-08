@@ -22,7 +22,7 @@ namespace AMAPP.API.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<DeliveryDate> DeliveryDates { get; set; }
         public DbSet<SelectedDeliveryDate> SelectedDeliveryDates { get; set; }
-
+        public DbSet<SelectedProductOffer> SelectedProductOffer { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -127,6 +127,7 @@ namespace AMAPP.API.Data
                 .HasOne(ps => ps.Subscription)
                 .WithMany(s => s.SelectedProducts)
                 .HasForeignKey(ps => ps.SubscriptionId);
+            
             
             modelBuilder.Entity<SubscriptionPeriod>()
                 .HasMany(sp  => sp.DeliveryDates)

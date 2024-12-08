@@ -443,25 +443,25 @@ namespace AMAPP.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "010da128-a5a2-4c75-bf6b-1e22ab7fa5cc",
+                            Id = "6881339c-5488-48d7-8f39-81d8dced4f31",
                             Name = "Administrator",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ffdea180-7651-450f-9661-b42bf5c6db99",
+                            Id = "b158c442-04aa-416c-9ec6-cba57cb5fe76",
                             Name = "Amap",
                             NormalizedName = "AMAP"
                         },
                         new
                         {
-                            Id = "a56c8c9c-413b-4d27-b13a-b75a6b732b48",
+                            Id = "7de84226-4252-4a8c-94d1-38698ad5dfbd",
                             Name = "Producer",
                             NormalizedName = "PROD"
                         },
                         new
                         {
-                            Id = "ddbc04c3-858f-47f7-892f-80c5471c85b5",
+                            Id = "7ca96e34-670d-4710-99e9-cfc09189f33c",
                             Name = "CoProducer",
                             NormalizedName = "COPR"
                         });

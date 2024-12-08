@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AMAPP.API.DTOs.SubscriptionPayment;
 
 namespace AMAPP.API.DTOs.SelectedProductOffer;
 
@@ -12,5 +13,6 @@ public class CreateSelectedProductOfferDto
         public int SubscriptionId { get; set; }
         [Required]
         public int Quantity { get; set; }
-        
+        [Required]
+        public List<CreateSubscriptionPaymentDto> CreateSubscriptionPaymentsDto  { get; set; } = new ();
 }

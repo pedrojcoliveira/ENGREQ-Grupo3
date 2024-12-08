@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using MediatR;
 using System.Reflection;
 using AMAPP.API.DTOs.SelectedProductOffer.Validators;
+using AMAPP.API.DTOs.SubscriptionPayment.Validators;
 using AMAPP.API.Repository.SubscriptionRepository;
 using FluentValidation;
 
@@ -104,7 +105,7 @@ namespace AMAPP.API
                 .AddFluentValidationClientsideAdapters();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSelectedProductOfferDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSubscriptionPeriodDtoValidator>();
-            
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateSubscriptionPaymentDtoValidator>();
 
             // Add MediatR
             builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
