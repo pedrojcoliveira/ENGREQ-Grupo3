@@ -12,7 +12,6 @@ using AMAPP.API.Repository.SelectedProductOfferRepository;
 using AMAPP.API.Repository.SubscriptionPaymentRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AMAPP.API.Repository.SubscriptionRepository;
-using AMAPP.API.Services;
 using AMAPP.API.Services.Implementations;
 using AMAPP.API.Services.Interfaces;
 using AMAPP.API.Utils;

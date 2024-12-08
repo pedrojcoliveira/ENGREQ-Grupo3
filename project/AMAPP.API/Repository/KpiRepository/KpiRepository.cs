@@ -28,7 +28,7 @@ namespace AMAPP.API.Repository.KpiRepository
                                             group new { subscriptionPayment, user.UserName, subscriptionPeriod.Name, product.ReferencePrice } by new { user.UserName, subscriptionPeriod.Name } into g
                                             select new CoproducerSubscriptionKpi
                                             {
-                                                CoproducerName = g.Key.Name,
+                                                CoproducerName = g.Key.UserName,
                                                 SubscriptionPeriodName = g.Key.Name,
                                                 AverageVelueByDelivery = g.Average(x => x.ReferencePrice),
                                                 AverageValueByPeriod = g.Sum(x => x.ReferencePrice)
@@ -50,7 +50,7 @@ namespace AMAPP.API.Repository.KpiRepository
                                                    group new { subscriptionPayment, user.UserName, subscriptionPeriod.Name, product.ReferencePrice } by new { user.UserName, subscriptionPeriod.Name } into g
                                                    select new ProducerDeliveryKpi
                                                    {
-                                                       ProducerName = g.Key.Name,
+                                                       ProducerName = g.Key.UserName,
                                                        SubscriptionPeriodName = g.Key.Name,
                                                        DeliveryAverageValue = g.Average(x => x.ReferencePrice),
                                                        PeriodTotalValue = g.Sum(x => x.ReferencePrice)

@@ -15,7 +15,7 @@ namespace AMAPP.API.Controllers
             _accountBalanceService = accountBalanceService;
         }
 
-        [HttpGet("CalculateCoproducerBalance")]
+        [HttpPost("CalculateCoproducerBalance")]
         public async Task<IActionResult> CalculateCoproducerBalance()
         {
             var coproducerbalance = await _accountBalanceService.SetAccountBalance();
