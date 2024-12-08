@@ -1,65 +1,89 @@
 ﻿@model AMAPP.Web.Models.CreateProductOffer
+
+<!-- Link para o CSS com a versão para cache -->
 <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
 
-<h2 class="mb-4">Criar Oferta de Produto</h2>
+<div class="container">
+    <h2 class="title">Criar Oferta de Produto</h2>
 
-<!-- Exibição de mensagens de erro gerais -->
-@if (ViewBag.ErrorMessageProducts != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @ViewBag.ErrorMessageProducts
-    </div>
-}
-
-@if (ViewBag.ErrorMessagePeriods != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @ViewBag.ErrorMessagePeriods
-    </div>
-}
-
-<!-- Formulário para criação de ProductOffer -->
-<form asp-action="Create" method="post" class="needs-validation" novalidate>
-    <!-- Campo para seleção do Produto -->
-    <div class="mb-3">
-        <label for="ProductId" class="form-label">Produto</label>
-        <select id="ProductId" class="form-select" asp-for="ProductId" asp-items="@(ViewBag.Products != null ? new SelectList(ViewBag.Products, "Id", "Name") : null)">
-            <option value="">Selecione um produto</option>
-        </select>
-        <span asp-validation-for="ProductId" class="text-danger"></span>
-    </div>
-
-    <!-- Campo para seleção do Período de Assinatura -->
-    <div class="mb-3">
-        <label for="PeriodSubscriptionId" class="form-label">Período de Assinatura</label>
-        <select id="PeriodSubscriptionId" class="form-select" asp-for="PeriodSubscriptionId" asp-items="@(ViewBag.SubscriptionPeriods != null ? new SelectList(ViewBag.SubscriptionPeriods, "Id", "Name") : null)">
-            <option value="">Selecione um período</option>
-        </select>
-        <span asp-validation-for="PeriodSubscriptionId" class="text-danger"></span>
-    </div>
-
-    <!-- Campo para adicionar múltiplas datas de entrega -->
-    <div class="mb-3">
-        <label for="DeliveryDates" class="form-label">Datas de Entrega</label>
-        <div id="DeliveryDatesContainer">
-            <!-- Grupo inicial de entrada de data -->
-            <div class="input-group mb-2">
-                <input type="date" class="form-control" name="SelectedDeliveryDates" />
-                <button type="button" class="btn btn-danger remove-date-btn">Remover</button>
-            </div>
+    <!-- Mensagens de erro gerais -->
+    @if (ViewBag.ErrorMessageProducts != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessageProducts
         </div>
-        <button type="button" id="addDateButton" class="btn btn-secondary">Adicionar Data</button>
-        <span asp-validation-for="SelectedDeliveryDates" class="text-danger"></span>
-    </div>
+    }
 
-    <!-- Botão para salvar -->
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+    @if (ViewBag.ErrorMessagePeriods != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessagePeriods
+        </div>
+    }
 
-<!-- Seção de Scripts -->
+    <form asp-action="Create" method="post" class="needs-validation" novalidate>
+        <!-- Produto -->
+        <div class="mb-3">
+            <label for="ProductId" class="form-label">Produto</label>
+            <select id="ProductId" class="form-select" asp-for="ProductId" asp-items="@(ViewBag.Products != null ? new SelectList(ViewBag.Products, "Id", "Name") : null)">
+                <option value="">Selecione um produto</option>
+            </select>
+            <span asp-validation-for="ProductId" class="text-danger"></span>
+        </div>
+
+        <!-- Período de Assinatura -->
+        <div class="mb-3">
+            <label for="PeriodSubscriptionId" class="form-label">Período de Assinatura</label>
+            <select id="PeriodSubscriptionId" class="form-select" asp-for="PeriodSubscriptionId" asp-items="@(ViewBag.SubscriptionPeriods != null ? new SelectList(ViewBag.SubscriptionPeriods, "Id", "Name") : null)">
+                <option value="">Selecione um período</option>
+            </select>
+            <span asp-validation-for="PeriodSubscriptionId" class="text-danger"></span>
+        </div>
+
+        <!-- Datas de Entrega -->
+        <div class="mb-3">
+            <label for="DeliveryDates" class="form-label">Datas de Entrega</label>
+            <div id="DeliveryDatesContainer">
+                <div class="input-group mb-2">
+                    <input type="date" class="form-control" name="SelectedDeliveryDates" />
+                    <button type="button" class="btn btn-danger remove-date-btn">Remover</button>
+                </div>
+            </div>
+            <button type="button" id="addDateButton" class="btn-create">Adicionar Data</button>
+            <span asp-validation-for="SelectedDeliveryDates" class="text-danger"></span>
+        </div>
+
+        <!-- Método de Pagamento -->
+        <div class="mb-3">
+            <label for="PaymentMethod" class="form-label">Método de Pagamento</label>
+            <select id="PaymentMethod" class="form-select" asp-for="PaymentMethod">
+                @foreach (var method in Enum.GetValues(typeof(PaymentMethod)))
+                {
+                    <option value="@method">@method</option>
+                }
+            </select>
+            <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+        </div>
+
+        <!-- Modo de Pagamento -->
+        <div class="mb-3">
+            <label for="PaymentMode" class="form-label">Modo de Pagamento</label>
+            <select id="PaymentMode" class="form-select" asp-for="PaymentMode">
+                @foreach (var mode in Enum.GetValues(typeof(PaymentMode)))
+                {
+                    <option value="@mode">@mode</option>
+                }
+            </select>
+            <span asp-validation-for="PaymentMode" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn-create">Salvar</button>
+    </form>
+</div>
+
 @section Scripts {
     <script>
-        // Adicionar uma nova entrada de data dinamicamente
+        // Adiciona uma nova data de entrega ao formulário
         document.getElementById('addDateButton').addEventListener('click', function () {
             const container = document.getElementById('DeliveryDatesContainer');
             const newDateGroup = document.createElement('div');
@@ -71,7 +95,7 @@
             container.appendChild(newDateGroup);
         });
 
-        // Remover uma entrada de data
+        // Remove uma data de entrega do formulário
         document.getElementById('DeliveryDatesContainer').addEventListener('click', function (event) {
             if (event.target.classList.contains('remove-date-btn')) {
                 event.target.closest('.input-group').remove();
