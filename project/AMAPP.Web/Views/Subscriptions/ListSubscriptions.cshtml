@@ -36,16 +36,15 @@
                     <td>@subscription.DeliveryDate</td>
                     <td>@subscription.ProductOfferId</td>
                     <td>@subscription.SubscriptionId</td>
-                    <td>
-                        <form asp-action="UpdateQuantity" method="post" class="d-flex">
-                            <input type="hidden" name="id" value="@subscription.Id" />
-                            <input type="number" name="quantity" value="@subscription.Quantity" class="form-control me-2" style="max-width: 80px;" required />
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                <i class="bi bi-save"></i> Salvar
-                            </button>
-                        </form>
-                    </td>
-
+                        <td>
+                            <div class="d-flex">
+                                <input type="hidden" name="id" value="@subscription.Id" />
+                                <input type="number" name="quantity" value="@subscription.Quantity" class="form-control me-2" style="max-width: 80px;" required />
+                                <button type="button" class="btn btn-primary btn-sm btn-save-quantity">
+                                    <i class="bi bi-save"></i> Salvar
+                                </button>
+                            </div>
+                        </td>
                     <td>
                         @if (subscription.Payments != null && subscription.Payments.Any())
                         {
@@ -75,3 +74,33 @@
         </tbody>
     </table>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.btn-save-quantity').click(function () {
+            var row = $(this).closest('tr');
+            var id = row.find('input[name="id"]').val();
+            var quantity = row.find('input[name="quantity"]').val();
+
+            // Gera a URL usando Razor para a ação de atualização
+            var updateUrl = '@Url.Action("UpdateQuantity", "Subscriptions")';
+
+            $.ajax({
+                url: updateUrl,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: id, quantity: quantity }),
+                success: function (data) {
+                    alert("Quantidade atualizada com sucesso!");
+                    location.reload();
+                },
+                error: function () {
+                    alert('Erro ao atualizar a quantidade.');
+                }
+            });
+        });
+    });
+</script>
+
