@@ -15,12 +15,14 @@ public class SelectedProductOfferService : ISelectedProductOfferService
     private readonly IProductOfferRepository productOfferRepository;
     private readonly ISubscriptionRepository subscriptionRepository;
     private readonly IMapper mapper;
+    private readonly ISelectedProductOfferRepository _repository;
 
     public SelectedProductOfferService(ISelectedProductOfferRepository selectedProductOfferRepository, IProductOfferRepository productOfferRepository, ISubscriptionRepository subscriptionRepository, IMapper mapper)
     {
         this.selectedProductOfferRepository = selectedProductOfferRepository;
         this.productOfferRepository = productOfferRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this._repository = selectedProductOfferRepository;
         this.mapper = mapper;
     }
 
@@ -127,5 +129,10 @@ public async Task<List<ResponseSelectedProductOfferDto>> GetAllSelectedProductOf
 
         await selectedProductOfferRepository.RemoveAsync(selectedProductOffer);
         return true;
+    }
+
+    public async Task<bool> UpdateSelectedProductOfferQuantityAsync(int id, int quantity)
+    {
+        return await selectedProductOfferRepository.UpdateQuantityAsync(id, quantity);
     }
 }

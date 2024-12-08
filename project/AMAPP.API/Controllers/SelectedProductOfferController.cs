@@ -64,6 +64,25 @@ namespace AMAPP.API.Controllers
                 return NotFound();
 
             return NoContent();
-        }    
+        }
+
+
+        [HttpPut("{id}/quantity")]
+        public async Task<IActionResult> UpdateQuantity(int id, [FromBody] UpdateSelectedProductOfferQuantityDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var success = await _selectedProductOfferService.UpdateSelectedProductOfferQuantityAsync(id, dto.Quantity);
+            if (!success)
+            {
+                return NotFound(); // Retorna 404 se o registro não for encontrado
+            }
+
+            return NoContent(); // Retorna 204 para indicar sucesso sem conteúdo no corpo
+        }
+
     }
 }
