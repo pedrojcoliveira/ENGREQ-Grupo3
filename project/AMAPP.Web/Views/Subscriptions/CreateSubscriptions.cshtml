@@ -11,38 +11,32 @@
             <h2 class="mb-0">Criar Nova Subscrição</h2>
         </div>
         <div class="card-body">
-            <form asp-action="Create" method="post">
+            <form asp-controller="Subscriptions" asp-action="Create" method="post">
+                <!-- Campo para DeliveryDate -->
                 <div class="mb-3">
                     <label for="DeliveryDate" class="form-label">Data de Entrega</label>
                     <input type="datetime-local" asp-for="DeliveryDate" class="form-control" required />
                 </div>
 
+                <!-- Campo para ProductOfferId -->
                 <div class="mb-3">
                     <label for="ProductOfferId" class="form-label">Oferta de Produto</label>
                     <input type="number" asp-for="ProductOfferId" class="form-control" required />
                 </div>
 
-                <div class="mb-3">
-                    <label for="SubscriptionId" class="form-label">ID da Subscrição</label>
-                    <input type="number" asp-for="SubscriptionId" class="form-control" required />
-                </div>
-
+                <!-- Campo para Quantity -->
                 <div class="mb-3">
                     <label for="Quantity" class="form-label">Quantidade</label>
                     <input type="number" asp-for="Quantity" class="form-control" required />
                 </div>
 
+                <!-- Campo para SubscriptionId -->
                 <div class="mb-3">
-                    <label class="form-label">Pagamentos</label>
-                    @for (var i = 0; i < Model.CreateSubscriptionPayments.Count; i++)
-                    {
-                        <div class="payment-group mb-3">
-                            <input type="datetime-local" asp-for="CreateSubscriptionPayments[i].PaymentDate" class="form-control mb-2" />
-                            <input type="number" asp-for="CreateSubscriptionPayments[i].Amount" class="form-control" placeholder="Valor" required />
-                        </div>
-                    }
+                    <label for="SubscriptionId" class="form-label">Id da Subscrição</label>
+                    <input type="number" asp-for="SubscriptionId" class="form-control" required />
                 </div>
 
+                <!-- Botões de Ação -->
                 <div class="d-flex justify-content-end mt-4">
                     <button type="submit" class="btn btn-primary me-2">
                         <i class="bi bi-check-circle-fill"></i> Criar Subscrição
