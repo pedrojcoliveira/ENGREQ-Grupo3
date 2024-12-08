@@ -8,12 +8,32 @@ namespace AMAPP.API.Profiles
     {
         public SelectedProductOfferProfile()
         {
-            CreateMap<CreateSelectedProductOfferDto, SelectedProductOffer>();
-            CreateMap<SelectedProductOffer, ResponseSelectedProductOfferDto>();
+            CreateMap<CreateSelectedProductOfferDto, SelectedProductOffer>()
+                .ForMember(dest => dest.SubscriptionPayments,
+                    opt => opt.MapFrom(src => src.CreateSubscriptionPaymentsDto))
+                .AfterMap((src, dest) =>
+                {
+                    foreach (var payment in dest.SubscriptionPayments)
+                    {
+                        payment.SubscriptionId = src.SubscriptionId;
+                    }
+                });
+
+            CreateMap<SelectedProductOfferDto, SelectedProductOffer>()
+                .ForMember(dest => dest.SubscriptionPayments, opt => opt.MapFrom(src => src.SubscriptionPaymentDto))
+                .AfterMap((src, dest) =>
+                {
+                    foreach (var payment in dest.SubscriptionPayments)
+                    {
+                        payment.SubscriptionId = src.SubscriptionId;
+                    }
+                });
+
             CreateMap<SelectedProductOfferDto, SelectedProductOffer>();
+
+
             CreateMap<UpdateSelectedProductOfferQuantityDto, SelectedProductOffer>()
-               .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
         }
     }
-        
 }

@@ -1,4 +1,4 @@
-﻿using AMAPP.API.DTOs.SubscriptionPayment;
+using AMAPP.API.DTOs.SubscriptionPayment;
 using AMAPP.API.Models;
 
 namespace AMAPP.API.Repository.SubscriptionPaymentRepository

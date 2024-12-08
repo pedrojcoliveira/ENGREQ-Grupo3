@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using AMAPP.API.DTOs.SubscriptionPayment.Validators;
 
 namespace AMAPP.API.DTOs.SelectedProductOffer.Validators
 {
@@ -20,6 +21,9 @@ namespace AMAPP.API.DTOs.SelectedProductOffer.Validators
 
             RuleFor(x => x.Quantity)
                 .GreaterThan(0).WithMessage("A quantidade deve ser maior que 0.");
+            
+            RuleForEach(x => x.CreateSubscriptionPaymentsDto)
+                .SetValidator(new CreateSubscriptionPaymentDtoValidator());
         }
     }
 }

@@ -11,5 +11,11 @@ namespace AMAPP.API.Repository.SubscriptionRepository
         {
         }
         
+        public new async Task<Subscription?> GetByIdAsync(int id)
+        {
+            return await _context.Subscriptions
+                .FirstOrDefaultAsync(sp => sp.Id == id);
+        }
+        
     }
 }
