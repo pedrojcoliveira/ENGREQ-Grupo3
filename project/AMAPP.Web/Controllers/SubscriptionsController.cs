@@ -83,13 +83,8 @@ namespace AMAPP.Web.Controllers
         // GET: CreateSubscription
         public IActionResult Create()
         {
-            // Criar um modelo vazio para a criação de subscrições
-            var model = new SubscriptionViewModel
-            {
-                CreateSubscriptionPayments = new List<CreateSubscriptionPaymentViewModel>()
-            };
 
-            return View("CreateSubscriptions", model);
+            return View("CreateSubscriptions");
         }
 
         // POST: CreateSubscription

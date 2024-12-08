@@ -24,7 +24,6 @@
                 <th>Oferta do Produto</th>
                 <th>ID da Subscrição</th>
                 <th>Quantidade</th>
-                <th>Pagamentos</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -45,21 +44,6 @@
                                 </button>
                             </div>
                         </td>
-                    <td>
-                        @if (subscription.Payments != null && subscription.Payments.Any())
-                        {
-                            <ul>
-                                @foreach (var payment in subscription.Payments)
-                                {
-                                    <li>@payment.Amount € - @payment.PaymentDate</li>
-                                }
-                            </ul>
-                        }
-                        else
-                        {
-                            <p>Sem pagamentos</p>
-                        }
-                    </td>
                     <td>
                         <a asp-action="Details" asp-route-id="@subscription.Id" class="btn btn-info btn-sm">
                             <i class="bi bi-info-circle"></i> Detalhes
