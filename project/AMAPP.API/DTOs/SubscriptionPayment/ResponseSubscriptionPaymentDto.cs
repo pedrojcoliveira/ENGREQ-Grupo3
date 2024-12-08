@@ -6,7 +6,7 @@ public class ResponseSubscriptionPaymentDto
     public int Id { get; set; }
     public int SubscriptionId { get; set; }
 
-    public int SelectedProductOffer { get; set; }
+    public int SelectedProductOfferId { get; set; }
 
     public DateTime PaymentDate { get; set; }
 

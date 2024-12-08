@@ -21,8 +21,10 @@ namespace AMAPP.API.Data
         public DbSet<ProductOffer> ProductOffers { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<DeliveryDate> DeliveryDates { get; set; }
+        public DbSet<SelectedProductOffer> SelectedProductOffers { get; set; }
         public DbSet<SelectedDeliveryDate> SelectedDeliveryDates { get; set; }
-        public DbSet<SelectedProductOffer> SelectedProductOffer { get; set; }
+        public DbSet<SubscriptionPayment> SubscriptionPayments { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -128,7 +130,6 @@ namespace AMAPP.API.Data
                 .WithMany(s => s.SelectedProducts)
                 .HasForeignKey(ps => ps.SubscriptionId);
             
-            
             modelBuilder.Entity<SubscriptionPeriod>()
                 .HasMany(sp  => sp.DeliveryDates)
                 .WithOne()
@@ -148,6 +149,10 @@ namespace AMAPP.API.Data
                 .HasForeignKey(sp => sp.SelectedProductOfferId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<SubscriptionPayment>()
+            //    .Property(p => p.PaymentStatus)
+            //    .HasConversion<string>(); // Store enum as a string in the database
 
 
             modelBuilder.Entity<IdentityRole>().HasData(

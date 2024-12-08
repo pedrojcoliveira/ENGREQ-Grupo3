@@ -4,5 +4,5 @@ namespace AMAPP.API.Repository.SelectedProductOfferRepository;
 
 public interface ISelectedProductOfferRepository: IRepositoryBase<SelectedProductOffer>
 {
-    
+    Task<bool> UpdateQuantityAsync(int id, int quantity);
 }

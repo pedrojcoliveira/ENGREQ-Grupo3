@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿                using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace AMAPP.Web.Controllers
 
         public ProductsController(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClientFactory.CreateClient("AMAPPClient");
+            _httpClient = httpClientFactory.CreateClient("APIClient");
         }
 
         //-------------------------------------------------------------------------------------------

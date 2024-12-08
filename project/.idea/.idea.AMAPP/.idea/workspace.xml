@@ -13,29 +13,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPaymentController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/CreateSubscriptionPaymentDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/ResponseSubscriptionPaymentDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/SubscriptionPaymentDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/Validators/CreateSubscriptionPaymentDtoValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPaymentProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPaymentRepository/ISubscriptionPaymentRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPaymentRepository/SubscriptionPaymentRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPaymentService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPaymentService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/UpdateSelectedProductOfferQuantityDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/CoProducerDebts.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/ProducerPendingPayments.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/UpdateSubscriptionPaymentDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Migrations/20241207194719_Payments.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Migrations/20241207194719_Payments.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Migrations/20241208003643_SubscriptionPaymentsFix.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Migrations/20241208003643_SubscriptionPaymentsFix.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.Web/wwwroot/css/ProductOffer.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/CreateSelectedProductOfferDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/CreateSelectedProductOfferDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/ResponseSelectedProductOfferDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/ResponseSelectedProductOfferDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/Validators/CreateSelectedProductOfferDtoValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/Validators/CreateSelectedProductOfferDtoValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Controllers/SelectedProductOfferController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/SelectedProductOfferController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPaymentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/SubscriptionPaymentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/ProductOfferDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/ProductOfferDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/ProductOfferResultDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/ProductOffer/ProductOfferResultDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/SelectedProductOfferDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/SelectedProductOfferDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/ResponseSubscriptionPaymentDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/ResponseSubscriptionPaymentDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/SubscriptionPaymentDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPayment/SubscriptionPaymentDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Data/ApplicationDbContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Models/Subscription.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Models/Subscription.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Models/ProductOffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Models/ProductOffer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Profiles/SelectedProductOfferProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/SelectedProductOfferProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPaymentProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPaymentProfile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SelectedProductOfferRepository/ISelectedProductOfferRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SelectedProductOfferRepository/ISelectedProductOfferRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SelectedProductOfferRepository/SelectedProductOfferRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SelectedProductOfferRepository/SelectedProductOfferRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPaymentRepository/ISubscriptionPaymentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPaymentRepository/ISubscriptionPaymentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPaymentRepository/SubscriptionPaymentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPaymentRepository/SubscriptionPaymentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/ProductOfferService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/ProductOfferService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISelectedProductOfferService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISelectedProductOfferService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ISubscriptionPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Controllers/HomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Controllers/ProductOfferController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Controllers/ProductOfferController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Controllers/ProductsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Controllers/ProductsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Controllers/SubscriptionPeriodController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Controllers/SubscriptionPeriodController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Models/CreateProductOffer .cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Models/CreateProductOffer .cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Models/ProductOffer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Models/ProductOffer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Views/ProductOffer/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Views/ProductOffer/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Views/ProductOffer/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Views/ProductOffer/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.Web/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.Web/Views/Shared/_Layout.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +81,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8be3a835a33b22749161cd57a7225ef65e0c61c64c2bfd969e2e404130dd/Controller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ecc6246fd855ee6a4602ae9988369e56f35ce0107895f34cfd2b9274e27ac1/FluentValidationMvcExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Controllers/SelectedProductOfferController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Controllers/SubscriptionPaymentController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Controllers/SubscriptionPaymentController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/DTOs/Product/Validators/CreateProductDtoValidator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/CreateSelectedProductOfferDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/ResponseSelectedProductOfferDto.cs" root0="FORCE_HIGHLIGHTING" />
@@ -73,17 +93,37 @@
     <setting file="file://$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/CreateSubscriptionPeriodDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/SubscriptionPeriodDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/DTOs/SubscriptionPeriod/Validators/CreateSubscriptionPeriodDtoValidator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Data/ApplicationDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Data/ApplicationDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Migrations/ApplicationDbContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Models/SubscriptionPeriod.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Profiles/ProductProfile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Profiles/SelectedProductOfferProfile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Profiles/SelectedProductOfferProfile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Profiles/SelectedProductOfferProfile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/IProductOfferRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/ProductOfferRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/RepositoryBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/SelectedProductOfferRepository/SelectedProductOfferRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Repository/SelectedProductOfferRepository/SelectedProductOfferRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Repository/SelectedProductOfferRepository/SelectedProductOfferRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Repository/SubscriptionPaymentRepository/ISubscriptionPaymentRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Repository/SubscriptionPaymentRepository/ISubscriptionPaymentRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Repository/SubscriptionPaymentRepository/SubscriptionPaymentRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Repository/SubscriptionPaymentRepository/SubscriptionPaymentRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionPeriodRepository/ISubscriptionPeriodRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Services/Implementations/SubscriptionPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Services/Implementations/SubscriptionPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Services/Interfaces/ISubscriptionPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Services/Interfaces/ISubscriptionPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Services/Interfaces/ISubscriptionPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/temp_repo/ENGREQ2425-Grupo3/project/AMAPP.API/Services/Interfaces/ISubscriptionPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.API/appsettings.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AMAPP.Web/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map" root0="FORCE_HIGHLIGHTING" />
@@ -119,7 +159,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "XThreadsFramesViewSplitterKey": "0.7319149",
-    "git-widget-placeholder": "feature/s1-ilidio-e4",
+    "git-widget-placeholder": "Merging feature/s1-ilidio-e4",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -279,6 +319,8 @@
       <workItem from="1733340581730" duration="11854000" />
       <workItem from="1733434435593" duration="6974000" />
       <workItem from="1733499947862" duration="2377000" />
+      <workItem from="1733654289201" duration="965000" />
+      <workItem from="1733655345875" duration="12473000" />
     </task>
     <servers />
   </component>
@@ -619,84 +661,6 @@
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>30</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
-            <startOffsets>
-              <option value="1362" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1469" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>33</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
-            <startOffsets>
-              <option value="1526" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1588" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>31</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
-            <startOffsets>
-              <option value="1478" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1503" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>37</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
-            <startOffsets>
-              <option value="1653" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1760" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>40</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
-            <startOffsets>
-              <option value="1817" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1864" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>38</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
-            <startOffsets>
-              <option value="1769" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1794" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository.cs</url>
           <line>15</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\SubscriptionRepository\SubscriptionRepository.cs" containingFunctionPresentation="Method 'GetByIdAsync'">
@@ -710,19 +674,6 @@
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>53</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
-            <startOffsets>
-              <option value="2384" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2452" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SelectedProductOfferProfile.cs</url>
           <line>10</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SelectedProductOfferProfile.cs" containingFunctionPresentation="Constructor 'SelectedProductOfferProfile'">
@@ -730,36 +681,101 @@
               <option value="245" />
             </startOffsets>
             <endOffsets>
-              <option value="437" />
+              <option value="716" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPaymentService.cs</url>
-          <line>42</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPaymentService.cs" containingFunctionPresentation="Method 'GetSubscriptionPaymentByIdAsync'">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>136</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="1968" />
+              <option value="6269" />
             </startOffsets>
             <endOffsets>
-              <option value="2040" />
+              <option value="6349" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="39" />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPaymentService.cs</url>
+          <line>49</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPaymentService.cs" containingFunctionPresentation="Method 'GetSubscriptionPaymentByIdAsync'">
+            <startOffsets>
+              <option value="2160" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2240" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>55</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
+          <line>138</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="2466" />
+              <option value="6372" />
             </startOffsets>
             <endOffsets>
-              <option value="2539" />
+              <option value="6479" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="40" />
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>139</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
+            <startOffsets>
+              <option value="6492" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6520" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>150</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
+            <startOffsets>
+              <option value="7002" />
+            </startOffsets>
+            <endOffsets>
+              <option value="7080" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>90</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
+            <startOffsets>
+              <option value="4021" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4111" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>91</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
+            <startOffsets>
+              <option value="4120" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4205" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

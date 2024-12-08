@@ -3,12 +3,10 @@ using AMAPP.API.Models;
 using AMAPP.API.Repository.SubscriptionPaymentRepository;
 using AMAPP.API.Services.Interfaces;
 using AutoMapper;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AMAPP.API.Services.Implementations
 {
-    public class SubscriptionPaymentService : ISubscriptionPaymentService
+    public class SubscriptionPaymentService: ISubscriptionPaymentService
     {
         private readonly ISubscriptionPaymentRepository _subscriptionPaymentRepository;
         private readonly IMapper _mapper;
@@ -19,6 +17,20 @@ namespace AMAPP.API.Services.Implementations
             _mapper = mapper;
         }
 
+        public async Task<List<CoProducerDebts>> GetAllCoproducersDepts()
+        {
+            var coproducersDebts = await _subscriptionPaymentRepository.GetAllCoproducersDebts();
+
+            return coproducersDebts;
+        }
+
+        public async Task<List<ProducerPendingPayments>> GetAllProducerPendingPayments()
+        {
+            var producerPendingPayments = await _subscriptionPaymentRepository.GetAllProducerPendingPayments();
+
+            return producerPendingPayments;
+        }
+        
         public async Task<ResponseSubscriptionPaymentDto> AddSubscriptionPaymentAsync(CreateSubscriptionPaymentDto createSubscriptionPaymentDto)
         {
             var subscriptionPayment = _mapper.Map<SubscriptionPayment>(createSubscriptionPaymentDto);
@@ -43,7 +55,7 @@ namespace AMAPP.API.Services.Implementations
             return _mapper.Map<ResponseSubscriptionPaymentDto>(subscriptionPayment);
         }
 
-        public async Task<ResponseSubscriptionPaymentDto> UpdateSubscriptionPaymentAsync(int id, SubscriptionPaymentDto updateSubscriptionPaymentDto)
+        public async Task<ResponseSubscriptionPaymentDto> UpdateSubscriptionPaymentAsync(int id, UpdateSubscriptionPaymentDto updateSubscriptionPaymentDto)
         {
             var existingSubscriptionPayment = await _subscriptionPaymentRepository.GetByIdAsync(id);
             if (existingSubscriptionPayment == null)
@@ -51,7 +63,18 @@ namespace AMAPP.API.Services.Implementations
                 throw new KeyNotFoundException("Subscription payment not found.");
             }
 
-            _mapper.Map(updateSubscriptionPaymentDto, existingSubscriptionPayment);
+            // Update PaymentDate if provided
+            if (updateSubscriptionPaymentDto.PaymentDate != default && updateSubscriptionPaymentDto.PaymentDate != DateTime.MinValue)
+                existingSubscriptionPayment.PaymentDate = updateSubscriptionPaymentDto.PaymentDate;
+
+            // Update Amount if provided and greater than 0
+            if (updateSubscriptionPaymentDto.Amount > 0)
+                existingSubscriptionPayment.Amount = updateSubscriptionPaymentDto.Amount;
+
+            // Update PaymentStatus if provided
+            if (Enum.IsDefined(typeof(Constants.PaymentStatus), updateSubscriptionPaymentDto.PaymentStatus))
+                existingSubscriptionPayment.PaymentStatus = updateSubscriptionPaymentDto.PaymentStatus;
+
             await _subscriptionPaymentRepository.UpdateAsync(existingSubscriptionPayment);
 
             return _mapper.Map<ResponseSubscriptionPaymentDto>(existingSubscriptionPayment);

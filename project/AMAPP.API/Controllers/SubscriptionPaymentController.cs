@@ -1,13 +1,12 @@
 ﻿using AMAPP.API.DTOs.SubscriptionPayment;
 using AMAPP.API.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AMAPP.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class SubscriptionPaymentController : ControllerBase
     {
         private readonly ISubscriptionPaymentService _subscriptionPaymentService;
@@ -17,7 +16,21 @@ namespace AMAPP.API.Controllers
             _subscriptionPaymentService = subscriptionPaymentService;
         }
 
-        [HttpPost]
+        [HttpGet("CoproducersDebts")]
+        public async Task<ActionResult<List<CoProducerDebts>>> GetAllCoproducersDepts()
+        {
+            var coproducersDebts = await _subscriptionPaymentService.GetAllCoproducersDepts();
+            return Ok(coproducersDebts);
+        }
+
+        [HttpGet("ProducerPendingPayments")]
+        public async Task<ActionResult<List<ProducerPendingPayments>>> GetAllProducerPendingPayments()
+        {
+            var producerPendingPayments = await _subscriptionPaymentService.GetAllProducerPendingPayments();
+            return Ok(producerPendingPayments);
+        }
+        
+                [HttpPost]
         public async Task<ActionResult<ResponseSubscriptionPaymentDto>> AddSubscriptionPayment([FromBody] CreateSubscriptionPaymentDto createSubscriptionPaymentDto)
         {
             if (!ModelState.IsValid)
@@ -45,7 +58,7 @@ namespace AMAPP.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<ResponseSubscriptionPaymentDto>> UpdateSubscriptionPayment(int id, [FromBody] SubscriptionPaymentDto updateSubscriptionPaymentDto)
+        public async Task<ActionResult<ResponseSubscriptionPaymentDto>> UpdateSubscriptionPayment(int id, [FromBody] UpdateSubscriptionPaymentDto updateSubscriptionPaymentDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

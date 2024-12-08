@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static AMAPP.API.Constants;
+
 
 namespace AMAPP.API.Models
 {
@@ -10,8 +12,8 @@ namespace AMAPP.API.Models
         public int PeriodSubscriptionId { get; set; }
         public SubscriptionPeriod PeriodSubscription { get; set; }
         public List<SelectedDeliveryDate> SelectedDeliveryDates { get; set; } = new List<SelectedDeliveryDate>();
-       // public Constants.PaymentMethod PaymentMethod { get; set; }
-       // public Constants.PaymentMode PaymentMode { get; set; }
+       public PaymentMethod PaymentMethod { get; set; }
+       public PaymentMode PaymentMode { get; set; }
     }
 
 }

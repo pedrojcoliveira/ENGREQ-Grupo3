@@ -34,7 +34,6 @@ namespace AMAPP.Web.Controllers
                 var json = await response.Content.ReadAsStringAsync();
                 var productOffers = JsonConvert.DeserializeObject<List<ProductOffer>>(json);
 
-                // Certifique-se de que o modelo não é nulo
                 if (productOffers == null)
                 {
                     productOffers = new List<ProductOffer>();
@@ -49,48 +48,26 @@ namespace AMAPP.Web.Controllers
             }
         }
 
+
         // GET: Formulário para criar uma nova oferta de produto
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             try
             {
-                // Buscar produtos da API ou banco de dados
-                var productsResponse = await _httpClient.GetAsync("/api/Product");
-                var periodsResponse = await _httpClient.GetAsync("/api/Subscription-Period");
+                // Preencher ViewBag com dados necessários
+                await PopulateViewDataForCreate();
 
-                if (productsResponse.IsSuccessStatusCode)
-                {
-                    var productsJson = await productsResponse.Content.ReadAsStringAsync();
-                    ViewBag.Products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
-                }
-                else
-                {
-                    ViewBag.Products = new List<Product>();
-                    ViewBag.ErrorMessageProducts = "Não foi possível carregar os produtos.";
-                }
-
-                if (periodsResponse.IsSuccessStatusCode)
-                {
-                    var periodsJson = await periodsResponse.Content.ReadAsStringAsync();
-                    ViewBag.SubscriptionPeriods = JsonConvert.DeserializeObject<List<SubscriptionPeriod>>(periodsJson);
-                }
-                else
-                {
-                    ViewBag.SubscriptionPeriods = new List<SubscriptionPeriod>(); // Fallback vazio
-                    ViewBag.ErrorMessagePeriods = "Não foi possível carregar os períodos de assinatura.";
-                }
+                // Enviar os enums para a View
+                ViewBag.PaymentMethods = Enum.GetValues(typeof(PaymentMethod));
+                ViewBag.PaymentModes = Enum.GetValues(typeof(PaymentMode));
 
                 return View("Create");
             }
             catch (Exception ex)
             {
-                // Fallback em caso de erro
-                ViewBag.Products = new List<Product>();
-                ViewBag.SubscriptionPeriods = new List<SubscriptionPeriod>();
-                ViewBag.ErrorMessageProducts = "Erro ao carregar os produtos.";
-                ViewBag.ErrorMessagePeriods = "Erro ao carregar os períodos de assinatura.";
-                return View("Create");
+                ViewBag.ErrorMessage = $"Erro ao carregar os dados para criação: {ex.Message}";
+                return View("Error");
             }
         }
 
@@ -101,12 +78,15 @@ namespace AMAPP.Web.Controllers
             if (!ModelState.IsValid)
             {
                 await PopulateViewDataForCreate();
+
+                // Enviar os enums novamente em caso de erro
+                ViewBag.PaymentMethods = Enum.GetValues(typeof(PaymentMethod));
+                ViewBag.PaymentModes = Enum.GetValues(typeof(PaymentMode));
                 return View("Create", model);
             }
 
             try
             {
-                // Serializar para JSON e enviar para a API
                 var jsonContent = JsonConvert.SerializeObject(model);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
@@ -116,15 +96,19 @@ namespace AMAPP.Web.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                var errorContent = await response.Content.ReadAsStringAsync();
+
                 ModelState.AddModelError(string.Empty, $"Erro ao criar a oferta de produto: {response.StatusCode}");
                 await PopulateViewDataForCreate();
+                ViewBag.PaymentMethods = Enum.GetValues(typeof(PaymentMethod));
+                ViewBag.PaymentModes = Enum.GetValues(typeof(PaymentMode));
                 return View("Create", model);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Ocorreu um erro inesperado: {ex.Message}");
                 await PopulateViewDataForCreate();
+                ViewBag.PaymentMethods = Enum.GetValues(typeof(PaymentMethod));
+                ViewBag.PaymentModes = Enum.GetValues(typeof(PaymentMode));
                 return View("Create", model);
             }
         }

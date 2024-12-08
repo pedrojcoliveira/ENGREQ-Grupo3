@@ -11,6 +11,7 @@ namespace AMAPP.API.Profiles
             CreateMap<CreateSubscriptionPaymentDto, SubscriptionPayment>();
             CreateMap<SubscriptionPaymentDto, SubscriptionPayment>();
             CreateMap<SubscriptionPayment, ResponseSubscriptionPaymentDto>();
+            CreateMap<UpdateSubscriptionPaymentDto, ResponseSubscriptionPaymentDto>();
         }
     }
 }

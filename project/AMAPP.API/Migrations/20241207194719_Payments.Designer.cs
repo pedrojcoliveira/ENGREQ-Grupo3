@@ -3,6 +3,7 @@ using System;
 using AMAPP.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AMAPP.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207194719_Payments")]
+    partial class Payments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,7 +271,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionPeriodId");
 
-                    b.ToTable("SelectedProductOffers");
+                    b.ToTable("SelectedProductOffer");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
@@ -323,7 +326,7 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("SubscriptionPayments");
+                    b.ToTable("SubscriptionPayment");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
@@ -449,25 +452,25 @@ namespace AMAPP.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f7e14c43-9485-44da-8d9a-5c9b11f21af8",
+                            Id = "adaf4bdf-a200-4234-8098-00e4e08cd5e3",
                             Name = "Administrator",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "728c2e4e-c9fa-4899-a9ea-35c7d50231c2",
+                            Id = "348dabb3-fcf9-486f-af86-3e7a2e84d2d1",
                             Name = "Amap",
                             NormalizedName = "AMAP"
                         },
                         new
                         {
-                            Id = "657f1b92-3b72-4d8c-ae4f-6eabc2e415bc",
+                            Id = "1a7a70df-7eaa-4780-a378-b87c76e9b62b",
                             Name = "Producer",
                             NormalizedName = "PROD"
                         },
                         new
                         {
-                            Id = "890ca466-5c45-4dea-826a-54fd0e19a9e9",
+                            Id = "41690b65-2745-4874-aa1e-4cb2cfe508af",
                             Name = "CoProducer",
                             NormalizedName = "COPR"
                         });
