@@ -2,15 +2,15 @@
 <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
 
 @{
-    ViewData["Title"] = "Product List";
+    ViewData["Title"] = "Lista de Produtos";
 }
 
 <div class="container">
-    <h1 class="title">List of Products</h1>
+    <h1 class="title">Lista de Produtos</h1>
 
     <div class="text-end mb-3">
         <a class="btn btn-create" asp-area="" asp-controller="Products" asp-action="Create">
-            <i class="bi bi-plus-circle-fill"></i> Add New Product
+            <i class="bi bi-plus-circle-fill"></i> Adicionar Novo Produto
         </a>
     </div>
 
@@ -20,14 +20,14 @@
         {
             <a class="card-link" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
                 <div class="col">
-                    <div class="card h-100 hover-card" style="">
+                    <div class="card h-100 hover-card">
                         <img src="@product.PhotoBase64" class="card-img-top" alt="@product.Name" />
                         <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             <p class="card-text">@product.Description</p>
-                            <p class="card-text"><strong>Price:</strong> €@product.ReferencePrice</p>
-                            <p class="card-text"><strong>Delivery Unit:</strong> @product.DeliveryUnit</p>
-                            <p class="card-text"><strong>Product Type ID:</strong> @product.ProductTypeId</p>
+                            <p class="card-text"><strong>Preço:</strong> €@product.ReferencePrice</p>
+                            <p class="card-text"><strong>Unidade de Entrega:</strong> @product.DeliveryUnit</p>
+                            <p class="card-text"><strong>Tipo de Produto ID:</strong> @product.ProductTypeId</p>
                         </div>
                     </div>
                 </div>
@@ -42,4 +42,3 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 </style>
-

@@ -2,39 +2,37 @@
 <link rel="stylesheet" href="~/css/subscriptionperiod.css" asp-append-version="true" />
 
 @{
-    ViewData["Title"] = "Create Subscription Period";
+    ViewData["Title"] = "Criar Período de Subscrição";
 }
 
 <div class="container mt-5">
     <div class="card shadow border-0">
         <div class="card-header bg-primary text-white text-center">
-            <h2 class="mb-0">Create Subscription Period</h2>
+            <h2 class="mb-0">Criar Período de Subscrição</h2>
         </div>
         <div class="card-body">
             <form asp-action="Create" method="post">
                 <div class="mb-3">
-                    <label for="Name" class="form-label">Name</label>
-                    <input type="text" id="Name" name="Name" class="form-control" value="@Model?.Name" required placeholder="Enter the subscription name" />
+                    <label for="Name" class="form-label">Nome</label>
+                    <input type="text" id="Name" name="Name" class="form-control" value="@Model?.Name" required placeholder="Insira o nome da subscrição" />
                 </div>
                 <div class="mb-3">
-                    <label for="StartDate" class="form-label">Start Date</label>
+                    <label for="StartDate" class="form-label">Data de Início</label>
                     <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Model?.StartDate.ToString("yyyy-MM-dd")" required />
                 </div>
                 <div class="mb-3">
-                    <label for="EndDate" class="form-label">End Date</label>
+                    <label for="EndDate" class="form-label">Data de Fim</label>
                     <input type="date" id="EndDate" name="EndDate" class="form-control" value="@Model?.EndDate.ToString("yyyy-MM-dd")" required />
                 </div>
                 <div class="d-flex justify-content-end mt-4">
                     <button type="submit" class="btn btn-primary me-2">
-                        <i class="bi bi-check-circle-fill"></i> Create
+                        <i class="bi bi-check-circle-fill"></i> Criar
                     </button>
                     <a asp-action="List" class="btn btn-secondary">
-                        <i class="bi bi-x-circle-fill"></i> Cancel
+                        <i class="bi bi-x-circle-fill"></i> Cancelar
                     </a>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-

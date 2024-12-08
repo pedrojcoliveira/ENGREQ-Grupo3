@@ -2,16 +2,16 @@
 <link rel="stylesheet" href="~/css/subscriptionperiod.css" asp-append-version="true" />
 
 @{
-    ViewData["Title"] = "Subscription Period List";
+    ViewData["Title"] = "Lista de Períodos de Subscrição";
 }
 
 <div class="container mt-5">
-    <h1 class="title">Subscription Periods</h1>
+    <h1 class="title">Períodos de Subscrição</h1>
 
     <div class="header">
-        <p class="subtitle">Manage your subscription periods below.</p>
+        <p class="subtitle">Gerencie os períodos de subscrição abaixo.</p>
         <a asp-action="Create" class="btn btn-create">
-            <i class="bi bi-plus-circle-fill"></i> Create New Subscription Period
+            <i class="bi bi-plus-circle-fill"></i> Criar Novo Período de Subscrição
         </a>
     </div>
 
@@ -21,10 +21,10 @@
             <table class="table subscription-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Actions</th>
+                        <th>Nome</th>
+                        <th>Data de Início</th>
+                        <th>Data de Fim</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,11 +36,11 @@
                             <td>@period.EndDate.ToString("yyyy-MM-dd")</td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@period.Id" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-fill"></i> Edit
+                                    <i class="bi bi-pencil-fill"></i> Editar
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@period.Id" class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete this subscription period?');">
-                                    <i class="bi bi-trash-fill"></i> Delete
+                                   onclick="return confirm('Tem certeza de que deseja excluir este período de subscrição?');">
+                                    <i class="bi bi-trash-fill"></i> Excluir
                                 </a>
                             </td>
                         </tr>
@@ -52,7 +52,7 @@
     else
     {
         <div class="alert no-data-alert">
-            <i class="bi bi-exclamation-circle"></i> No subscription periods found.
+            <i class="bi bi-exclamation-circle"></i> Nenhum período de subscrição encontrado.
         </div>
     }
 </div>

@@ -26,20 +26,20 @@
             <form asp-action="Login" method="post">
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label"></label>
-                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                    <input asp-for="Email" class="form-control" placeholder="Insere o teu e-mail" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Password" class="form-label"></label>
-                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Insere a tua password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
             <div class="text-center mt-3">
-                <a href="#" class="small">Forgot your password?</a>
+                <a href="#" class="small">Esqueceu-se da password ?</a>
                 <div class="mt-2">
-                    <a class="small text-decoration-none" asp-controller="Home" asp-action="Register">Don't have an account? <span class="text-primary">Register here</span></a>
+                    <a class="small text-decoration-none" asp-controller="Home" asp-action="Register">Não tem conta ? <span class="text-primary">Registe-se aqui</span></a>
                 </div>
             </div>
         </div>
