@@ -10,7 +10,7 @@ namespace AMAPP.Web.Controllers
 
         public SubscriptionPeriodController(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClientFactory.CreateClient("AMAPPClient");
+            _httpClient = httpClientFactory.CreateClient("APIClient");
         }
 
         //-------------------------------------------------------------------------------------------
