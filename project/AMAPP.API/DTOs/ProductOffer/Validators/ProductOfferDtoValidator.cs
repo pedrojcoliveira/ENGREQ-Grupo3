@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using AMAPP.API.DTOs.ProductOffer;
 
-namespace AMAPP.API.Validators
+namespace AMAPP.API.DTOs.ProductOffer.Validators
 {
     public class ProductOfferDtoValidator : AbstractValidator<ProductOfferDto>
     {

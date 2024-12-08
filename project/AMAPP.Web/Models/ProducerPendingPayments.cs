@@ -1,4 +1,4 @@
-﻿namespace AMAPP.API.DTOs.SubscriptionPayment
+﻿namespace AMAPP.Web.Models
 {
     public class ProducerPendingPayments
     {

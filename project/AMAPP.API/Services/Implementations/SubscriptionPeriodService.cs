@@ -10,7 +10,7 @@ using AMAPP.API.Utils;
 using AutoMapper;
 using MediatR;
 
-namespace AMAPP.API.Services
+namespace AMAPP.API.Services.Implementations
 {
     public class SubscriptionPeriodService : ISubscriptionPeriodService
     {
@@ -38,9 +38,9 @@ namespace AMAPP.API.Services
                 _mediator.Publish(new SubscriptionPeriodCreatedEvent
                 {
                     NewlyCreatedSubscriptionPeriod = subscriptionPeriod
-                });                
-            }); 
-            
+                });
+            });
+
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
         }
 
@@ -82,7 +82,7 @@ namespace AMAPP.API.Services
             // Ensure EndDate is not earlier than StartDate
             if (subscriptionPeriod.StartDate > subscriptionPeriod.EndDate)
                 throw new ArgumentException("Hora de término não pode ser mais recente que data de início");
-            
+
             // Update DeliveryDatesList if provided
             if (subscriptionPeriodDto.Dates != null && subscriptionPeriodDto.Dates.Any(date => date != default))
             {
@@ -90,19 +90,19 @@ namespace AMAPP.API.Services
                     .Where(date => date != default)
                     .Select(date => new DeliveryDate { Date = date })
                     .ToList();
-            } 
-            
+            }
+
 
             // Persist the updated entity to the repository
             await _subscriptionPeriodRepository.UpdateAsync(subscriptionPeriod);
-            
+
             await Task.Run(() =>
             {
                 _mediator.Publish(new SubscriptionPeriodUpdatedEvent
                 {
                     NewlyUpdatedSubscriptionPeriod = subscriptionPeriod
                 });
-            }); 
+            });
 
             // Map the updated entity to the response DTO
             return _mapper.Map<ResponseSubscriptionPeriodDto>(subscriptionPeriod);
@@ -117,6 +117,6 @@ namespace AMAPP.API.Services
             await _subscriptionPeriodRepository.RemoveAsync(subscriptionPeriod);
             return true;
         }
-        
+
     }
 }

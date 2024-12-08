@@ -1,4 +1,4 @@
-﻿using AMAPP.API.DTOs.SubscriptionPayment;
+﻿using AMAPP.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
