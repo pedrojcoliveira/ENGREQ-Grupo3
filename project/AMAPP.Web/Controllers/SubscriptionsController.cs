@@ -16,6 +16,10 @@ namespace AMAPP.Web.Controllers
             _httpClient = httpClientFactory.CreateClient("APIClient");
         }
 
+        //-------------------------------------------------------------------------------------------
+        //------------------------------------ListSubscriptions--------------------------------------
+        //-------------------------------------------------------------------------------------------
+
         // GET: ListSubscriptions
         public async Task<IActionResult> List()
         {
@@ -28,6 +32,28 @@ namespace AMAPP.Web.Controllers
             // Passar os dados para a view
             return View("ListSubscriptions", subscriptions);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int id, [FromForm] int quantity)
+        {
+            var requestBody = JsonSerializer.Serialize(new { quantity });
+            var content = new StringContent(requestBody, System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"/api/selected-product-offer/{id}/quantity", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("List");
+            }
+
+            ModelState.AddModelError("", "Erro ao atualizar a quantidade.");
+            return RedirectToAction("List");
+        }
+
+
+        //-------------------------------------------------------------------------------------------
+        //-----------------------------------CreateSubscriptions-------------------------------------
+        //-------------------------------------------------------------------------------------------
 
         // GET: CreateSubscription
         public IActionResult Create()
