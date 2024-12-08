@@ -1,11 +1,9 @@
 using AMAPP.API.Data;
 using AMAPP.API.DTOs.AccountBalance;
-using AMAPP.API.DTOs.SubscriptionPayment;
 using AMAPP.API.Models;
 using AMAPP.API.Repository;
 using AMAPP.API.Repository.SelectedProductOfferRepository;
 using Microsoft.EntityFrameworkCore;
-using static AMAPP.API.Constants;
 
 public class SelectedProductOfferRepository : RepositoryBase<SelectedProductOffer>, ISelectedProductOfferRepository
 {
@@ -40,6 +38,10 @@ public async Task<bool> UpdateQuantityAsync(int id, int quantity)
 
     public async Task<List<CoproducerAccountBalanceDTO>> TotalCoproducersProductValues()
     {
+        //var t = await _context.Products.Include(p => p.ProductOffers)
+        //        .ThenInclude(po => po.PeriodSubscription)
+        //        .ThenInclude(ps => ps.SelectedProductOffers).ToListAsync();
+
         var coproducerAccountBalanceDTO = await (from spo in _context.SelectedProductOffers
                            join s in _context.Subscriptions on spo.SubscriptionId equals s.Id
                            join c in _context.CoproducersInfo on s.CoproducerInfoId equals c.Id
