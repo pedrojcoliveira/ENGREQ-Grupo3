@@ -1,0 +1,50 @@
+﻿@model AMAPP.Web.Models.Subscription
+<link rel="stylesheet" href="~/css/subscriptionperiod.css" asp-append-version="true" />
+
+@{
+    ViewData["Title"] = "Criar Nova Subscrição";
+}
+
+<div class="container mt-5">
+    <h1 class="title">@ViewData["Title"]</h1>
+
+    <div class="card">
+        <div class="card-header">
+            Preencha os detalhes da nova subscrição
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label asp-for="CoproducerName" class="form-label">Nome do Coprodutor</label>
+                    <input asp-for="CoproducerName" class="form-control" placeholder="Insira o nome do coprodutor" />
+                    <span asp-validation-for="CoproducerName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PeriodDescription" class="form-label">Descrição do Período</label>
+                    <input asp-for="PeriodDescription" class="form-control" placeholder="Ex: Janeiro - Março" />
+                    <span asp-validation-for="PeriodDescription" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Products" class="form-label">Produtos</label>
+                    <textarea asp-for="Products" class="form-control" rows="3"
+                              placeholder="Insira os produtos separados por vírgulas"></textarea>
+                    <span asp-validation-for="Products" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TotalPayments" class="form-label">Total de Pagamentos (€)</label>
+                    <input asp-for="TotalPayments" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                    <span asp-validation-for="TotalPayments" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Salvar Subscrição</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
