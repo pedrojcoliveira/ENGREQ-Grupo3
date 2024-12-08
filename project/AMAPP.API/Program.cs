@@ -28,6 +28,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 using AMAPP.API.DTOs.SubscriptionPayment.Validators;
+using AMAPP.API.Repository.AccountBalanceRepository;
 
 namespace AMAPP.API
 {
@@ -94,6 +95,8 @@ namespace AMAPP.API
             builder.Services.AddScoped<ISubscriptionPaymentRepository, SubscriptionPaymentRepository>();
             builder.Services.AddScoped<IKpiService, KpiService>();
             builder.Services.AddScoped<IKpiRepository, KpiRepository>();
+            builder.Services.AddScoped<IAccountBalanceService, AccountBalanceService>();
+            builder.Services.AddScoped<IAccountBalanceRepository, AccountBalanceRepository>();
 
             builder.Services.AddRouting(options =>
             {
