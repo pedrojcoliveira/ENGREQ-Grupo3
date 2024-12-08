@@ -1,31 +1,31 @@
-using System.Reflection;
 using AMAPP.API.Configurations;
 using AMAPP.API.Data;
+using AMAPP.API.DTOs.SelectedProductOffer.Validators;
+using AMAPP.API.DTOs.SubscriptionPeriod.Validators;
+using AMAPP.API.Middlewares;
 using AMAPP.API.Models;
 using AMAPP.API.Repository.ProducerInfoRepository;
+using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.ProdutoRepository;
+using AMAPP.API.Repository.SelectedProductOfferRepository;
+using AMAPP.API.Repository.SubscriptionPaymentRepository;
+using AMAPP.API.Repository.SubscriptionPeriodRepository;
+using AMAPP.API.Repository.SubscriptionRepository;
+using AMAPP.API.Services;
 using AMAPP.API.Services.Implementations;
 using AMAPP.API.Services.Interfaces;
+using AMAPP.API.Utils;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
-using AMAPP.API.DTOs.SubscriptionPeriod.Validators;
-using AMAPP.API.Middlewares;
-using AMAPP.API.Repository.ProductOfferRepository;
-using AMAPP.API.Repository.SelectedProductOfferRepository;
-using AMAPP.API.Repository.SubscriptionPeriodRepository;
-using AMAPP.API.Services;
-using AMAPP.API.Utils;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using MediatR;
 using System.Reflection;
-using AMAPP.API.DTOs.SelectedProductOffer.Validators;
-using AMAPP.API.Repository.SubscriptionRepository;
-using FluentValidation;
+using System.Text;
 
 namespace AMAPP.API
 {
@@ -88,6 +88,8 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProductOfferService, ProductOfferService>();
             builder.Services.AddScoped<ISelectedProductOfferService, SelectedProductOfferService>();
             builder.Services.AddScoped<ISelectedProductOfferRepository, SelectedProductOfferRepository>();
+            builder.Services.AddScoped<ISubscriptionPaymentService, SubscriptionPaymentService>();
+            builder.Services.AddScoped<ISubscriptionPaymentRepository, SubscriptionPaymentRepository>();
 
             builder.Services.AddRouting(options =>
             {
