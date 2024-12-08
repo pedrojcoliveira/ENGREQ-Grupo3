@@ -1,4 +1,4 @@
-﻿@model AMAPP.Web.Models.Subscription
+﻿@model AMAPP.Web.Models.SubscriptionViewModel
 <link rel="stylesheet" href="~/css/subscriptionperiod.css" asp-append-version="true" />
 
 @{
@@ -6,45 +6,52 @@
 }
 
 <div class="container mt-5">
-    <h1 class="title">@ViewData["Title"]</h1>
-
-    <div class="card">
-        <div class="card-header">
-            Preencha os detalhes da nova subscrição
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Criar Nova Subscrição</h2>
         </div>
         <div class="card-body">
             <form asp-action="Create" method="post">
                 <div class="mb-3">
-                    <label asp-for="CoproducerName" class="form-label">Nome do Coprodutor</label>
-                    <input asp-for="CoproducerName" class="form-control" placeholder="Insira o nome do coprodutor" />
-                    <span asp-validation-for="CoproducerName" class="text-danger"></span>
+                    <label for="DeliveryDate" class="form-label">Data de Entrega</label>
+                    <input type="datetime-local" asp-for="DeliveryDate" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="PeriodDescription" class="form-label">Descrição do Período</label>
-                    <input asp-for="PeriodDescription" class="form-control" placeholder="Ex: Janeiro - Março" />
-                    <span asp-validation-for="PeriodDescription" class="text-danger"></span>
+                    <label for="ProductOfferId" class="form-label">Oferta de Produto</label>
+                    <input type="number" asp-for="ProductOfferId" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Products" class="form-label">Produtos</label>
-                    <textarea asp-for="Products" class="form-control" rows="3"
-                              placeholder="Insira os produtos separados por vírgulas"></textarea>
-                    <span asp-validation-for="Products" class="text-danger"></span>
+                    <label for="SubscriptionId" class="form-label">ID da Subscrição</label>
+                    <input type="number" asp-for="SubscriptionId" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="TotalPayments" class="form-label">Total de Pagamentos (€)</label>
-                    <input asp-for="TotalPayments" type="number" step="0.01" class="form-control" placeholder="0.00" />
-                    <span asp-validation-for="TotalPayments" class="text-danger"></span>
+                    <label for="Quantity" class="form-label">Quantidade</label>
+                    <input type="number" asp-for="Quantity" class="form-control" required />
                 </div>
 
-                <div class="d-flex justify-content-between">
-                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Salvar Subscrição</button>
+                <div class="mb-3">
+                    <label class="form-label">Pagamentos</label>
+                    @for (var i = 0; i < Model.CreateSubscriptionPayments.Count; i++)
+                    {
+                        <div class="payment-group mb-3">
+                            <input type="datetime-local" asp-for="CreateSubscriptionPayments[i].PaymentDate" class="form-control mb-2" />
+                            <input type="number" asp-for="CreateSubscriptionPayments[i].Amount" class="form-control" placeholder="Valor" required />
+                        </div>
+                    }
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="bi bi-check-circle-fill"></i> Criar Subscrição
+                    </button>
+                    <a asp-action="List" class="btn btn-secondary">
+                        <i class="bi bi-x-circle-fill"></i> Cancelar
+                    </a>
                 </div>
             </form>
         </div>
     </div>
 </div>
-

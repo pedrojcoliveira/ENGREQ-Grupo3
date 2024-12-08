@@ -1,50 +1,67 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 using AMAPP.Web.Models;
 
 namespace AMAPP.Web.Controllers
 {
     public class SubscriptionsController : Controller
     {
-        // Mock de dados (armazenamento em memória)
-        private static List<Subscription> Subscriptions = new()
-        {
-            new Subscription
-            {
-                Id = 1,
-                CoproducerName = "John Doe",
-                PeriodDescription = "January - March 2024",
-                Products = new List<string> { "Tomatoes", "Carrots", "Potatoes" },
-                TotalPayments = 150.50m
-            },
-            new Subscription
-            {
-                Id = 2,
-                CoproducerName = "Jane Smith",
-                PeriodDescription = "April - June 2024",
-                Products = new List<string> { "Apples", "Bananas", "Oranges" },
-                TotalPayments = 90.00m
-            }
-        };
+        private readonly HttpClient _httpClient;
 
-        //-------------------------------------------------------------------------------------------
-        //-----------------------------------ListSubscriptions---------------------------------------
-        //-------------------------------------------------------------------------------------------
-        public IActionResult List()
+        public SubscriptionsController(IHttpClientFactory httpClientFactory)
         {
-            // Passa as subscrições para a view "ListSubscriptions"
-            return View("ListSubscriptions", Subscriptions);
+            _httpClient = httpClientFactory.CreateClient("APIClient");
         }
 
-        //-------------------------------------------------------------------------------------------
-        //-----------------------------------CreateSubscription--------------------------------------
-        //-------------------------------------------------------------------------------------------
+        // GET: ListSubscriptions
+        public async Task<IActionResult> List()
+        {
+            // Fazer a requisição GET para a API
+            var response = await _httpClient.GetStringAsync("/api/selected-product-offer");
 
-        // GET: Subscriptions/Create
+            // Deserializar os dados JSON em uma lista de subscrições
+            var subscriptions = JsonSerializer.Deserialize<List<SubscriptionViewModel>>(response);
+
+            // Passar os dados para a view
+            return View("ListSubscriptions", subscriptions);
+        }
+
+        // GET: CreateSubscription
         public IActionResult Create()
         {
-            return View("CreateSubscriptions");
+            // Criar um modelo vazio para a criação de subscrições
+            var model = new SubscriptionViewModel
+            {
+                CreateSubscriptionPayments = new List<CreateSubscriptionPaymentViewModel>()
+            };
+
+            return View("CreateSubscriptions", model);
+        }
+
+        // POST: CreateSubscription
+        [HttpPost]
+        public async Task<IActionResult> Create(SubscriptionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var json = JsonSerializer.Serialize(model);
+                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync("/api/selected-product-offer", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("List");
+                }
+
+                // Caso o envio da requisição falhe
+                ModelState.AddModelError("", "Erro ao criar subscrição.");
+            }
+
+            return View("CreateSubscriptions", model);
         }
     }
 }
