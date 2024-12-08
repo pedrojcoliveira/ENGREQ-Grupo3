@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AMAPP.Web.Models.Subscription>
+﻿@model IEnumerable<AMAPP.Web.Models.SubscriptionViewModel>
 <link rel="stylesheet" href="~/css/subscriptionperiod.css" asp-append-version="true" />
 
 @{
@@ -6,10 +6,10 @@
 }
 
 <div class="container mt-5">
-    <h1 class="title">@ViewData["Title"]</h1>
+    <h1 class="title">Lista de Subscrições</h1>
 
     <div class="header">
-        <p class="subtitle">Gerencie as subscrições abaixo.</p>
+        <p class="subtitle"></p>
         <a asp-action="Create" class="btn btn-create">
             <i class="bi bi-plus-circle-fill"></i> Criar Nova Subscrição
         </a>
@@ -21,11 +21,12 @@
             <table class="table subscription-table">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>Coprodutor</th>
-                        <th>Período</th>
-                        <th>Produtos</th>
-                        <th>Total de Pagamentos (€)</th>
+                        <th>ID</th>
+                        <th>Data de Entrega</th>
+                        <th>Oferta do Produto</th>
+                        <th>ID da Subscrição</th>
+                        <th>Quantidade</th>
+                        <th>Pagamentos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,17 +34,25 @@
                     {
                         <tr>
                             <td>@subscription.Id</td>
-                            <td>@subscription.CoproducerName</td>
-                            <td>@subscription.PeriodDescription</td>
+                            <td>@subscription.DeliveryDate.ToString("yyyy-MM-dd")</td>
+                            <td>@subscription.ProductOfferId</td>
+                            <td>@subscription.SubscriptionId</td>
+                            <td>@subscription.Quantity</td>
                             <td>
-                                <ul class="dates-list">
-                                    @foreach (var product in subscription.Products)
-                                    {
-                                        <li><i class="bi bi-box date-icon"></i>@product</li>
-                                    }
-                                </ul>
+                                @if (subscription.Payments != null && subscription.Payments.Any())
+                                {
+                                    <ul>
+                                        @foreach (var payment in subscription.Payments)
+                                        {
+                                            <li>@payment.Amount € - @payment.PaymentDate.ToString("yyyy-MM-dd")</li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>Sem pagamentos</p>
+                                }
                             </td>
-                            <td>@subscription.TotalPayments.ToString("F2")</td>
                         </tr>
                     }
                 </tbody>
