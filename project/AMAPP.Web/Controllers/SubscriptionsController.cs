@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AMAPP.Web.Models;
+using System.Text;
 
 namespace AMAPP.Web.Controllers
 {
@@ -20,24 +21,47 @@ namespace AMAPP.Web.Controllers
         //------------------------------------ListSubscriptions--------------------------------------
         //-------------------------------------------------------------------------------------------
 
+
         // GET: ListSubscriptions
         public async Task<IActionResult> List()
         {
-            // Fazer a requisição GET para a API
-            var response = await _httpClient.GetStringAsync("/api/selected-product-offer");
+            try
+            {
+                // Fazer a requisição GET para a API
+                var response = await _httpClient.GetAsync("/api/selected-product-offer");
 
-            // Deserializar os dados JSON em uma lista de subscrições
-            var subscriptions = JsonSerializer.Deserialize<List<SubscriptionViewModel>>(response);
+                if (!response.IsSuccessStatusCode)
+                {
+                    ViewBag.ErrorMessage = $"Erro ao obter as subscrições: {response.StatusCode}";
+                    return View("Error");
+                }
 
-            // Passar os dados para a view
-            return View("ListSubscriptions", subscriptions);
+                var json = await response.Content.ReadAsStringAsync();
+                var subscriptions = JsonSerializer.Deserialize<List<SubscriptionViewModel>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                // Passar os dados para a view
+                return View("ListSubscriptions", subscriptions);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = $"Ocorreu um erro ao tentar carregar as subscrições: {ex.Message}";
+                return View("Error");
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateQuantity(int id, [FromForm] int quantity)
+        public async Task<IActionResult> UpdateQuantity(int id, int quantity)
         {
-            var requestBody = JsonSerializer.Serialize(new { quantity });
-            var content = new StringContent(requestBody, System.Text.Encoding.UTF8, "application/json");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            var requestBody = JsonSerializer.Serialize(quantity);
+            var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PutAsync($"/api/selected-product-offer/{id}/quantity", content);
 
@@ -49,6 +73,7 @@ namespace AMAPP.Web.Controllers
             ModelState.AddModelError("", "Erro ao atualizar a quantidade.");
             return RedirectToAction("List");
         }
+
 
 
         //-------------------------------------------------------------------------------------------
@@ -89,5 +114,6 @@ namespace AMAPP.Web.Controllers
 
             return View("CreateSubscriptions", model);
         }
+
     }
 }
