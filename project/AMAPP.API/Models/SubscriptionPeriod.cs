@@ -9,6 +9,7 @@ namespace AMAPP.API.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Duration { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         

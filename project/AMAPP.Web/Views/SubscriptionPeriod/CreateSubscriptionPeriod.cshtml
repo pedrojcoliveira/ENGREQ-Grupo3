@@ -16,6 +16,16 @@
                     <label for="Name" class="form-label">Nome</label>
                     <input type="text" id="Name" name="Name" class="form-control" value="@Model?.Name" required placeholder="Insira o nome da subscrição" />
                 </div>
+<div class="mb-3">
+    <label for="SubDuration" class="form-label">Tipo de Subscrição</label>
+    <select id="SubDuration" name="Duration" class="form-control" required>
+        <option value="">Selecione o tipo de subscrição</option>
+        @foreach (var duration in Enum.GetValues(typeof(SubscriptionDuration)))
+        {
+            <option value="@duration" selected="@(Model?.Duration == (SubscriptionDuration)duration ? "selected" : null)">@duration</option>
+        }
+    </select>
+</div>
                 <div class="mb-3">
                     <label for="StartDate" class="form-label">Data de Início</label>
                     <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Model?.StartDate.ToString("yyyy-MM-dd")" required />

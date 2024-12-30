@@ -62,15 +62,18 @@ namespace AMAPP.Web.Controllers
                 var response = await _httpClient.PostAsync("/api/subscription-period", content);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["SuccessMessage"] = "Periodo de Subscrição atualizado com sucesso!";
                     return RedirectToAction("List");
                 }
 
                 ModelState.AddModelError(string.Empty, "Erro ao criar o Subscription Period. Tente novamente.");
+                TempData["ErrorMessage"] = "Erro ao actualizar o Periodo the Subscrição. Tente Novamente.";
                 return View("CreateSubscriptionPeriod", model);
             }
             catch
             {
                 ModelState.AddModelError(string.Empty, "Ocorreu um erro inesperado.");
+                TempData["ErrorMessage"] = "Erro inesperado. Tente Novamente.";
                 return View("CreateSubscriptionPeriod", model);
             }
         }
@@ -112,7 +115,7 @@ namespace AMAPP.Web.Controllers
             {
                 var content = new StringContent(JsonConvert.SerializeObject(model), System.Text.Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"/api/subscription-period/{model.Id}", content);
+                var response = await _httpClient.PatchAsync($"/api/subscription-period/{model.Id}", content);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("List");
