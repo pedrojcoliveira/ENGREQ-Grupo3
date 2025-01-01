@@ -9,7 +9,7 @@ namespace AMAPP.API.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Duration { get; set; }
+        public SubscriptionDuration Duration { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         
@@ -19,5 +19,7 @@ namespace AMAPP.API.Models
 
         // Relacionamento com OfertaProduto
         public List<ProductOffer> ProductOffers { get; set; } = new ();
+        
+        public ResourceStatus ResourceStatus { get; set; }
     }
 }

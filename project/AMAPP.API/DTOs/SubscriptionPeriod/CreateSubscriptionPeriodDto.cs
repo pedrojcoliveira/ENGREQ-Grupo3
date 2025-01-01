@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AMAPP.API.DTOs.DeliveryDate;
 
 namespace AMAPP.API.DTOs.SubscriptionPeriod
 {
@@ -14,6 +15,6 @@ namespace AMAPP.API.DTOs.SubscriptionPeriod
         public DateTime EndDate { get; set; }
         
         [Required]
-        public List<DateTime> Dates { get; set; } = new ();
+        public List<CreateDeliveryDateDto> Dates { get; set; } = new ();
     }
 }
