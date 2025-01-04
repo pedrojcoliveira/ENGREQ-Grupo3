@@ -38,4 +38,7 @@ namespace AMAPP.API
         // Valid photo formats
         public static readonly string[] ValidPhotoFormats = { ".jpg", ".jpeg", ".png" };
     }
+    
+    public enum SubscriptionDuration    {  Semanal,        Semestral,        Anual    }
+    public enum ResourceStatus    {  Ativo,     Inativo}
 }

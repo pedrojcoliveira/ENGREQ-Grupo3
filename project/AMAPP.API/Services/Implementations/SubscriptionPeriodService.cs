@@ -31,6 +31,10 @@ namespace AMAPP.API.Services.Implementations
             var subscriptionPeriod =
                 _mapper.Map<SubscriptionPeriod>(
                     subscriptionPeriodDto);
+            
+            //Bad Practice but let's go: Business Rule that the Created Resource and its Delivery Dates are Active
+            subscriptionPeriod.ResourceStatus = ResourceStatus.Ativo;
+            subscriptionPeriod.DeliveryDates.ForEach(dd => dd.ResourceStatus = ResourceStatus.Ativo);
 
             await _subscriptionPeriodRepository.AddAsync(subscriptionPeriod);
             await Task.Run(() =>
@@ -65,7 +69,11 @@ namespace AMAPP.API.Services.Implementations
             // Retrieve the existing SubscriptionPeriod by ID
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(id);
             if (subscriptionPeriod == null)
-                throw new NotFoundException("O Período de Subscrição  não existe");
+                throw new NotFoundException("O período de subscrição  não existe");
+            
+            //Business Rule: The Subscription Period cannot be updated if it is soft-deleted
+            if (subscriptionPeriod.ResourceStatus == ResourceStatus.Inativo)
+                throw new ArgumentException("O período de subscrição não pode ser alterado pois não existe");
 
             // Update the Name if provided
             if (!string.IsNullOrEmpty(subscriptionPeriodDto.Name))
@@ -82,17 +90,27 @@ namespace AMAPP.API.Services.Implementations
             // Ensure EndDate is not earlier than StartDate
             if (subscriptionPeriod.StartDate > subscriptionPeriod.EndDate)
                 throw new ArgumentException("Hora de término não pode ser mais recente que data de início");
+            
+            // Update the Duration if provided
+            if (subscriptionPeriodDto.Duration.HasValue)
+                subscriptionPeriod.Duration = subscriptionPeriodDto.Duration.Value;
+            
 
-            // Update DeliveryDatesList if provided
             if (subscriptionPeriodDto.Dates != null && subscriptionPeriodDto.Dates.Any(date => date != default))
             {
-                subscriptionPeriod.DeliveryDates = subscriptionPeriodDto.Dates
-                    .Where(date => date != default)
-                    .Select(date => new DeliveryDate { Date = date })
+                var validDates = subscriptionPeriodDto.Dates
+                    .Where(date => date != default && date.Date >= subscriptionPeriod.StartDate && date.Date <= subscriptionPeriod.EndDate)
+                    .Select(date => new DeliveryDate { Date = date.Date, ResourceStatus = date.ResourceStatus })
                     .ToList();
-            }
 
+                if (validDates.Count != subscriptionPeriodDto.Dates.Count)
+                {
+                    throw new ArgumentException("One or more delivery dates are outside the subscription period time interval.");
+                }
 
+                subscriptionPeriod.DeliveryDates = validDates;
+            }    
+            
             // Persist the updated entity to the repository
             await _subscriptionPeriodRepository.UpdateAsync(subscriptionPeriod);
 
@@ -113,8 +131,13 @@ namespace AMAPP.API.Services.Implementations
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(id);
             if (subscriptionPeriod == null)
                 throw new NotFoundException("O Período de Subscrição  não existe");
+            
+            //inactivate the subscription period and its delivery dates instead of deleting them -> soft delete
+            subscriptionPeriod.ResourceStatus = ResourceStatus.Inativo;
+            subscriptionPeriod.DeliveryDates.ForEach(dd => dd.ResourceStatus = ResourceStatus.Inativo);
 
-            await _subscriptionPeriodRepository.RemoveAsync(subscriptionPeriod);
+            //await _subscriptionPeriodRepository.RemoveAsync(subscriptionPeriod);
+            await _subscriptionPeriodRepository.UpdateAsync(subscriptionPeriod);
             return true;
         }
 

@@ -12,7 +12,8 @@ namespace AMAPP.Web
             // Register HttpClient with BaseAddress
             builder.Services.AddHttpClient("APIClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7237/"); 
+                //client.BaseAddress = new Uri("https://localhost:7237/"); 
+                client.BaseAddress = new Uri("http://localhost:5143/"); //HTTP VERSION
             });
 
             var app = builder.Build();

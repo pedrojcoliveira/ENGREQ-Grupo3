@@ -113,7 +113,7 @@ namespace AMAPP.API
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSelectedProductOfferDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSubscriptionPeriodDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSubscriptionPaymentDtoValidator>();
-
+            
             // Add MediatR
             builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             
