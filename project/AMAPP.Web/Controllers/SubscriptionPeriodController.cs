@@ -21,7 +21,7 @@ namespace AMAPP.Web.Controllers
             try
             {
                 // Chamada à API
-                var response = await _httpClient.GetAsync("/api/subscription-period");
+                var response = await _httpClient.GetAsync("/api/subscription-period"); // To show all results use ?show-all=true
                 response.EnsureSuccessStatusCode();
 
                 var json = await response.Content.ReadAsStringAsync();
