@@ -41,7 +41,7 @@
             {
                 //subscriptionPeriods = subscriptionPeriods.Where(sp => sp.ResourceStatus == ResourceStatus.Ativo).ToList();
                 subscriptionPeriods = subscriptionPeriods.Where(sp => sp.ResourceStatus == ResourceStatus.Ativo).Select(sp => 
-                    { sp.DeliveryDates = sp.DeliveryDates.Where(d => d.ResourceStatus == ResourceStatus.Ativo).ToList(); 
+                    { sp.Dates = sp.Dates.Where(d => d.ResourceStatus == ResourceStatus.Ativo).ToList(); 
                         return sp; 
                     }).ToList(); 
             }

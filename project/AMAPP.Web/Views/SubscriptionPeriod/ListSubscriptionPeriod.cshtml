@@ -20,33 +20,36 @@
         <div class="table-responsive">
             <table class="table subscription-table">
                 <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Periodicidade</th>
-                        <th>Data de Início</th>
-                        <th>Data de Fim</th>
-                        <th>Ações</th>
-                    </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Periodicidade</th>
+                    <th>Data de Início</th>
+                    <th>Data de Fim</th>
+                    <th>Ações</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var period in Model)
-                    {
-                        <tr>
-                            <td>@period.Name</td>
-                            <td>@period.Duration</td>
-                            <td>@period.StartDate.ToString("yyyy-MM-dd")</td>
-                            <td>@period.EndDate.ToString("yyyy-MM-dd")</td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@period.Id" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil-fill"></i> Editar
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@period.Id" class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Tem certeza de que deseja excluir este período de subscrição?');">
-                                    <i class="bi bi-trash-fill"></i> Excluir
-                                </a>
-                            </td>
-                        </tr>
-                    }
+                @foreach (var period in Model)
+                {
+                    <tr>
+                        <td>@period.Name</td>
+                        <td>@period.Duration</td>
+                        <td>@period.StartDate.ToString("yyyy-MM-dd")</td>
+                        <td>@period.EndDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@period.Id" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-fill"></i> Editar
+                            </a>
+                            <!--<a asp-action="Delete" asp-route-id="@period.Id" class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Tem certeza de que deseja excluir este período de subscrição?');"  >
+                                <i class="bi bi-trash-fill"></i> Excluir
+                            </a>-->
+                            <a asp-action="Delete" asp-route-id="@period.Id" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash-fill"></i> Excluir
+                            </a>
+                        </td>
+                    </tr>
+                }
                 </tbody>
             </table>
         </div>
@@ -58,3 +61,22 @@
         </div>
     }
 </div>
+<!--To clear TempDate after succesful deletion -->
+@section Scripts {
+    <script>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+                alert('@Html.Raw(TempData["ErrorMessage"])');
+                TempData["ErrorMessage"] = null;
+            </text>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                alert('@Html.Raw(TempData["SuccessMessage"])');
+                TempData["SuccessMessage"] = null;
+            </text>
+        }
+    </script>
+}

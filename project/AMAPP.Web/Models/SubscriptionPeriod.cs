@@ -13,7 +13,7 @@ namespace AMAPP.Web.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         
-        public List<DateTime> SubPeriodDeliveryDates { get; set; } = new List<DateTime>();
+        public List<DeliveryDate> Dates { get; set; } = new ();
 
         // Relacionamento com OfertaProduto
         public List<ProductOffer> ProductOffers { get; set; } = new();

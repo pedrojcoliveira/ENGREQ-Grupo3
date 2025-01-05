@@ -15,6 +15,11 @@ namespace AMAPP.Web
                 //client.BaseAddress = new Uri("https://localhost:7237/"); 
                 client.BaseAddress = new Uri("http://localhost:5143/"); //HTTP VERSION
             });
+            
+// Enable TempData with session-based storage
+builder.Services.AddDistributedMemoryCache(); // Required for session state
+builder.Services.AddSession(); // Add session support
+builder.Services.AddHttpContextAccessor(); // Ensure TempData works
 
             var app = builder.Build();
 
@@ -32,6 +37,7 @@ namespace AMAPP.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            
 
             app.MapControllerRoute(
                 name: "default",
