@@ -21,7 +21,8 @@ namespace AMAPP.Web.Controllers
             try
             {
                 // Chamada à API
-                var response = await _httpClient.GetAsync("/api/subscription-period"); // To show all results use ?show-all=true
+                var response =
+                    await _httpClient.GetAsync("/api/subscription-period"); // To show all results use ?show-all=true
                 response.EnsureSuccessStatusCode();
 
                 var json = await response.Content.ReadAsStringAsync();
@@ -40,7 +41,7 @@ namespace AMAPP.Web.Controllers
         //-------------------------------------------------------------------------------------------
         //--------------------------------CreateSubsctiptionProduct----------------------------------
         //-------------------------------------------------------------------------------------------
-        
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -57,24 +58,23 @@ namespace AMAPP.Web.Controllers
 
             try
             {
-                var content = new StringContent(JsonConvert.SerializeObject(model), System.Text.Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(model), System.Text.Encoding.UTF8,
+                    "application/json");
 
                 var response = await _httpClient.PostAsync("/api/subscription-period", content);
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = "Periodo de Subscrição atualizado com sucesso!";
+                    TempData["SuccessMessage"] = "Periodo de subscrição criado com sucesso!";
                     return RedirectToAction("List");
                 }
 
-                ModelState.AddModelError(string.Empty, "Erro ao criar o Subscription Period. Tente novamente.");
-                TempData["ErrorMessage"] = "Erro ao actualizar o Periodo the Subscrição. Tente Novamente.";
-                return View("CreateSubscriptionPeriod", model);
+                TempData["ErrorMessage"] = "Erro ao criar o periodo de subscrição. Tente Novamente.";
+                return RedirectToAction("Create");
             }
             catch
             {
-                ModelState.AddModelError(string.Empty, "Ocorreu um erro inesperado.");
                 TempData["ErrorMessage"] = "Erro inesperado. Tente Novamente.";
-                return View("CreateSubscriptionPeriod", model);
+                return RedirectToAction("Create");
             }
         }
 
@@ -113,27 +113,74 @@ namespace AMAPP.Web.Controllers
 
             try
             {
-                var content = new StringContent(JsonConvert.SerializeObject(model), System.Text.Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonConvert.SerializeObject(model), System.Text.Encoding.UTF8,
+                    "application/json");
 
                 var response = await _httpClient.PatchAsync($"/api/subscription-period/{model.Id}", content);
                 if (response.IsSuccessStatusCode)
                 {
+                    TempData["SuccessMessage"] = "Periodo de subscrição atualizado com sucesso!";
                     return RedirectToAction("List");
+
                 }
 
-                ModelState.AddModelError(string.Empty, "Erro ao editar o Subscription Period. Tente novamente.");
-                return View("EditSubscriptionPeriod", model);
+                /*TempData["ErrorMessage"] = "Erro ao editar o periodo de subscrição. Tente novamente.";
+                return RedirectToAction("Edit", new { id = model.Id });*/
+
+                TempData["ErrorMessage"] = "Erro ao editar o periodo de subscrição. Tente novamente.";
+                TempData.Keep("ErrorMessage");
+                return RedirectToAction("Edit", new { id = model.Id });
             }
             catch
             {
-                ModelState.AddModelError(string.Empty, "Ocorreu um erro inesperado.");
-                return View("EditSubscriptionPeriod", model);
+                TempData["ErrorMessage"] = "Erro inesperado. Tente Novamente.";
+                return RedirectToAction("Edit", new { id = model.Id });
             }
         }
 
-        //-------------------------------------------------------------------------------------------
-        //--------------------------------DeleteSubscriptionPeriod-----------------------------------
-        //-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//--------------------------------DeleteSubscriptionPeriod-----------------------------------
+//-------------------------------------------------------------------------------------------
 
+[HttpGet]
+public async Task<IActionResult> Delete(int id)
+{
+    try
+    {
+        var response = await _httpClient.GetAsync($"/api/subscription-period/{id}");
+        response.EnsureSuccessStatusCode();
+
+        var json = await response.Content.ReadAsStringAsync();
+        var subscriptionPeriod = JsonConvert.DeserializeObject<SubscriptionPeriod>(json);
+
+        return View("DeleteSubscriptionPeriod", subscriptionPeriod);
+    }
+    catch
+    {
+        return View("Error");
+    }
+}
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"/api/subscription-period/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = "Periodo de subscrição excluído com sucesso!";
+                    return RedirectToAction("List");
+                }
+
+                TempData["ErrorMessage"] = "Erro ao excluir o periodo de subscrição. Tente novamente.";
+                return RedirectToAction("Delete", new { id });
+            }
+            catch
+            {
+                TempData["ErrorMessage"] = "Erro inesperado. Tente Novamente.";
+                return RedirectToAction("Delete", new { id });
+            }
+        }
     }
 }

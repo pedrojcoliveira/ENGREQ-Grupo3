@@ -33,7 +33,7 @@ namespace AMAPP.API.Profiles
             .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
             .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
             //.ForMember(dest => dest.DeliveryDates, opt => opt.MapFrom(src => src.DeliveryDates.Select(dd => dd.Date).ToList()))
-            .ForMember(dest => dest.DeliveryDates, opt => opt.MapFrom(src => src.DeliveryDates  )  )
+            .ForMember(dest => dest.Dates, opt => opt.MapFrom(src => src.DeliveryDates  )  )
             .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
             .ForMember(dest => dest.ResourceStatus, opt => opt.MapFrom(src => src.ResourceStatus));
             
