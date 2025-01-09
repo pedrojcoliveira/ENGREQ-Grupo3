@@ -38,7 +38,13 @@
 
                 <div class="mb-3">
                     <label asp-for="DeliveryUnit" class="form-label">Unidade de Entrega</label>
-                    <input asp-for="DeliveryUnit" class="form-control" required placeholder="Insira a unidade de entrega (ex.: kg, litro, etc.)" />
+                    <select asp-for="DeliveryUnit" class="form-control" required>
+                        <option value="">Selecione a unidade do produto</option>
+                        <option value="0">Unidade</option>
+                        <option value="1">Kg</option>
+                        <option value="2">Gramas</option>
+                        <option value="3">Litros</option>
+                    </select>
                     <span asp-validation-for="DeliveryUnit" class="text-danger"></span>
                 </div>
 
