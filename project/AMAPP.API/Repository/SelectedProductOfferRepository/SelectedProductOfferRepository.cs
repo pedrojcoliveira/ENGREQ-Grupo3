@@ -59,4 +59,15 @@ public async Task<bool> UpdateQuantityAsync(int id, int quantity)
 
         return coproducerAccountBalanceDTO;
     }
+    
+    // Get selected product offers by subscription period id
+    // Use case: check if subscription period can be deleted
+    //public async Task<List<SelectedProductOffer>> GetSelectedProductOffersBySubscriptionPeriodId(int id)
+    //{
+    //    return await _context.Set<SelectedProductOffer>()
+    //        .Include(spo => spo.ProductOffer)
+    //        .Include(spo => spo.Payments)
+    //        .Where(spo => spo.SubscriptionPeriodId == id)
+    //        .ToListAsync();
+    //}
 }

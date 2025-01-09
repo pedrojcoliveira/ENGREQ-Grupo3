@@ -36,6 +36,15 @@ namespace AMAPP.API.Repository.ProductOfferRepository
                 .Include(po => po.SubscriptionPeriod)
                 .ToListAsync();
         }
+        
+        // Get product offers by subscription period id
+        // Use case: check if subscription period can be deleted
+        public async Task<List<ProductOffer>> GetProductOffersBySubscriptionPeriodId(int id)
+        {
+            return await _context.ProductOffers
+                .Where(po => po.SubscriptionPeriodId == id)
+                .ToListAsync();
+        }
     }
 }
 
