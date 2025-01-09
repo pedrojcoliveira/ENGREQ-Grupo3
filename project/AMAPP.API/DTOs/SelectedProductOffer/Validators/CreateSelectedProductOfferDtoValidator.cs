@@ -10,8 +10,7 @@ namespace AMAPP.API.DTOs.SelectedProductOffer.Validators
         {
             RuleFor(x => x.DeliveryDate)
                 .NotEmpty().WithMessage("A data de entrega é obrigatória.")
-                .Must(date => date != default(DateTime)).WithMessage("A data de entrega não deve ser um valor padrão.")
-                .GreaterThanOrEqualTo(DateTime.Now).WithMessage("A data de entrega deve ser hoje ou no futuro.");
+                .Must(date => date != default(DateTime)).WithMessage("A data de entrega não deve ser um valor padrão.");
 
             RuleFor(x => x.ProductOfferId)
                 .GreaterThan(0).WithMessage("O identificador da oferta de produto deve ser maior que 0.");

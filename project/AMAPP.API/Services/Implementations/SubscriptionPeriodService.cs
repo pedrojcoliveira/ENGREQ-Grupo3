@@ -6,6 +6,7 @@
             using AMAPP.API.Repository.ProductOfferRepository;
             using AMAPP.API.Repository.SelectedProductOfferRepository;
             using AMAPP.API.Repository.SubscriptionPeriodRepository;
+            using AMAPP.API.Repository.SubscriptionRepository;
             using AMAPP.API.Utils;
             using AutoMapper;
             using MediatR;
@@ -19,14 +20,16 @@
                     private readonly IMediator _mediator;
                     private readonly ISelectedProductOfferRepository _selectedProductOfferRepository;
                     private readonly IProductOfferRepository _ProductOfferRepository;
+                    private readonly ISubscriptionRepository _SubscriptionRepository;
 
-                    public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator, ISelectedProductOfferRepository selectedProductOfferRepository, IProductOfferRepository productOfferRepository)
+                    public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator, ISelectedProductOfferRepository selectedProductOfferRepository, IProductOfferRepository productOfferRepository, ISubscriptionRepository SubscriptionRepository)
                     {
                         _subscriptionPeriodRepository = subscriptionPeriodRepository;
                         _mapper = mapper;
                         _mediator = mediator;
                         _selectedProductOfferRepository = selectedProductOfferRepository;
                         _ProductOfferRepository = productOfferRepository;
+                        _SubscriptionRepository = SubscriptionRepository;
                     }
 
                     public async Task<ResponseSubscriptionPeriodDto> AddSubscriptionPeriodAsync(
@@ -182,8 +185,9 @@
                     {
                         var productOffers = await _ProductOfferRepository.GetProductOffersBySubscriptionPeriodId(id);
                         var selectedProductOffers = await _selectedProductOfferRepository.GetSelectedProductOffersBySubscriptionPeriodId(id);
+                        var subscriptions = await _SubscriptionRepository.GetSubscriptionsBySubscriptionPeriodId(id);
 
-                        return productOffers.Any() || selectedProductOffers.Any();
+                        return productOffers.Any() || selectedProductOffers.Any() || subscriptions.Any();
                     }
                 }
             }

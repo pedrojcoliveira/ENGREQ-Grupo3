@@ -4,6 +4,7 @@ using AMAPP.API.Models;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.SelectedProductOfferRepository;
 using AMAPP.API.Repository.SubscriptionPaymentRepository;
+using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AMAPP.API.Repository.SubscriptionRepository;
 using AMAPP.API.Services.Interfaces;
 using AMAPP.API.Utils;
@@ -18,15 +19,18 @@ public class SelectedProductOfferService : ISelectedProductOfferService
     private readonly ISubscriptionRepository subscriptionRepository;
     private readonly IMapper mapper;
     private readonly ISubscriptionPaymentRepository subscriptionPaymentRepository;
+    private readonly ISubscriptionPeriodRepository subscriptionPeriodRepository;
 
     public SelectedProductOfferService(ISelectedProductOfferRepository selectedProductOfferRepository,
-        IProductOfferRepository productOfferRepository, ISubscriptionRepository subscriptionRepository, IMapper mapper, ISubscriptionPaymentRepository subscriptionPaymentRepository)
+        IProductOfferRepository productOfferRepository, ISubscriptionRepository subscriptionRepository, IMapper mapper, ISubscriptionPaymentRepository subscriptionPaymentRepository,
+        ISubscriptionPeriodRepository subscriptionPeriodRepository)
     {
         this.selectedProductOfferRepository = selectedProductOfferRepository;
         this.productOfferRepository = productOfferRepository;
         this.subscriptionRepository = subscriptionRepository;
         this.mapper = mapper;
         this.subscriptionPaymentRepository = subscriptionPaymentRepository;
+        this.subscriptionPeriodRepository = subscriptionPeriodRepository;
     }
 
     public async Task<ResponseSelectedProductOfferDto> AddSelectedProductOfferAsync(
@@ -45,7 +49,22 @@ public class SelectedProductOfferService : ISelectedProductOfferService
         {
             throw new Exception("A Subscrição não existe");
         }
+        
+        //Validate if subscription period exists
+        var subscriptionPeriod = await subscriptionPeriodRepository.GetByIdAsync(subscription.SubscriptionPeriodId);
+        if (subscriptionPeriod is null)
+        {
+            throw new Exception("O Período de Subscrição não existe");
+        }
+        
+        // Validate if DeliveryDate is within the SubscriptionPeriod using ValidateSubscriptionPeriodAndDeliveryDateAsync
+        bool isValidDeliveryDate = await ValidateSubscriptionPeriodAndDeliveryDateAsync(subscription.SubscriptionPeriodId, createSelectedProductOfferDto.DeliveryDate);
 
+        if (!isValidDeliveryDate)
+        {
+            throw new Exception("A data de entrega deve estar dentro do período de subscrição");
+        }
+        
         var selectedProductOffer = mapper.Map<SelectedProductOffer>(createSelectedProductOfferDto);
         //add subscription period id from the subscription
         selectedProductOffer.SubscriptionPeriodId = subscription.SubscriptionPeriodId;
@@ -70,7 +89,7 @@ public class SelectedProductOfferService : ISelectedProductOfferService
     }
 
 
-//javardice time
+    //javardice time
     public async Task<ResponseSelectedProductOfferDto> GetSelectedProductOfferByIdAsync(int id)
     {
         var selectedProductOffers = (await selectedProductOfferRepository.GetAllAsync()).ToList();
@@ -128,6 +147,14 @@ public class SelectedProductOfferService : ISelectedProductOfferService
             //add subscription period id from the updated subscription
             selectedProductOffer.SubscriptionPeriodId = subscriptionExists.SubscriptionPeriodId;
         }
+        
+        // Validate if DeliveryDate is within the SubscriptionPeriod using ValidateSubscriptionPeriodAndDeliveryDateAsync
+        bool isValidDeliveryDate = await ValidateSubscriptionPeriodAndDeliveryDateAsync(selectedProductOffer.SubscriptionPeriodId, updateSelectedProductOfferDto.DeliveryDate);
+        if (!isValidDeliveryDate)
+        {
+            throw new Exception("A data de entrega deve estar dentro do período de subscrição");
+        }
+        
 
         // Update Quantity if provided and greater than 0
         if (updateSelectedProductOfferDto.Quantity >= 0)
@@ -207,5 +234,29 @@ public class SelectedProductOfferService : ISelectedProductOfferService
         };
 
         return responseDto;
+    }
+    
+    private bool IsValidDeliveryDate(DateTime deliveryDate, DateTime startDate, DateTime endDate)
+    {
+        return deliveryDate >= startDate && deliveryDate <= endDate;
+    }
+    
+    private async Task<bool> ValidateSubscriptionPeriodAndDeliveryDateAsync(int subscriptionPeriodId, DateTime deliveryDate)
+    {
+
+        // Validate if subscription period exists
+        var subscriptionPeriod = await subscriptionPeriodRepository.GetByIdAsync(subscriptionPeriodId);
+        if (subscriptionPeriod is null)
+        {
+            throw new Exception("O Período de Subscrição não existe");
+        }
+
+        // Validate if DeliveryDate is within the SubscriptionPeriod
+        if (!IsValidDeliveryDate(deliveryDate, subscriptionPeriod.StartDate, subscriptionPeriod.EndDate))
+        {
+            return false;
+        }
+
+        return true;
     }
 }
