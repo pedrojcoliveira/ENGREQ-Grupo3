@@ -54,6 +54,7 @@
 }
 
 .card {
+    margin-top: 20px;
     border: 1px solid #5d391a; /* Verde */
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -66,3 +67,11 @@
 .card-text {
     color: #6c757d; /* Cinza claro */
 }
+
+.card-img-top {
+    width: 100%; /* Garante que a imagem ocupa a largura do card */
+    height: 200px; /* Define uma altura fixa para todas as imagens */
+    object-fit: cover; /* Faz com que a imagem cubra o espaço sem distorções */
+    border-radius: 8px 8px 0 0; /* Opcional: adiciona cantos arredondados no topo */
+}
+

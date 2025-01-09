@@ -15,7 +15,7 @@
     </div>
 
     <!-- Layout de cards -->
-    <div class="row row-cols-1 row-cols-md-5 g-6">
+    <div class="row row-cols-3 row-cols-md-5 g-0">
         @foreach (var product in Model)
         {
             <a class="card-link" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
