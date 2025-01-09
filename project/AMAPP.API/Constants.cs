@@ -39,6 +39,20 @@ namespace AMAPP.API
         public static readonly string[] ValidPhotoFormats = { ".jpg", ".jpeg", ".png" };
     }
     
-    public enum SubscriptionDuration    {  Semanal,        Semestral,        Anual    }
+    public enum SubscriptionDuration    {  Trimestral, Semestral    }
     public enum ResourceStatus    {  Ativo,     Inativo}
+    
+    public static class SubscriptionDurationExtensions
+    {
+        public static readonly Dictionary<SubscriptionDuration, int> DurationDays = new()
+        {
+            { SubscriptionDuration.Trimestral, 90 },
+            { SubscriptionDuration.Semestral, 180 }
+        };
+
+        public static int GetDurationDays(this SubscriptionDuration duration)
+        {
+            return DurationDays[duration];
+        }
+    }
 }
