@@ -15,8 +15,6 @@ namespace AMAPP.API.Models
         
         public List<DeliveryDate> DeliveryDates { get; set; } = new ();
 
-        public List<SelectedProductOffer> SelectedProductOffers { get; set; } = new ();
-
         // Relacionamento com OfertaProduto
         public List<ProductOffer> ProductOffers { get; set; } = new ();
         
