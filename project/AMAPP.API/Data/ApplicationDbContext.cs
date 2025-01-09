@@ -23,7 +23,7 @@ namespace AMAPP.API.Data
         public DbSet<DeliveryDate> DeliveryDates { get; set; }
         public DbSet<SelectedProductOffer> SelectedProductOffers { get; set; }
         public DbSet<SelectedDeliveryDate> SelectedDeliveryDates { get; set; }
-        public DbSet<SubscriptionPayment> SubscriptionPayments { get; set; }
+        public DbSet<Payment> SubscriptionPayments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,19 +32,24 @@ namespace AMAPP.API.Data
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
+            #region PRODUCER INFO
             // Relacionamentos para ProducerInfo
             modelBuilder.Entity<ProducerInfo>()
                 .HasOne(p => p.User)
                 .WithOne()
                 .HasForeignKey<ProducerInfo>(p => p.UserId);
 
+            #endregion
+
+            #region COPRODUCER INFO
             // Relacionamentos para CoproducerInfo
             modelBuilder.Entity<CoproducerInfo>()
                 .HasOne(c => c.User)
                 .WithOne()
                 .HasForeignKey<CoproducerInfo>(c => c.UserId);
+            #endregion
 
-
+            #region PRODUCT
             modelBuilder.Entity<Product>()
                 .Property(p => p.Photo)
                 .HasColumnType("BYTEA") // Map to BYTEA column in PostgreSQL
@@ -55,15 +60,17 @@ namespace AMAPP.API.Data
                 .HasOne(p => p.ProducerInfo)
                 .WithMany(pr => pr.Products)
                 .HasForeignKey(p => p.ProducerInfoId)
-                .OnDelete(DeleteBehavior.Cascade);
-
+                .OnDelete(DeleteBehavior.SetNull);
+    
             // Configuração para Produto -> TipoProduto
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.ProductType)
                 .WithMany()
                 .HasForeignKey(p => p.ProductTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
+            #endregion
 
+            #region COMPOUNDPRODUCT
             // Configuração para ProdutoCompostoProduto (M:N)
             modelBuilder.Entity<CompoundProductProduct>()
                 .HasKey(pc => new { pc.CompoundProductId, pc.ProductId });
@@ -77,82 +84,134 @@ namespace AMAPP.API.Data
                 .HasOne(pc => pc.Product)
                 .WithMany()
                 .HasForeignKey(pc => pc.ProductId);
+            #endregion
 
-            // Configuração para ContaCorrente
-            modelBuilder.Entity<CheckingAccount>()
-                .HasOne(c => c.Coproducer)
-                .WithOne(c => c.CheckingAccount)
-                .HasForeignKey<CheckingAccount>(c => c.Id);
+            #region SUBSCRIPTION PERIOD
+            modelBuilder.Entity<SubscriptionPeriod>()
+                .HasMany(sp => sp.DeliveryDates)
+                .WithOne()
+                .HasForeignKey(ps => ps.SubscriptionPeriodId).IsRequired();
+            #endregion
 
-            // Configuração para PeriodoSubscricao -> OfertaProduto
-            modelBuilder.Entity<ProductOffer>()
-                .HasOne(o => o.PeriodSubscription)
-                .WithMany(p => p.ProductOffers)
-                .HasForeignKey(o => o.PeriodSubscriptionId)
-                .OnDelete(DeleteBehavior.Cascade);
+            #region PRODUCT OFFER
 
-            // Configuração para Produto -> OfertaProduto
+            // One-to-many relationship between ProductOffer and Product
             modelBuilder.Entity<ProductOffer>()
                 .HasOne(po => po.Product)
                 .WithMany(p => p.ProductOffers)
-                .HasForeignKey(po => po.ProductId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(po => po.ProductId);
+
+            // One-to-many relationship between ProductOffer and SubscriptionPeriod
+            modelBuilder.Entity<ProductOffer>()
+                .HasOne(po => po.SubscriptionPeriod)
+                .WithMany(sp => sp.ProductOffers)
+                .HasForeignKey(po => po.SubscriptionPeriodId);
+
+            #endregion
+
+            #region SELECT DELIVERY DATE
+
+            // One-to-many relationship between DeliveryDate and SelectDeliveryDate
+            modelBuilder.Entity<SelectedDeliveryDate>()
+                .HasKey(sdd => new { sdd.DeliveryDateId, sdd.ProductOfferId });
+
+            modelBuilder.Entity<SelectedDeliveryDate>()
+                .HasOne(sdd => sdd.DeliveryDate)
+                .WithMany(dd => dd.SelectDeliveryDates)
+                .HasForeignKey(sdd => sdd.DeliveryDateId);
 
             // Configuração para ProdutoOferta -> SelectedDeliveryDate
             modelBuilder.Entity<SelectedDeliveryDate>()
                 .HasOne(sdd => sdd.ProductOffer)
                 .WithMany(po => po.SelectedDeliveryDates)
-                .HasForeignKey(sdd => sdd.ProductOfferId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(sdd => sdd.ProductOfferId);
 
-            // Configuração para Subscricao -> Coprodutor
+            #endregion
+
+            #region PRODUCT OFFER PAYMENT METHOD
+
+            // One-to-many relationship between ProductOffer and PaymentMethod (via ProductOfferPaymentMethods)
+            modelBuilder.Entity<ProductOfferPaymentMethod>()
+                .HasKey(popm => new { popm.ProductOfferId });
+
+            modelBuilder.Entity<ProductOfferPaymentMethod>()
+                .HasOne(popm => popm.ProductOffer)
+                .WithMany(po => po.ProductOfferPaymentMethods)
+                .HasForeignKey(popm => popm.ProductOfferId);
+
+            #endregion
+
+            #region PRODUCT OFFER PAYMENT MODE
+
+            // One-to-many relationship between ProductOffer and PaymentMode (via ProductOfferPaymentModes)
+            modelBuilder.Entity<ProductOfferPaymentMode>()
+                .HasKey(popm => new { popm.ProductOfferId });
+
+            modelBuilder.Entity<ProductOfferPaymentMode>()
+                .HasOne(popm => popm.ProductOffer)
+                .WithMany(po => po.ProductOfferPaymentModes)
+                .HasForeignKey(popm => popm.ProductOfferId);
+
+            #endregion
+
+            #region SUBSCRIPTION
+            // Relationship between Subscription and CoproducerInfo
             modelBuilder.Entity<Subscription>()
                 .HasOne(s => s.CoproducerInfo)
-                .WithMany()
-                .HasForeignKey(s => s.CoproducerInfoId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithMany(ci => ci.Subscriptions)
+                .HasForeignKey(s => s.CoproducerInfoId);
 
-            // Configuração para Subscricao -> PeriodoSubscricao
+            // Relationship between Subscription and SubscriptionPeriod
             modelBuilder.Entity<Subscription>()
                 .HasOne(s => s.SubscriptionPeriod)
-                .WithMany()
-                .HasForeignKey(s => s.SubscriptionPeriodId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithMany(sp => sp.Subscriptions)
+                .HasForeignKey(s => s.SubscriptionPeriodId);
+            #endregion
 
-            // Configuração para ProdutoSelecionado
+            #region SELECTED PRODUCT OFFER
+
+            // One-to-many relationship between SelectedProductOffer and Subscription
             modelBuilder.Entity<SelectedProductOffer>()
-                .HasOne(ps => ps.ProductOffer)
-                .WithMany()
-                .HasForeignKey(ps => ps.ProductOfferId);
+                .HasOne(spo => spo.Subscription)
+                .WithMany(s => s.SelectedProductOffers)
+                .HasForeignKey(spo => spo.SubscriptionId);
 
+            // One-to-many relationship between SelectedProductOffer and ProductOffer
             modelBuilder.Entity<SelectedProductOffer>()
-                .HasOne(ps => ps.Subscription)
-                .WithMany(s => s.SelectedProducts)
-                .HasForeignKey(ps => ps.SubscriptionId);
-            
-            modelBuilder.Entity<SubscriptionPeriod>()
-                .HasMany(sp  => sp.DeliveryDates)
-                .WithOne()
-                .HasForeignKey(ps => ps.SubscriptionPeriodId).IsRequired();
+                .HasOne(spo => spo.ProductOffer)
+                .WithMany(po => po.SelectedProductOffers)
+                .HasForeignKey(spo => spo.ProductOfferId);
 
-            // Configuração para SubscriptionPayment
-            modelBuilder.Entity<SubscriptionPayment>()
-                .HasOne(sp => sp.Subscription)
-                .WithMany(s => s.SubscriptionPayments)
-                .HasForeignKey(sp => sp.SubscriptionId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+            #endregion
 
-            modelBuilder.Entity<SubscriptionPayment>()
-                .HasOne(sp => sp.SelectedProductOffer)
-                .WithMany(s => s.SubscriptionPayments)
-                .HasForeignKey(sp => sp.SelectedProductOfferId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+            #region SELECTED PRODUCT OFFER DELIVERY
 
-            //modelBuilder.Entity<SubscriptionPayment>()
-            //    .Property(p => p.PaymentStatus)
-            //    .HasConversion<string>(); // Store enum as a string in the database
+            // Relationship between SelectedProductOffer and SelectedProductOfferDelivery
+            modelBuilder.Entity<SelectedProductOfferDelivery>()
+                .HasOne(spod => spod.SelectedProductOffer)
+                .WithMany(spo => spo.SelectedProductOfferDeliveries)
+                .HasForeignKey(spod => spod.SelectedProductOfferId);
+
+            #endregion
+
+            #region PAYMENT
+
+            // Relationship between Payment and SelectedProductOffer
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.SelectedProductOffer)
+                .WithMany(spo => spo.Payments)
+                .HasForeignKey(p => p.SelectedProductOfferId);
+
+            #endregion
+
+            #region CHECKING ACCOUNT
+            // Configuração para ContaCorrente
+            modelBuilder.Entity<CheckingAccount>()
+                .HasOne(c => c.Coproducer)
+                .WithOne(c => c.CheckingAccount)
+                .HasForeignKey<CheckingAccount>(c => c.Id);
+            #endregion
+
 
 
             modelBuilder.Entity<IdentityRole>().HasData(
@@ -167,9 +226,6 @@ namespace AMAPP.API.Data
                 new ProductType { Id = 1, Name = "Simples", Description = "Produto individual sem composição" },
                 new ProductType { Id = 2, Name = "Composto", Description = "Produto composto por outros produtos" }
             );
-
-
-
 
         }
     }

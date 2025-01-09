@@ -3,7 +3,7 @@ using AMAPP.API.Models;
 
 namespace AMAPP.API.Repository.SubscriptionPaymentRepository
 {
-    public interface ISubscriptionPaymentRepository: IRepositoryBase<SubscriptionPayment>
+    public interface ISubscriptionPaymentRepository: IRepositoryBase<Payment>
     {
 
         Task<List<CoProducerDebts>> GetAllCoproducersDebts();

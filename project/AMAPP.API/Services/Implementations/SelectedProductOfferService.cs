@@ -48,12 +48,11 @@ public class SelectedProductOfferService : ISelectedProductOfferService
 
         var selectedProductOffer = mapper.Map<SelectedProductOffer>(createSelectedProductOfferDto);
         //add subscription period id from the subscription
-        selectedProductOffer.SubscriptionPeriodId = subscription.SubscriptionPeriodId;
 
         // Add default payment status to each subscription payment
-        foreach (var payment in selectedProductOffer.SubscriptionPayments)
+        foreach (var payment in selectedProductOffer.Payments)
         {
-            payment.PaymentStatus = Constants.PaymentStatus.Pendente;
+            payment.Status = Constants.PaymentStatus.Pendente;
         }
 
         await selectedProductOfferRepository.AddAsync(selectedProductOffer);
@@ -97,9 +96,9 @@ public class SelectedProductOfferService : ISelectedProductOfferService
         }
 
         // Update DeliveryDate if a valid, non-default date is provided
-        if (updateSelectedProductOfferDto.DeliveryDate != default &&
-            updateSelectedProductOfferDto.DeliveryDate != DateTime.MinValue)
-            selectedProductOffer.DeliveryDate = updateSelectedProductOfferDto.DeliveryDate;
+        //if (updateSelectedProductOfferDto.DeliveryDate != default &&
+        //    updateSelectedProductOfferDto.DeliveryDate != DateTime.MinValue)
+        //    selectedProductOffer.DeliveryDate = updateSelectedProductOfferDto.DeliveryDate;
 
         // Update ProductOfferId if provided and greater than 0
         if (updateSelectedProductOfferDto.ProductOfferId > 0)
@@ -125,18 +124,17 @@ public class SelectedProductOfferService : ISelectedProductOfferService
             }
 
             selectedProductOffer.SubscriptionId = updateSelectedProductOfferDto.SubscriptionId;
-            //add subscription period id from the updated subscription
-            selectedProductOffer.SubscriptionPeriodId = subscriptionExists.SubscriptionPeriodId;
+
         }
 
         // Update Quantity if provided and greater than 0
-        if (updateSelectedProductOfferDto.Quantity >= 0)
-            selectedProductOffer.Quantity = updateSelectedProductOfferDto.Quantity.Value;
+        //if (updateSelectedProductOfferDto.Quantity >= 0)
+        //    selectedProductOffer.Quantity = updateSelectedProductOfferDto.Quantity.Value;
 
         // Update SubscriptionPayments
         foreach (var paymentDto in updateSelectedProductOfferDto.SubscriptionPaymentDto)
         {
-            var existingPayment = selectedProductOffer.SubscriptionPayments.FirstOrDefault(p => p.Id == paymentDto.Id);
+            var existingPayment = selectedProductOffer.Payments.FirstOrDefault(p => p.Id == paymentDto.Id);
             if (existingPayment != null)
             {
                 // Update PaymentDate if provided
@@ -149,10 +147,10 @@ public class SelectedProductOfferService : ISelectedProductOfferService
 
                 // Update PaymentStatus if provided
                 if (Enum.IsDefined(typeof(Constants.PaymentStatus), paymentDto.PaymentStatus))
-                    existingPayment.PaymentStatus = paymentDto.PaymentStatus;
+                    existingPayment.Status = paymentDto.PaymentStatus;
                 
                 //update id subscription if changed in the parent dto
-                existingPayment.SubscriptionId = selectedProductOffer.SubscriptionId;
+                //existingPayment.SubscriptionId = selectedProductOffer.SubscriptionId;
             }
             
         }
@@ -189,21 +187,21 @@ public class SelectedProductOfferService : ISelectedProductOfferService
         var responseDto = new ResponseSelectedProductOfferDto
         {
             Id = selectedProductOffer.Id,
-            DeliveryDate = selectedProductOffer.DeliveryDate,
+            //DeliveryDate = selectedProductOffer.DeliveryDate,
             ProductOfferId = selectedProductOffer.ProductOfferId,
             SubscriptionId = selectedProductOffer.SubscriptionId,
-            Quantity = selectedProductOffer.Quantity,
-            SubscriptionPeriodId = selectedProductOffer.SubscriptionPeriodId,
-            ResponseSubscriptionPaymentDto = selectedProductOffer.SubscriptionPayments.Select(payment =>
-                new ResponseSubscriptionPaymentDto
-                {
-                    Id = payment.Id,
-                    SubscriptionId = payment.SubscriptionId,
-                    SelectedProductOfferId = payment.SelectedProductOfferId,
-                    PaymentDate = payment.PaymentDate ?? DateTime.MinValue,
-                    Amount = payment.Amount,
-                    PaymentStatus = payment.PaymentStatus
-                }).ToList()
+            //Quantity = selectedProductOffer.Quantity,
+            //SubscriptionPeriodId = selectedProductOffer.SubscriptionPeriodId,
+            //ResponseSubscriptionPaymentDto = selectedProductOffer.SubscriptionPayments.Select(payment =>
+            //    new ResponseSubscriptionPaymentDto
+            //    {
+            //        Id = payment.Id,
+            //        SubscriptionId = payment.SubscriptionId,
+            //        SelectedProductOfferId = payment.SelectedProductOfferId,
+            //        PaymentDate = payment.PaymentDate ?? DateTime.MinValue,
+            //        Amount = payment.Amount,
+            //        PaymentStatus = payment.PaymentStatus
+            //    }).ToList()
         };
 
         return responseDto;

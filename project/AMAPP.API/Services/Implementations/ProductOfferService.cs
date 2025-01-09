@@ -44,8 +44,8 @@ namespace AMAPP.API.Services.Implementations
                 throw new ValidationException(validationResult.ToString());
             }
 
-            // Validar se o PeriodSubscriptionId existe
-            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.PeriodSubscriptionId);
+            // Validar se o SubscriptionPeriodId existe
+            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.SubscriptionPeriodId);
             if (subscriptionPeriod == null)
             {
                 throw new Exception("Período de subscrição inválido.");
@@ -61,10 +61,8 @@ namespace AMAPP.API.Services.Implementations
             // Criar a oferta de produto
             var productOffer = _mapper.Map<ProductOffer>(productOfferDto);
 
-            // Mapear as datas selecionadas
-            productOffer.SelectedDeliveryDates = productOfferDto.SelectedDeliveryDates
-                .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = productOffer })
-                .ToList();
+            // TODO - Mapear as datas selecionadas
+
 
             try {
                 // Salvar no repositório
@@ -113,7 +111,7 @@ namespace AMAPP.API.Services.Implementations
             var productOffers = _mapper.Map<List<ProductOffer>>(offersDto);
             foreach (var offer in productOffers)
             {
-                offer.PeriodSubscriptionId = subscriptionPeriodId;
+                offer.SubscriptionPeriodId = subscriptionPeriodId;
                 await _productOfferRepository.AddAsync(offer);
             }
             return true;
@@ -135,10 +133,11 @@ namespace AMAPP.API.Services.Implementations
 
             // Atualizar os campos da oferta de produto
             existingProductOffer.ProductId = productOfferDto.ProductId;
-            existingProductOffer.PeriodSubscriptionId = productOfferDto.PeriodSubscriptionId;
-            existingProductOffer.SelectedDeliveryDates = productOfferDto.SelectedDeliveryDates
-                .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = existingProductOffer })
-                .ToList();
+            existingProductOffer.SubscriptionPeriodId = productOfferDto.SubscriptionPeriodId;
+            // TODO
+            //existingProductOffer.SelectedDeliveryDates = productOfferDto.SelectedDeliveryDates
+            //    .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = existingProductOffer })
+            //    .ToList();
 
             await _productOfferRepository.UpdateAsync(existingProductOffer);
             return true;

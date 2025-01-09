@@ -12,11 +12,13 @@ namespace AMAPP.API.Models
         public int Id { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        public int PeriodSubscriptionId { get; set; }
-        public SubscriptionPeriod PeriodSubscription { get; set; }
+        public int SubscriptionPeriodId { get; set; }
+        public SubscriptionPeriod SubscriptionPeriod { get; set; }
         public List<SelectedDeliveryDate> SelectedDeliveryDates { get; set; } = new List<SelectedDeliveryDate>();
-       public PaymentMethod PaymentMethod { get; set; }
-       public PaymentMode PaymentMode { get; set; }
+        public ICollection<ProductOfferPaymentMethod> ProductOfferPaymentMethods { get; set; }
+        public ICollection<ProductOfferPaymentMode> ProductOfferPaymentModes { get; set; }
+        public ICollection<SelectedProductOffer> SelectedProductOffers { get; set; }
+
     }
 
 }

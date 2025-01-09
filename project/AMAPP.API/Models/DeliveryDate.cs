@@ -14,6 +14,8 @@ namespace AMAPP.API.Models
         public int SubscriptionPeriodId { get; set; }
         
         public ResourceStatus ResourceStatus { get; set; }
-        
+
+        public ICollection<SelectedDeliveryDate> SelectDeliveryDates { get; set; }
+
     }
 }

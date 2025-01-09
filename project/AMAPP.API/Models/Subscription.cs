@@ -18,10 +18,7 @@ namespace AMAPP.API.Models
         public SubscriptionPeriod SubscriptionPeriod { get; set; }
 
         // Produtos selecionados pelo coprodutor 
-        public List<SelectedProductOffer> SelectedProducts { get; set; } = new ();
-
-        // Pagamentos da subscrição
-        public List<SubscriptionPayment> SubscriptionPayments { get; set; } = new();
+        public List<SelectedProductOffer> SelectedProductOffers { get; set; } = new ();
 
     }
 }

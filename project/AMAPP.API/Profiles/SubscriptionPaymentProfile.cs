@@ -8,9 +8,9 @@ namespace AMAPP.API.Profiles
     {
         public SubscriptionPaymentProfile()
         {
-            CreateMap<CreateSubscriptionPaymentDto, SubscriptionPayment>();
-            CreateMap<SubscriptionPaymentDto, SubscriptionPayment>();
-            CreateMap<SubscriptionPayment, ResponseSubscriptionPaymentDto>();
+            CreateMap<CreateSubscriptionPaymentDto, Payment>();
+            CreateMap<SubscriptionPaymentDto, Payment>();
+            CreateMap<Payment, ResponseSubscriptionPaymentDto>();
             CreateMap<UpdateSubscriptionPaymentDto, ResponseSubscriptionPaymentDto>();
         }
     }

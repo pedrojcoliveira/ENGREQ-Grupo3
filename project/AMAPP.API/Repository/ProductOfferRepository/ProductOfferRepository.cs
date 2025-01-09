@@ -24,7 +24,7 @@ namespace AMAPP.API.Repository.ProductOfferRepository
         public async Task<List<ProductOffer>> GetBySubscriptionPeriodIdAsync(int subscriptionPeriodId)
         {
             return await _context.ProductOffers
-                .Where(po => po.PeriodSubscriptionId == subscriptionPeriodId)
+                .Where(po => po.SubscriptionPeriodId == subscriptionPeriodId)
                 .ToListAsync();
         }
 
@@ -33,7 +33,7 @@ namespace AMAPP.API.Repository.ProductOfferRepository
             return await _context.ProductOffers
                 .Include(po => po.Product)
                 .Include(po => po.SelectedDeliveryDates)
-                .Include(po => po.PeriodSubscription)
+                .Include(po => po.SubscriptionPeriod)
                 .ToListAsync();
         }
     }

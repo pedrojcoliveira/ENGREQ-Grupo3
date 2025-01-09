@@ -44,7 +44,7 @@ namespace AMAPP.API.Controllers
             }
 
             // Validar o Período de Subscrição
-            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.PeriodSubscriptionId);
+            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.SubscriptionPeriodId);
             if (subscriptionPeriod == null)
             {
                 return NotFound("Período de subscrição não encontrado.");
@@ -58,14 +58,14 @@ namespace AMAPP.API.Controllers
             }
 
             // Verificar se as datas de entrega estão dentro do período de subscrição
-            var invalidDates = productOfferDto.SelectedDeliveryDates
-                .Where(date => date < subscriptionPeriod.StartDate || date > subscriptionPeriod.EndDate)
-                .ToList();
+            //var invalidDates = productOfferDto.SelectedDeliveryDates
+            //    .Where(date => date < subscriptionPeriod.StartDate || date > subscriptionPeriod.EndDate)
+            //    .ToList();
 
-            if (invalidDates.Any())
-            {
-                return BadRequest("Algumas datas de entrega estão fora do período de subscrição permitido.");
-            }
+            //if (invalidDates.Any())
+            //{
+            //    return BadRequest("Algumas datas de entrega estão fora do período de subscrição permitido.");
+            //}
 
             // Criar a oferta de produto
             var createdProductOffer = await _productOfferService.CreateProductOfferAsync(productOfferDto);
@@ -148,7 +148,7 @@ namespace AMAPP.API.Controllers
             }
 
             // Validar o Período de Subscrição
-            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.PeriodSubscriptionId);
+            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.SubscriptionPeriodId);
             if (subscriptionPeriod == null)
             {
                 return NotFound("Período de subscrição não encontrado.");
@@ -162,14 +162,14 @@ namespace AMAPP.API.Controllers
             }
 
             // Verificar se as datas de entrega estão dentro do período de subscrição
-            var invalidDates = productOfferDto.SelectedDeliveryDates
-                .Where(date => date < subscriptionPeriod.StartDate || date > subscriptionPeriod.EndDate)
-                .ToList();
+            //var invalidDates = productOfferDto.SelectedDeliveryDates
+            //    .Where(date => date < subscriptionPeriod.StartDate || date > subscriptionPeriod.EndDate)
+            //    .ToList();
 
-            if (invalidDates.Any())
-            {
-                return BadRequest("Algumas datas de entrega estão fora do período de subscrição permitido.");
-            }
+            //if (invalidDates.Any())
+            //{
+            //    return BadRequest("Algumas datas de entrega estão fora do período de subscrição permitido.");
+            //}
 
             // Atualizar a oferta de produto
             var success = await _productOfferService.UpdateProductOfferAsync(id, productOfferDto);

@@ -12,12 +12,9 @@ namespace AMAPP.API.Models
         public SubscriptionDuration Duration { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        
         public List<DeliveryDate> DeliveryDates { get; set; } = new ();
-
-        // Relacionamento com OfertaProduto
         public List<ProductOffer> ProductOffers { get; set; } = new ();
-        
+        public ICollection<Subscription> Subscriptions { get; set; }
         public ResourceStatus ResourceStatus { get; set; }
     }
 }

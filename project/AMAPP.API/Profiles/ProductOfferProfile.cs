@@ -8,17 +8,17 @@ namespace AMAPP.API.Profiles
     {
         public ProductOfferProfile()
         {
+            // Mapping from ProductOfferDto to ProductOffer
             CreateMap<ProductOfferDto, ProductOffer>()
-                .ForMember(dest => dest.SelectedDeliveryDates, opt => opt.MapFrom(src => src.SelectedDeliveryDates.Select(date => new SelectedDeliveryDate { Date = date }).ToList()));
+                .ForMember(dest => dest.SelectedDeliveryDates, opt => opt.Ignore()) // If you need to handle them separately
+                .ForMember(dest => dest.ProductOfferPaymentMethods, opt => opt.Ignore()) // If you need to handle them separately
+                .ForMember(dest => dest.ProductOfferPaymentModes, opt => opt.Ignore()); // If you need to handle them separately
 
-            CreateMap<ProductOffer, ProductOfferDto>()
-                .ForMember(dest => dest.SelectedDeliveryDates, opt => opt.MapFrom(src => src.SelectedDeliveryDates.Select(date => date.Date).ToList()));
-
+            CreateMap<ProductOffer, ProductOfferDto>();
 
             CreateMap<ProductOffer, ProductOfferResultDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
-                .ForMember(dest => dest.SubscriptionPeriodName, opt => opt.MapFrom(src => src.PeriodSubscription.Name))
-                .ForMember(dest => dest.SelectedDeliveryDates, opt => opt.MapFrom(src => src.SelectedDeliveryDates.Select(d => d.Date).ToList()));
+                .ForMember(dest => dest.SubscriptionPeriodName, opt => opt.MapFrom(src => src.SubscriptionPeriod.Name));
         }
     }
 }

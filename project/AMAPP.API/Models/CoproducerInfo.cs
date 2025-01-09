@@ -13,7 +13,11 @@ namespace AMAPP.API.Models
         public string UserId { get; set; }
         public User User { get; set; }
 
+        public ICollection<Subscription> Subscriptions { get; set; }
+
         // Propriedade específica
         public CheckingAccount CheckingAccount { get; set; }
+
+
     }
 }
