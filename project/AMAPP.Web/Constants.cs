@@ -2,6 +2,6 @@
 
 public static class Constants
 {
-    public enum SubscriptionDuration    {  Semanal,        Semestral,        Anual    }
+    public enum SubscriptionDuration    { Trimestral,        Semestral}
     public enum ResourceStatus    {  Ativo,     Inativo}
 }
