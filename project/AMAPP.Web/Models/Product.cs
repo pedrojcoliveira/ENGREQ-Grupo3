@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static AMAPP.Web.Constants;
 
 namespace AMAPP.Web.Models
 {
@@ -15,7 +16,7 @@ namespace AMAPP.Web.Models
         //[Required(ErrorMessage = "O preço de referência é obrigatório.")]
         //[RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Preço inválido.")]
         public double ReferencePrice { get; set; }
-        public string DeliveryUnit { get; set; }
+        public DeliveryUnit DeliveryUnit { get; set; }
 
         //[Required(ErrorMessage = "O tipo de produto é obrigatório.")]
         public int ProductTypeId { get; set; }
