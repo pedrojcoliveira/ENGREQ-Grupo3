@@ -15,76 +15,40 @@
         </a>
     </div>
 
-<div class="table-responsive">
-    <table class="table subscription-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Data de Entrega</th>
-                <th>Oferta do Produto</th>
-                <th>ID da Subscrição</th>
-                <th>Quantidade</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var subscription in Model)
-            {
+    <div class="table-responsive">
+        <table class="table subscription-table">
+            <thead>
                 <tr>
-                    <td>@subscription.Id</td>
-                    <td>@subscription.DeliveryDate</td>
-                    <td>@subscription.ProductOfferId</td>
-                    <td>@subscription.SubscriptionId</td>
-                        <td>
-                            <div class="d-flex">
-                                <input type="hidden" name="id" value="@subscription.Id" />
-                                <input type="number" name="quantity" value="@subscription.Quantity" class="form-control me-2" style="max-width: 80px;" required />
-                                <button type="button" class="btn btn-primary btn-sm btn-save-quantity">
-                                    <i class="bi bi-save"></i> Salvar
-                                </button>
-                            </div>
-                        </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@subscription.Id" class="btn btn-info btn-sm">
-                            <i class="bi bi-info-circle"></i> Detalhes
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@subscription.Id" class="btn btn-danger btn-sm"
-                           onclick="return confirm('Tem certeza de que deseja excluir esta subscrição?');">
-                            <i class="bi bi-trash-fill"></i> Excluir
-                        </a>
-                    </td>
+                    <th>ID</th>
+                    <th>Data de Entrega</th>
+                    <th>Oferta do Produto</th>
+                    <th>ID da Subscrição</th>
+                    <th>Quantidade</th>
+                    <th>Ações</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.btn-save-quantity').click(function () {
-            var row = $(this).closest('tr');
-            var id = row.find('input[name="id"]').val();
-            var quantity = row.find('input[name="quantity"]').val();
-
-            // Gera a URL usando Razor para a ação de atualização
-            var updateUrl = '@Url.Action("UpdateQuantity", "Subscriptions")';
-
-            $.ajax({
-                url: updateUrl,
-                type: 'PUT',
-                contentType: 'application/json',
-                data: JSON.stringify({ id: id, quantity: quantity }),
-                success: function (data) {
-                    alert("Quantidade atualizada com sucesso!");
-                    location.reload();
-                },
-                error: function () {
-                    alert('Erro ao atualizar a quantidade.');
+            </thead>
+            <tbody>
+                @foreach (var subscription in Model)
+                {
+                    <tr>
+                        <td>@subscription.Id</td>
+                        <td>@subscription.DeliveryDate</td>
+                        <td>@subscription.ProductOfferId</td>
+                        <td>@subscription.SubscriptionId</td>
+                        <td>@subscription.Quantity</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@subscription.Id" class="btn btn-info btn-sm">
+                                <i class="bi bi-info-circle"></i> Detalhes
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@subscription.Id" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Tem certeza de que deseja excluir esta subscrição?');">
+                                <i class="bi bi-trash-fill"></i> Excluir
+                            </a>
+                        </td>
+                    </tr>
                 }
-            });
-        });
-    });
-</script>
+            </tbody>
+        </table>
+    </div>
+</div>
 
