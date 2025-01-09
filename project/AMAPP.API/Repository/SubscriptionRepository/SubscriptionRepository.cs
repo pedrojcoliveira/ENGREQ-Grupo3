@@ -17,5 +17,14 @@ namespace AMAPP.API.Repository.SubscriptionRepository
                 .FirstOrDefaultAsync(sp => sp.Id == id);
         }
         
+        // Get subscriptions by subscription period id
+        // Use case: check if subscription period can be deleted
+        public async Task<List<Subscription>> GetSubscriptionsBySubscriptionPeriodId(int id)
+        {
+            return await _context.Subscriptions
+                .Where(sp => sp.SubscriptionPeriod.Id == id)
+                .ToListAsync();
+        }
+        
     }
 }
