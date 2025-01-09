@@ -17,12 +17,16 @@
                     private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
                     private readonly IMapper _mapper;
                     private readonly IMediator _mediator;
+                    private readonly ISelectedProductOfferRepository _selectedProductOfferRepository;
+                    private readonly IProductOfferRepository _ProductOfferRepository;
 
-                    public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator)
+                    public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator, ISelectedProductOfferRepository selectedProductOfferRepository, IProductOfferRepository productOfferRepository)
                     {
                         _subscriptionPeriodRepository = subscriptionPeriodRepository;
                         _mapper = mapper;
                         _mediator = mediator;
+                        _selectedProductOfferRepository = selectedProductOfferRepository;
+                        _ProductOfferRepository = productOfferRepository;
                     }
 
                     public async Task<ResponseSubscriptionPeriodDto> AddSubscriptionPeriodAsync(
@@ -136,6 +140,10 @@
                         if (subscriptionPeriod == null)
                             throw new NotFoundException("O período de subscrição  não existe");
                         
+                        //validate if subscription period has associated product offers or selected product offers
+                        if (await SubscriptionPeriodHasAssociations(id))
+                            throw new ArgumentException("O período de subscrição não pode ser eliminado pois tem ofertas de produtos associadas.");
+                        
                         //inactivate the subscription period and its delivery dates instead of deleting them -> soft delete
                         subscriptionPeriod.ResourceStatus = ResourceStatus.Inativo;
                         subscriptionPeriod.DeliveryDates.ForEach(dd => dd.ResourceStatus = ResourceStatus.Inativo);
@@ -167,6 +175,15 @@
                         }
 
                         return true;
+                    }
+                    
+                    //check if subscription period id has associated product offers or selected product offers
+                    public async Task<bool> SubscriptionPeriodHasAssociations(int id)
+                    {
+                        var productOffers = await _ProductOfferRepository.GetProductOffersBySubscriptionPeriodId(id);
+                        var selectedProductOffers = await _selectedProductOfferRepository.GetSelectedProductOffersBySubscriptionPeriodId(id);
+
+                        return productOffers.Any() || selectedProductOffers.Any();
                     }
                 }
             }
