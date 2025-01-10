@@ -1,4 +1,6 @@
-﻿namespace AMAPP.API.DTOs.DeliveryDate;
+﻿using static AMAPP.Web.Constants;
+
+namespace AMAPP.Web.Models;
 
 public class DeliveryDateDto
 {

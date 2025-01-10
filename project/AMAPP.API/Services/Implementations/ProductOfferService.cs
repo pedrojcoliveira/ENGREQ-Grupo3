@@ -1,13 +1,16 @@
 ﻿using AMAPP.API.DTOs.ProductOffer;
 using AMAPP.API.Models;
+using AMAPP.API.Repository.DeliveryDateRepository;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.ProdutoRepository;
+using AMAPP.API.Repository.SelectedDeliveryDateRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AMAPP.API.Services.Interfaces;
 using AutoMapper;
 using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AMAPP.API.Services.Implementations
 {
@@ -16,15 +19,20 @@ namespace AMAPP.API.Services.Implementations
         private readonly IProductOfferRepository _productOfferRepository;
         private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IDeliveryDateRepository _deliveryDateRepository;
+        private readonly ISelectedDeliveryDateRepository selectedDeliveryDateRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<ProductOfferDto> _productOfferDtoValidator;
+        private readonly IValidator<CreateProductOfferDto> _createProductOfferDtoValidator;
 
         public ProductOfferService(
             IProductOfferRepository productOfferRepository,
             ISubscriptionPeriodRepository subscriptionPeriodRepository,
             IProductRepository productRepository,
             IMapper mapper,
-            IValidator<ProductOfferDto> productOfferDtoValidator)
+            IValidator<ProductOfferDto> productOfferDtoValidator,
+            IDeliveryDateRepository deliveryDateRepository,
+            ISelectedDeliveryDateRepository selectedDeliveryDateRepository)
 
         {
             _productOfferRepository = productOfferRepository;
@@ -32,17 +40,19 @@ namespace AMAPP.API.Services.Implementations
             _productRepository = productRepository;
             _mapper = mapper;
             _productOfferDtoValidator = productOfferDtoValidator;
+            _deliveryDateRepository = deliveryDateRepository;
+            this.selectedDeliveryDateRepository = selectedDeliveryDateRepository;
         }
 
-        public async Task<ProductOfferDto> CreateProductOfferAsync(ProductOfferDto productOfferDto)
+        public async Task<ProductOfferDto> CreateProductOfferAsync(CreateProductOfferDto productOfferDto)
         {
 
             // Validação do DTO
-            var validationResult = await _productOfferDtoValidator.ValidateAsync(_mapper.Map<ProductOfferDto>(productOfferDto));
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.ToString());
-            }
+            //var validationResult = await _createProductOfferDtoValidator.ValidateAsync(_mapper.Map<CreateProductOfferDto>(productOfferDto));
+            //if (!validationResult.IsValid)
+            //{
+            //    throw new ValidationException(validationResult.ToString());
+            //}
 
             // Validar se o SubscriptionPeriodId existe
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.SubscriptionPeriodId);
@@ -58,15 +68,38 @@ namespace AMAPP.API.Services.Implementations
                 throw new Exception("Produto inválido.");
             }
 
+            var deliveryDates = await _deliveryDateRepository.GetDeliveryDatesByIds(productOfferDto.SelectedDeliveryDates);
+            if (product == null)
+            {
+                throw new Exception("Datas de entrega não existem na subscrição selecionada");
+            }
+
             // Criar a oferta de produto
             var productOffer = _mapper.Map<ProductOffer>(productOfferDto);
-
-            // TODO - Mapear as datas selecionadas
 
 
             try {
                 // Salvar no repositório
                 await _productOfferRepository.AddAsync(productOffer);
+
+                foreach (var deliveryDate in deliveryDates)
+                {
+
+                    if (deliveryDate != null)
+                    {
+                        var selectedDeliveryDate = new SelectedDeliveryDate
+                        {
+                            DeliveryDateId = deliveryDate.Id,
+                            DeliveryDate = deliveryDate,
+                            ProductOfferId = productOffer.Id,
+                            ProductOffer = productOffer
+                        };
+
+                        // Add the SelectedDeliveryDate to the repository
+                        await selectedDeliveryDateRepository.AddAsync(selectedDeliveryDate);
+                    }
+                }
+
             }
             catch (Exception ex)
             {

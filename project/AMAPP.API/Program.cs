@@ -28,6 +28,8 @@ using System.Reflection;
 using System.Text;
 using AMAPP.API.DTOs.SubscriptionPayment.Validators;
 using AMAPP.API.Repository.AccountBalanceRepository;
+using AMAPP.API.Repository.SelectedDeliveryDateRepository;
+using AMAPP.API.Repository.DeliveryDateRepository;
 
 namespace AMAPP.API
 {
@@ -96,6 +98,8 @@ namespace AMAPP.API
             builder.Services.AddScoped<IKpiRepository, KpiRepository>();
             builder.Services.AddScoped<IAccountBalanceService, AccountBalanceService>();
             builder.Services.AddScoped<IAccountBalanceRepository, AccountBalanceRepository>();
+            builder.Services.AddScoped<ISelectedDeliveryDateRepository, SelectedDeliveryDateRepository>();
+            builder.Services.AddScoped<IDeliveryDateRepository, DeliveryDateRepository>();
 
             builder.Services.AddRouting(options =>
             {

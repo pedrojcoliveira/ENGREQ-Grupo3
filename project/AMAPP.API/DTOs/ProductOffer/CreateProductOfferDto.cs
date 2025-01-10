@@ -1,6 +1,6 @@
-﻿namespace AMAPP.Web.Models
+﻿namespace AMAPP.API.DTOs.ProductOffer
 {
-    public class CreateProductOffer
+    public class CreateProductOfferDto
     {
         public int ProductId { get; set; }
         public int SubscriptionPeriodId { get; set; }
