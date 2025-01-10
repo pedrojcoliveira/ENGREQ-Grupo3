@@ -14,14 +14,16 @@
         </a>
     </div>
 
-    <!-- Layout de cards -->
-    <div class="row row-cols-3 row-cols-md-5 g-0">
+    <!-- Layout de cards centralizado -->
+    <div class="row row-cols-12 row-cols-md-5 g-10 justify-content-center">
         @foreach (var product in Model)
         {
-            <a class="card-link" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
-                <div class="col">
-                    <div class="card h-100 hover-card">
-                        <img src="@product.PhotoBase64" class="card-img-top" alt="@product.Name" />
+            <a class="card-link text-decoration-none" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+                <div class="col d-flex justify-content-center">
+                    <div class="card h-100 hover-card text-center">
+                        <div class=card-top>
+                            <img src="@product.PhotoBase64" class="card-img-top" alt="@product.Name" />
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             <p class="card-text">@product.Description</p>
@@ -34,6 +36,7 @@
             </a>
         }
     </div>
+
 </div>
 
 <style>
