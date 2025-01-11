@@ -146,12 +146,19 @@ public class SelectedProductOfferService : ISelectedProductOfferService
 
         }
         
+        //Validate if subscription period exists
+        var subscriptionPeriod = await subscriptionPeriodRepository.GetByIdAsync(selectedProductOffer.SubscriptionId);
+        if (subscriptionPeriod is null)
+        {
+            throw new Exception("O Período de Subscrição não existe");
+        }
+        
         // Validate if DeliveryDate is within the SubscriptionPeriod using ValidateSubscriptionPeriodAndDeliveryDateAsync
-        //bool isValidDeliveryDate = await ValidateSubscriptionPeriodAndDeliveryDateAsync(selectedProductOffer.SubscriptionPeriodId, updateSelectedProductOfferDto.DeliveryDate);
-        //if (!isValidDeliveryDate)
-        //{
-        //    throw new Exception("A data de entrega deve estar dentro do período de subscrição");
-        //}
+        bool isValidDeliveryDate = await ValidateSubscriptionPeriodAndDeliveryDateAsync(subscriptionPeriod.Id, updateSelectedProductOfferDto.DeliveryDate);
+        if (!isValidDeliveryDate)
+        {
+            throw new Exception("A data de entrega deve estar dentro do período de subscrição");
+        }
         
 
         // Update Quantity if provided and greater than 0
