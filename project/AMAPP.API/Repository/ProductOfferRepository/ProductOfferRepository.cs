@@ -32,7 +32,7 @@ namespace AMAPP.API.Repository.ProductOfferRepository
         {
             return await _context.ProductOffers
                 .Include(po => po.Product)
-                .Include(po => po.SelectedDeliveryDates)
+                .Include(po => po.SelectedDeliveryDates).ThenInclude(x => x.DeliveryDate)
                 .Include(po => po.SubscriptionPeriod)
                 .ToListAsync();
         }
