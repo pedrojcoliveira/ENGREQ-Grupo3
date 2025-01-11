@@ -1,6 +1,9 @@
-﻿namespace AMAPP.API.Repository.DeliveryDateRepository;
+﻿
+using AMAPP.API.Models;
 
-public interface IDeliveryDateRepository
+namespace AMAPP.API.Repository.DeliveryDateRepository;
+
+public interface IDeliveryDateRepository: IRepositoryBase<DeliveryDate>
 {
-    
+    Task<List<DeliveryDate>> GetDeliveryDatesByIds(List<int> selectedDeliveryDates);
 }

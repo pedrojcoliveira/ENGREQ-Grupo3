@@ -1,6 +1,5 @@
 ﻿using AMAPP.API.DTOs.SubscriptionPayment;
 using AMAPP.API.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AMAPP.API.Controllers

@@ -33,8 +33,8 @@ namespace AMAPP.API.Services.Implementations
         
         public async Task<ResponseSubscriptionPaymentDto> AddSubscriptionPaymentAsync(CreateSubscriptionPaymentDto createSubscriptionPaymentDto)
         {
-            var subscriptionPayment = _mapper.Map<SubscriptionPayment>(createSubscriptionPaymentDto);
-            subscriptionPayment.PaymentStatus = Constants.PaymentStatus.Pendente; // vai por defeito como pendente
+            var subscriptionPayment = _mapper.Map<Payment>(createSubscriptionPaymentDto);
+            subscriptionPayment.Status = Constants.PaymentStatus.Pendente; // vai por defeito como pendente
             await _subscriptionPaymentRepository.AddAsync(subscriptionPayment);
             return _mapper.Map<ResponseSubscriptionPaymentDto>(subscriptionPayment);
         }
@@ -73,7 +73,7 @@ namespace AMAPP.API.Services.Implementations
 
             // Update PaymentStatus if provided
             if (Enum.IsDefined(typeof(Constants.PaymentStatus), updateSubscriptionPaymentDto.PaymentStatus))
-                existingSubscriptionPayment.PaymentStatus = updateSubscriptionPaymentDto.PaymentStatus;
+                existingSubscriptionPayment.Status = updateSubscriptionPaymentDto.PaymentStatus;
 
             await _subscriptionPaymentRepository.UpdateAsync(existingSubscriptionPayment);
 

@@ -6,7 +6,7 @@ namespace AMAPP.API.Services.Interfaces
 {
     public interface IProductOfferService
     {
-        Task<ProductOfferDto> CreateProductOfferAsync(ProductOfferDto productOfferDto);
+        Task<ProductOfferDto> CreateProductOfferAsync(CreateProductOfferDto productOfferDto);
         Task<ProductOfferDto> GetProductOfferByIdAsync(int id);
         Task<List<ProductOfferDto>> GetProductOffersBySubscriptionPeriodAsync(int subscriptionPeriodId);
         Task<List<ProductOfferDto>> GetAllProductOffersAsync();

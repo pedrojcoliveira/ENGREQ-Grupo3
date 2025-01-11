@@ -1,4 +1,5 @@
-﻿using AMAPP.API.DTOs.SubscriptionPeriod;
+﻿using AMAPP.API.DTOs.DeliveryDate;
+using AMAPP.API.DTOs.SubscriptionPeriod;
 
 
 namespace AMAPP.API.Services.Interfaces
@@ -10,5 +11,6 @@ namespace AMAPP.API.Services.Interfaces
         Task<ResponseSubscriptionPeriodDto> GetSubscriptionPeriodByIdAsync(int id);
         Task<ResponseSubscriptionPeriodDto> UpdateSubscriptionPeriodAsync(int id, SubscriptionPeriodDto subscriptionPeriodDto);
         Task<bool> DeleteSubscriptionPeriodAsync(int id);
+        Task<List<DeliveryDateDto>> GetSubscriptionPeriodDatesById(int id);
     }
 }

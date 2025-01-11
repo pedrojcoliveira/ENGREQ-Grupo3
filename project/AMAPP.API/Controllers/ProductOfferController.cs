@@ -5,6 +5,8 @@ using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AMAPP.API.DTOs.Product;
+using AMAPP.API.Services.Implementations;
 
 namespace AMAPP.API.Controllers
 {
@@ -29,47 +31,32 @@ namespace AMAPP.API.Controllers
         /// <summary>
         /// Cria uma oferta de produto para o período de subscrição especificado.
         /// </summary>
-        /// <param name="productOfferDto">Dados da oferta de produto a serem criados.</param>
+        /// <param name="createProductOfferDto">Dados da oferta de produto a serem criados.</param>
         /// <returns>Retorna a oferta criada ou erros de validação.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(ProductOfferDto), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> CreateProductOffer([FromBody] ProductOfferDto productOfferDto)
+        public async Task<IActionResult> CreateProductOffer([FromBody] CreateProductOfferDto createProductOfferDto)
         {
-            // Validações iniciais
-            if (productOfferDto == null || productOfferDto.SelectedDeliveryDates == null || !productOfferDto.SelectedDeliveryDates.Any())
+            try
             {
-                return BadRequest("Dados inválidos: é necessário selecionar ao menos uma data de entrega.");
+                var createdProductOffer = await _productOfferService.CreateProductOfferAsync(createProductOfferDto);
+                return CreatedAtAction(nameof(GetProductOfferById), new { id = createdProductOffer.ProductId }, createdProductOffer);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
             }
 
-            // Validar o Período de Subscrição
-            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.PeriodSubscriptionId);
-            if (subscriptionPeriod == null)
-            {
-                return NotFound("Período de subscrição não encontrado.");
-            }
-
-            // Validar o Produto
-            var product = await _productRepository.GetByIdAsync(productOfferDto.ProductId);
-            if (product == null)
-            {
-                return NotFound("Produto não encontrado.");
-            }
-
-            // Verificar se as datas de entrega estão dentro do período de subscrição
-            var invalidDates = productOfferDto.SelectedDeliveryDates
-                .Where(date => date < subscriptionPeriod.StartDate || date > subscriptionPeriod.EndDate)
-                .ToList();
-
-            if (invalidDates.Any())
-            {
-                return BadRequest("Algumas datas de entrega estão fora do período de subscrição permitido.");
-            }
-
-            // Criar a oferta de produto
-            var createdProductOffer = await _productOfferService.CreateProductOfferAsync(productOfferDto);
-            return CreatedAtAction(nameof(GetProductOfferById), new { id = createdProductOffer.ProductId }, createdProductOffer);
         }
 
         /// <summary>
@@ -148,7 +135,7 @@ namespace AMAPP.API.Controllers
             }
 
             // Validar o Período de Subscrição
-            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.PeriodSubscriptionId);
+            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.SubscriptionPeriodId);
             if (subscriptionPeriod == null)
             {
                 return NotFound("Período de subscrição não encontrado.");
@@ -162,14 +149,14 @@ namespace AMAPP.API.Controllers
             }
 
             // Verificar se as datas de entrega estão dentro do período de subscrição
-            var invalidDates = productOfferDto.SelectedDeliveryDates
-                .Where(date => date < subscriptionPeriod.StartDate || date > subscriptionPeriod.EndDate)
-                .ToList();
+            //var invalidDates = productOfferDto.SelectedDeliveryDates
+            //    .Where(date => date < subscriptionPeriod.StartDate || date > subscriptionPeriod.EndDate)
+            //    .ToList();
 
-            if (invalidDates.Any())
-            {
-                return BadRequest("Algumas datas de entrega estão fora do período de subscrição permitido.");
-            }
+            //if (invalidDates.Any())
+            //{
+            //    return BadRequest("Algumas datas de entrega estão fora do período de subscrição permitido.");
+            //}
 
             // Atualizar a oferta de produto
             var success = await _productOfferService.UpdateProductOfferAsync(id, productOfferDto);

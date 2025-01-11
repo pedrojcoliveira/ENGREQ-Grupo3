@@ -21,7 +21,7 @@ public async Task<bool> UpdateQuantityAsync(int id, int quantity)
         }
 
         // Atualiza a quantidade
-        selectedProductOffer.Quantity = quantity;
+        //selectedProductOffer.Quantity = quantity;
 
         // Salva as mudanças no contexto
         await _context.SaveChangesAsync();
@@ -32,7 +32,7 @@ public async Task<bool> UpdateQuantityAsync(int id, int quantity)
         public new async Task<IEnumerable<SelectedProductOffer>> GetAllAsync()
         {
             return await _context.Set<SelectedProductOffer>()
-                .Include(spo => spo.SubscriptionPayments)
+                .Include(spo => spo.Payments)
                 .ToListAsync();
     }
 
@@ -62,12 +62,12 @@ public async Task<bool> UpdateQuantityAsync(int id, int quantity)
     
     // Get selected product offers by subscription period id
     // Use case: check if subscription period can be deleted
-    public async Task<List<SelectedProductOffer>> GetSelectedProductOffersBySubscriptionPeriodId(int id)
-    {
-        return await _context.Set<SelectedProductOffer>()
-            .Include(spo => spo.ProductOffer)
-            .Include(spo => spo.SubscriptionPayments)
-            .Where(spo => spo.SubscriptionPeriodId == id)
-            .ToListAsync();
-    }
+    //public async Task<List<SelectedProductOffer>> GetSelectedProductOffersBySubscriptionPeriodId(int id)
+    //{
+    //    return await _context.Set<SelectedProductOffer>()
+    //        .Include(spo => spo.ProductOffer)
+    //        .Include(spo => spo.Payments)
+    //        .Where(spo => spo.SubscriptionPeriodId == id)
+    //        .ToListAsync();
+    //}
 }

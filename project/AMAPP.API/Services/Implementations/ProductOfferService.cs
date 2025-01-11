@@ -1,13 +1,17 @@
-﻿using AMAPP.API.DTOs.ProductOffer;
+﻿using AMAPP.API.DTOs.Product;
+using AMAPP.API.DTOs.ProductOffer;
 using AMAPP.API.Models;
+using AMAPP.API.Repository.DeliveryDateRepository;
 using AMAPP.API.Repository.ProductOfferRepository;
 using AMAPP.API.Repository.ProdutoRepository;
+using AMAPP.API.Repository.SelectedDeliveryDateRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AMAPP.API.Services.Interfaces;
 using AutoMapper;
 using FluentValidation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AMAPP.API.Services.Implementations
 {
@@ -16,15 +20,21 @@ namespace AMAPP.API.Services.Implementations
         private readonly IProductOfferRepository _productOfferRepository;
         private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IDeliveryDateRepository _deliveryDateRepository;
+        private readonly ISelectedDeliveryDateRepository selectedDeliveryDateRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<ProductOfferDto> _productOfferDtoValidator;
+        private readonly IValidator<CreateProductOfferDto> _createProductOfferDtoValidator;
 
         public ProductOfferService(
             IProductOfferRepository productOfferRepository,
             ISubscriptionPeriodRepository subscriptionPeriodRepository,
             IProductRepository productRepository,
             IMapper mapper,
-            IValidator<ProductOfferDto> productOfferDtoValidator)
+            IValidator<ProductOfferDto> productOfferDtoValidator,
+            IDeliveryDateRepository deliveryDateRepository,
+            ISelectedDeliveryDateRepository selectedDeliveryDateRepository,
+            IValidator<CreateProductOfferDto> createProductOfferDtoValidator)
 
         {
             _productOfferRepository = productOfferRepository;
@@ -32,20 +42,23 @@ namespace AMAPP.API.Services.Implementations
             _productRepository = productRepository;
             _mapper = mapper;
             _productOfferDtoValidator = productOfferDtoValidator;
+            _deliveryDateRepository = deliveryDateRepository;
+            this.selectedDeliveryDateRepository = selectedDeliveryDateRepository;
+            _createProductOfferDtoValidator = createProductOfferDtoValidator;
         }
 
-        public async Task<ProductOfferDto> CreateProductOfferAsync(ProductOfferDto productOfferDto)
+        public async Task<ProductOfferDto> CreateProductOfferAsync(CreateProductOfferDto productOfferDto)
         {
 
             // Validação do DTO
-            var validationResult = await _productOfferDtoValidator.ValidateAsync(_mapper.Map<ProductOfferDto>(productOfferDto));
+            var validationResult = await _createProductOfferDtoValidator.ValidateAsync(productOfferDto);
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.ToString());
+                throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage)));
             }
 
-            // Validar se o PeriodSubscriptionId existe
-            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.PeriodSubscriptionId);
+            // Validar se o SubscriptionPeriodId existe
+            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.SubscriptionPeriodId);
             if (subscriptionPeriod == null)
             {
                 throw new Exception("Período de subscrição inválido.");
@@ -58,26 +71,83 @@ namespace AMAPP.API.Services.Implementations
                 throw new Exception("Produto inválido.");
             }
 
+            var deliveryDates = await _deliveryDateRepository.GetDeliveryDatesByIds(productOfferDto.SelectedDeliveryDates);
+            if (deliveryDates == null || !deliveryDates.Any())
+            {
+                throw new Exception("Datas de entrega não existem na subscrição selecionada");
+            }
+
             // Criar a oferta de produto
             var productOffer = _mapper.Map<ProductOffer>(productOfferDto);
 
-            // Mapear as datas selecionadas
-            productOffer.SelectedDeliveryDates = productOfferDto.SelectedDeliveryDates
-                .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = productOffer })
-                .ToList();
 
-            try {
-                // Salvar no repositório
-                await _productOfferRepository.AddAsync(productOffer);
-            }
-            catch (Exception ex)
-            {
-                _ = ex;
-            }
-            
+            SetSelectedDeliveryDates(deliveryDates, productOffer);
+
+            SetPaymentMethods(productOfferDto.PaymentMethod, productOffer);
+            SetPaymentModes(productOfferDto.PaymentMode, productOffer);
+
+            // Salvar no repositório
+            await _productOfferRepository.AddAsync(productOffer);
 
             // Retornar o DTO da oferta de produto criada
             return _mapper.Map<ProductOfferDto>(productOffer);
+        }
+
+        private void SetPaymentModes(List<string> paymentModes, ProductOffer productOffer)
+        {
+
+            foreach (var paymentMode in paymentModes)
+            {
+                if (Enum.TryParse<Constants.PaymentMode>(paymentMode, true, out var parsedPaymentMode))
+                {
+                    var productOfferPaymentMode = new ProductOfferPaymentMode() { PaymentMode = parsedPaymentMode };
+                    productOffer.ProductOfferPaymentModes.Add(productOfferPaymentMode);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid payment method: {paymentMode}");
+                }
+            }
+ 
+        }
+
+        private void SetPaymentMethods(List<string> paymentMethods, ProductOffer productOffer)
+        {
+
+            foreach (var paymentMethod in paymentMethods)
+            {
+                if (Enum.TryParse<Constants.PaymentMethod>(paymentMethod, true, out var parsedPaymentMethod))
+                {
+                    var productOfferPaymentMethod = new ProductOfferPaymentMethod
+                    { 
+                        PaymentMethod = parsedPaymentMethod 
+                    };
+                    productOffer.ProductOfferPaymentMethods.Add(productOfferPaymentMethod);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid payment method: {paymentMethod}");
+                }
+            }
+
+        }
+
+        private void SetSelectedDeliveryDates(List<DeliveryDate> deliveryDates, ProductOffer productOffer)
+        {
+
+            foreach (var deliveryDate in deliveryDates)
+            {
+
+                if (deliveryDate != null)
+                {
+                    var selectedDeliveryDate = new SelectedDeliveryDate
+                    {
+                        DeliveryDateId = deliveryDate.Id
+                    };
+                    productOffer.SelectedDeliveryDates.Add(selectedDeliveryDate);
+                }
+            }
+
         }
 
 
@@ -113,7 +183,7 @@ namespace AMAPP.API.Services.Implementations
             var productOffers = _mapper.Map<List<ProductOffer>>(offersDto);
             foreach (var offer in productOffers)
             {
-                offer.PeriodSubscriptionId = subscriptionPeriodId;
+                offer.SubscriptionPeriodId = subscriptionPeriodId;
                 await _productOfferRepository.AddAsync(offer);
             }
             return true;
@@ -135,10 +205,11 @@ namespace AMAPP.API.Services.Implementations
 
             // Atualizar os campos da oferta de produto
             existingProductOffer.ProductId = productOfferDto.ProductId;
-            existingProductOffer.PeriodSubscriptionId = productOfferDto.PeriodSubscriptionId;
-            existingProductOffer.SelectedDeliveryDates = productOfferDto.SelectedDeliveryDates
-                .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = existingProductOffer })
-                .ToList();
+            existingProductOffer.SubscriptionPeriodId = productOfferDto.SubscriptionPeriodId;
+            // TODO
+            //existingProductOffer.SelectedDeliveryDates = productOfferDto.SelectedDeliveryDates
+            //    .Select(date => new SelectedDeliveryDate { Date = date, ProductOffer = existingProductOffer })
+            //    .ToList();
 
             await _productOfferRepository.UpdateAsync(existingProductOffer);
             return true;

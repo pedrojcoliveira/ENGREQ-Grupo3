@@ -25,6 +25,7 @@ namespace AMAPP.API.Migrations
             modelBuilder.Entity("AMAPP.API.Models.CheckingAccount", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     b.Property<double>("Balance")
@@ -92,6 +93,44 @@ namespace AMAPP.API.Migrations
                     b.HasIndex("SubscriptionPeriodId");
 
                     b.ToTable("DeliveryDates");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PaymentMode")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SelectedProductOfferDeliveryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SelectedProductOfferId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SelectedProductOfferDeliveryId");
+
+                    b.HasIndex("SelectedProductOfferId");
+
+                    b.ToTable("SubscriptionPayments");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
@@ -163,25 +202,45 @@ namespace AMAPP.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubscriptionPeriodId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SubscriptionPeriodId");
+
+                    b.ToTable("ProductOffers");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.ProductOfferPaymentMethod", b =>
+                {
+                    b.Property<int>("ProductOfferId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("PaymentMethod")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProductOfferId", "PaymentMethod");
+
+                    b.ToTable("ProductOfferPaymentMethod");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.ProductOfferPaymentMode", b =>
+                {
+                    b.Property<int>("ProductOfferId")
                         .HasColumnType("integer");
 
                     b.Property<int>("PaymentMode")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PeriodSubscriptionId")
-                        .HasColumnType("integer");
+                    b.HasKey("ProductOfferId", "PaymentMode");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PeriodSubscriptionId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductOffers");
+                    b.ToTable("ProductOfferPaymentMode");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProductType", b =>
@@ -221,19 +280,13 @@ namespace AMAPP.API.Migrations
 
             modelBuilder.Entity("AMAPP.API.Models.SelectedDeliveryDate", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("DeliveryDateId")
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("ProductOfferId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.HasKey("DeliveryDateId", "ProductOfferId");
 
                     b.HasIndex("ProductOfferId");
 
@@ -248,19 +301,10 @@ namespace AMAPP.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DeliveryDate")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<int>("ProductOfferId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
                     b.Property<int>("SubscriptionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SubscriptionPeriodId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -269,9 +313,44 @@ namespace AMAPP.API.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.HasIndex("SubscriptionPeriodId");
-
                     b.ToTable("SelectedProductOffers");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.SelectedProductOfferDelivery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("DeliveredAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DeliveryDateId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("SelectedProductOfferId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SelectedProductOfferId");
+
+                    b.ToTable("SelectedProductOfferDelivery");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
@@ -295,38 +374,6 @@ namespace AMAPP.API.Migrations
                     b.HasIndex("SubscriptionPeriodId");
 
                     b.ToTable("Subscriptions");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.SubscriptionPayment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime?>("PaymentDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SelectedProductOfferId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SubscriptionId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SelectedProductOfferId");
-
-                    b.HasIndex("SubscriptionId");
-
-                    b.ToTable("SubscriptionPayments");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
@@ -458,25 +505,25 @@ namespace AMAPP.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c26e8058-f1d1-46aa-bb10-ca815ddefcbe",
+                            Id = "55bad5d2-b442-4b57-8a3c-6d1f238591a2",
                             Name = "Administrator",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f318aa3e-9248-4aeb-898f-528cff4b0b41",
+                            Id = "ec902aa0-c5b6-43e7-84e7-4d46feb1f0b4",
                             Name = "Amap",
                             NormalizedName = "AMAP"
                         },
                         new
                         {
-                            Id = "8454e0e5-c71e-4c51-9ec6-6c52a2e52ad8",
+                            Id = "131ceb02-2ba1-499a-abb6-41ffe28561f1",
                             Name = "Producer",
                             NormalizedName = "PROD"
                         },
                         new
                         {
-                            Id = "d8d7d7a7-383d-4ab9-b2d1-2c32c7770926",
+                            Id = "4d7bfd7c-49d8-4306-b1d3-b57ca62f3f07",
                             Name = "CoProducer",
                             NormalizedName = "COPR"
                         });
@@ -638,6 +685,23 @@ namespace AMAPP.API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AMAPP.API.Models.Payment", b =>
+                {
+                    b.HasOne("AMAPP.API.Models.SelectedProductOfferDelivery", "SelectedProductOfferDelivery")
+                        .WithMany()
+                        .HasForeignKey("SelectedProductOfferDeliveryId");
+
+                    b.HasOne("AMAPP.API.Models.SelectedProductOffer", "SelectedProductOffer")
+                        .WithMany("Payments")
+                        .HasForeignKey("SelectedProductOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SelectedProductOffer");
+
+                    b.Navigation("SelectedProductOfferDelivery");
+                });
+
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
                 {
                     b.HasOne("AMAPP.API.Models.User", "User")
@@ -654,7 +718,7 @@ namespace AMAPP.API.Migrations
                     b.HasOne("AMAPP.API.Models.ProducerInfo", "ProducerInfo")
                         .WithMany("Products")
                         .HasForeignKey("ProducerInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("AMAPP.API.Models.ProductType", "ProductType")
@@ -670,30 +734,60 @@ namespace AMAPP.API.Migrations
 
             modelBuilder.Entity("AMAPP.API.Models.ProductOffer", b =>
                 {
-                    b.HasOne("AMAPP.API.Models.SubscriptionPeriod", "PeriodSubscription")
-                        .WithMany("ProductOffers")
-                        .HasForeignKey("PeriodSubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AMAPP.API.Models.Product", "Product")
                         .WithMany("ProductOffers")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PeriodSubscription");
+                    b.HasOne("AMAPP.API.Models.SubscriptionPeriod", "SubscriptionPeriod")
+                        .WithMany("ProductOffers")
+                        .HasForeignKey("SubscriptionPeriodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("SubscriptionPeriod");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.ProductOfferPaymentMethod", b =>
+                {
+                    b.HasOne("AMAPP.API.Models.ProductOffer", "ProductOffer")
+                        .WithMany("ProductOfferPaymentMethods")
+                        .HasForeignKey("ProductOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductOffer");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.ProductOfferPaymentMode", b =>
+                {
+                    b.HasOne("AMAPP.API.Models.ProductOffer", "ProductOffer")
+                        .WithMany("ProductOfferPaymentModes")
+                        .HasForeignKey("ProductOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductOffer");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SelectedDeliveryDate", b =>
                 {
+                    b.HasOne("AMAPP.API.Models.DeliveryDate", "DeliveryDate")
+                        .WithMany("SelectDeliveryDates")
+                        .HasForeignKey("DeliveryDateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AMAPP.API.Models.ProductOffer", "ProductOffer")
                         .WithMany("SelectedDeliveryDates")
                         .HasForeignKey("ProductOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("DeliveryDate");
 
                     b.Navigation("ProductOffer");
                 });
@@ -701,20 +795,14 @@ namespace AMAPP.API.Migrations
             modelBuilder.Entity("AMAPP.API.Models.SelectedProductOffer", b =>
                 {
                     b.HasOne("AMAPP.API.Models.ProductOffer", "ProductOffer")
-                        .WithMany()
+                        .WithMany("SelectedProductOffers")
                         .HasForeignKey("ProductOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AMAPP.API.Models.Subscription", "Subscription")
-                        .WithMany("SelectedProducts")
-                        .HasForeignKey("SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AMAPP.API.Models.SubscriptionPeriod", null)
                         .WithMany("SelectedProductOffers")
-                        .HasForeignKey("SubscriptionPeriodId")
+                        .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -723,16 +811,27 @@ namespace AMAPP.API.Migrations
                     b.Navigation("Subscription");
                 });
 
+            modelBuilder.Entity("AMAPP.API.Models.SelectedProductOfferDelivery", b =>
+                {
+                    b.HasOne("AMAPP.API.Models.SelectedProductOffer", "SelectedProductOffer")
+                        .WithMany("SelectedProductOfferDeliveries")
+                        .HasForeignKey("SelectedProductOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SelectedProductOffer");
+                });
+
             modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
                 {
                     b.HasOne("AMAPP.API.Models.CoproducerInfo", "CoproducerInfo")
-                        .WithMany()
+                        .WithMany("Subscriptions")
                         .HasForeignKey("CoproducerInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AMAPP.API.Models.SubscriptionPeriod", "SubscriptionPeriod")
-                        .WithMany()
+                        .WithMany("Subscriptions")
                         .HasForeignKey("SubscriptionPeriodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -740,25 +839,6 @@ namespace AMAPP.API.Migrations
                     b.Navigation("CoproducerInfo");
 
                     b.Navigation("SubscriptionPeriod");
-                });
-
-            modelBuilder.Entity("AMAPP.API.Models.SubscriptionPayment", b =>
-                {
-                    b.HasOne("AMAPP.API.Models.SelectedProductOffer", "SelectedProductOffer")
-                        .WithMany("SubscriptionPayments")
-                        .HasForeignKey("SelectedProductOfferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AMAPP.API.Models.Subscription", "Subscription")
-                        .WithMany("SubscriptionPayments")
-                        .HasForeignKey("SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SelectedProductOffer");
-
-                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -816,6 +896,13 @@ namespace AMAPP.API.Migrations
                 {
                     b.Navigation("CheckingAccount")
                         .IsRequired();
+
+                    b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("AMAPP.API.Models.DeliveryDate", b =>
+                {
+                    b.Navigation("SelectDeliveryDates");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.ProducerInfo", b =>
@@ -832,19 +919,25 @@ namespace AMAPP.API.Migrations
 
             modelBuilder.Entity("AMAPP.API.Models.ProductOffer", b =>
                 {
+                    b.Navigation("ProductOfferPaymentMethods");
+
+                    b.Navigation("ProductOfferPaymentModes");
+
                     b.Navigation("SelectedDeliveryDates");
+
+                    b.Navigation("SelectedProductOffers");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SelectedProductOffer", b =>
                 {
-                    b.Navigation("SubscriptionPayments");
+                    b.Navigation("Payments");
+
+                    b.Navigation("SelectedProductOfferDeliveries");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.Subscription", b =>
                 {
-                    b.Navigation("SelectedProducts");
-
-                    b.Navigation("SubscriptionPayments");
+                    b.Navigation("SelectedProductOffers");
                 });
 
             modelBuilder.Entity("AMAPP.API.Models.SubscriptionPeriod", b =>
@@ -853,7 +946,7 @@ namespace AMAPP.API.Migrations
 
                     b.Navigation("ProductOffers");
 
-                    b.Navigation("SelectedProductOffers");
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

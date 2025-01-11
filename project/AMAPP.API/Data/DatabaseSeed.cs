@@ -48,7 +48,7 @@ namespace AMAPP.API.Data
                     Email = "tinoderans@example.com",
                     FirstName = "Tino",
                     LastName = "de Rans",
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
                 };
                 await userManager.CreateAsync(amapUser, "12345678");
                 await userManager.AddToRoleAsync(amapUser, "AMAP");

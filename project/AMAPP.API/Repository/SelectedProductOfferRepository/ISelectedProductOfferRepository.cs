@@ -7,5 +7,5 @@ public interface ISelectedProductOfferRepository: IRepositoryBase<SelectedProduc
 {
     Task<bool> UpdateQuantityAsync(int id, int quantity);
     Task<List<CoproducerAccountBalanceDTO>> TotalCoproducersProductValues();
-    Task<List<SelectedProductOffer>> GetSelectedProductOffersBySubscriptionPeriodId(int id);
+    //Task<List<SelectedProductOffer>> GetSelectedProductOffersBySubscriptionPeriodId(int id);
 }
