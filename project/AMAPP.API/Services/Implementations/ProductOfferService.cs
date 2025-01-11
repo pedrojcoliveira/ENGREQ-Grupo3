@@ -1,4 +1,5 @@
-﻿using AMAPP.API.DTOs.ProductOffer;
+﻿using AMAPP.API.DTOs.Product;
+using AMAPP.API.DTOs.ProductOffer;
 using AMAPP.API.Models;
 using AMAPP.API.Repository.DeliveryDateRepository;
 using AMAPP.API.Repository.ProductOfferRepository;
@@ -32,7 +33,8 @@ namespace AMAPP.API.Services.Implementations
             IMapper mapper,
             IValidator<ProductOfferDto> productOfferDtoValidator,
             IDeliveryDateRepository deliveryDateRepository,
-            ISelectedDeliveryDateRepository selectedDeliveryDateRepository)
+            ISelectedDeliveryDateRepository selectedDeliveryDateRepository,
+            IValidator<CreateProductOfferDto> createProductOfferDtoValidator)
 
         {
             _productOfferRepository = productOfferRepository;
@@ -42,17 +44,18 @@ namespace AMAPP.API.Services.Implementations
             _productOfferDtoValidator = productOfferDtoValidator;
             _deliveryDateRepository = deliveryDateRepository;
             this.selectedDeliveryDateRepository = selectedDeliveryDateRepository;
+            _createProductOfferDtoValidator = createProductOfferDtoValidator;
         }
 
         public async Task<ProductOfferDto> CreateProductOfferAsync(CreateProductOfferDto productOfferDto)
         {
 
             // Validação do DTO
-            //var validationResult = await _createProductOfferDtoValidator.ValidateAsync(_mapper.Map<CreateProductOfferDto>(productOfferDto));
-            //if (!validationResult.IsValid)
-            //{
-            //    throw new ValidationException(validationResult.ToString());
-            //}
+            var validationResult = await _createProductOfferDtoValidator.ValidateAsync(productOfferDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ArgumentException(string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage)));
+            }
 
             // Validar se o SubscriptionPeriodId existe
             var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(productOfferDto.SubscriptionPeriodId);
@@ -69,7 +72,7 @@ namespace AMAPP.API.Services.Implementations
             }
 
             var deliveryDates = await _deliveryDateRepository.GetDeliveryDatesByIds(productOfferDto.SelectedDeliveryDates);
-            if (product == null)
+            if (deliveryDates == null || !deliveryDates.Any())
             {
                 throw new Exception("Datas de entrega não existem na subscrição selecionada");
             }
@@ -78,37 +81,73 @@ namespace AMAPP.API.Services.Implementations
             var productOffer = _mapper.Map<ProductOffer>(productOfferDto);
 
 
-            try {
-                // Salvar no repositório
-                await _productOfferRepository.AddAsync(productOffer);
+            SetSelectedDeliveryDates(deliveryDates, productOffer);
 
-                foreach (var deliveryDate in deliveryDates)
-                {
+            SetPaymentMethods(productOfferDto.PaymentMethod, productOffer);
+            SetPaymentModes(productOfferDto.PaymentMode, productOffer);
 
-                    if (deliveryDate != null)
-                    {
-                        var selectedDeliveryDate = new SelectedDeliveryDate
-                        {
-                            DeliveryDateId = deliveryDate.Id,
-                            DeliveryDate = deliveryDate,
-                            ProductOfferId = productOffer.Id,
-                            ProductOffer = productOffer
-                        };
-
-                        // Add the SelectedDeliveryDate to the repository
-                        await selectedDeliveryDateRepository.AddAsync(selectedDeliveryDate);
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                _ = ex;
-            }
-            
+            // Salvar no repositório
+            await _productOfferRepository.AddAsync(productOffer);
 
             // Retornar o DTO da oferta de produto criada
             return _mapper.Map<ProductOfferDto>(productOffer);
+        }
+
+        private void SetPaymentModes(List<string> paymentModes, ProductOffer productOffer)
+        {
+
+            foreach (var paymentMode in paymentModes)
+            {
+                if (Enum.TryParse<Constants.PaymentMode>(paymentMode, true, out var parsedPaymentMode))
+                {
+                    var productOfferPaymentMode = new ProductOfferPaymentMode() { PaymentMode = parsedPaymentMode };
+                    productOffer.ProductOfferPaymentModes.Add(productOfferPaymentMode);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid payment method: {paymentMode}");
+                }
+            }
+ 
+        }
+
+        private void SetPaymentMethods(List<string> paymentMethods, ProductOffer productOffer)
+        {
+
+            foreach (var paymentMethod in paymentMethods)
+            {
+                if (Enum.TryParse<Constants.PaymentMethod>(paymentMethod, true, out var parsedPaymentMethod))
+                {
+                    var productOfferPaymentMethod = new ProductOfferPaymentMethod
+                    { 
+                        PaymentMethod = parsedPaymentMethod 
+                    };
+                    productOffer.ProductOfferPaymentMethods.Add(productOfferPaymentMethod);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid payment method: {paymentMethod}");
+                }
+            }
+
+        }
+
+        private void SetSelectedDeliveryDates(List<DeliveryDate> deliveryDates, ProductOffer productOffer)
+        {
+
+            foreach (var deliveryDate in deliveryDates)
+            {
+
+                if (deliveryDate != null)
+                {
+                    var selectedDeliveryDate = new SelectedDeliveryDate
+                    {
+                        DeliveryDateId = deliveryDate.Id
+                    };
+                    productOffer.SelectedDeliveryDates.Add(selectedDeliveryDate);
+                }
+            }
+
         }
 
 

@@ -15,7 +15,7 @@ namespace AMAPP.API.Models
         public int? SelectedProductOfferDeliveryId { get; set; }
         public SelectedProductOfferDelivery SelectedProductOfferDelivery { get; set; }
 
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
         public PaymentMethod PaymentMethod { get; set; } // Enum
         public PaymentMode PaymentMode { get; set; } // Enum
         public DateTime PaymentDate { get; set; }

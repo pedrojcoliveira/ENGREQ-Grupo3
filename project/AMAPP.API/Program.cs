@@ -87,6 +87,7 @@ namespace AMAPP.API
             builder.Services.AddScoped<IProducerInfoRepository, ProducerInfoRepository>();
             builder.Services.AddScoped<ISubscriptionPeriodService, SubscriptionPeriodService>();
             builder.Services.AddScoped<ISubscriptionPeriodRepository, SubscriptionPeriodRepository>();
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             builder.Services.AddScoped<IProductOfferRepository, ProductOfferRepository>();
             builder.Services.AddScoped<IProductOfferService, ProductOfferService>();

@@ -10,6 +10,7 @@ namespace AMAPP.API.Repository.ProductOfferRepository
         Task<List<ProductOffer>> GetBySubscriptionPeriodIdAsync(int subscriptionPeriodId);
         Task<List<ProductOffer>> GetAllProductOffersWithDetailsAsync();
         Task<List<ProductOffer>> GetProductOffersBySubscriptionPeriodId(int id);
+        Task<List<ProductOffer>> GetProductOffersByIds(IEnumerable<int> enumerable);
     }
 }
 

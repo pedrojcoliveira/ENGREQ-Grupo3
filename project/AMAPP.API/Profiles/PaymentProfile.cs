@@ -4,9 +4,9 @@ using AutoMapper;
 
 namespace AMAPP.API.Profiles
 {
-    public class SubscriptionPaymentProfile : Profile
+    public class PaymentProfile : Profile
     {
-        public SubscriptionPaymentProfile()
+        public PaymentProfile()
         {
             CreateMap<CreateSubscriptionPaymentDto, Payment>();
             CreateMap<SubscriptionPaymentDto, Payment>();

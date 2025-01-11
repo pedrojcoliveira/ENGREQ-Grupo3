@@ -9,6 +9,8 @@ namespace AMAPP.API
         public enum DeliveryUnit { Unidade, Kg, Gramas, Litros }
         public enum PaymentStatus { Pendente, Pago, Cancelado }
         public enum ProdutctType { Simples, Composto }
+        public enum DeliveryStatus { NaoEntregue, Entregue }
+
 
         // File size limits
         public const int MaxPhotoSizeInBytes = 5 * 1024 * 1024; // 5 MB

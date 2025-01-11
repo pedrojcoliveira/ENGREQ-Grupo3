@@ -13,6 +13,7 @@ public class DeliveryDateRepository : RepositoryBase<DeliveryDate>, IDeliveryDat
     public async Task<List<DeliveryDate>> GetDeliveryDatesByIds(List<int> selectedDeliveryDates)
     {
         var deliveryDates = await _context.DeliveryDates
+            .AsNoTracking()
             .Where(d => selectedDeliveryDates.Contains(d.Id))
             .ToListAsync();
 

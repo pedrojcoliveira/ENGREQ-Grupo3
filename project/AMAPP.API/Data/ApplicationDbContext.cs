@@ -132,7 +132,7 @@ namespace AMAPP.API.Data
 
             // One-to-many relationship between ProductOffer and PaymentMethod (via ProductOfferPaymentMethods)
             modelBuilder.Entity<ProductOfferPaymentMethod>()
-                .HasKey(popm => new { popm.ProductOfferId });
+                .HasKey(popm => new { popm.ProductOfferId, popm.PaymentMethod });
 
             modelBuilder.Entity<ProductOfferPaymentMethod>()
                 .HasOne(popm => popm.ProductOffer)
@@ -145,7 +145,7 @@ namespace AMAPP.API.Data
 
             // One-to-many relationship between ProductOffer and PaymentMode (via ProductOfferPaymentModes)
             modelBuilder.Entity<ProductOfferPaymentMode>()
-                .HasKey(popm => new { popm.ProductOfferId });
+                .HasKey(popm => new { popm.ProductOfferId, popm.PaymentMode });
 
             modelBuilder.Entity<ProductOfferPaymentMode>()
                 .HasOne(popm => popm.ProductOffer)

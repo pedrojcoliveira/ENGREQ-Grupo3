@@ -15,8 +15,8 @@ namespace AMAPP.API.Models
         public int SubscriptionPeriodId { get; set; }
         public SubscriptionPeriod SubscriptionPeriod { get; set; }
         public List<SelectedDeliveryDate> SelectedDeliveryDates { get; set; } = new List<SelectedDeliveryDate>();
-        public ICollection<ProductOfferPaymentMethod> ProductOfferPaymentMethods { get; set; }
-        public ICollection<ProductOfferPaymentMode> ProductOfferPaymentModes { get; set; }
+        public List<ProductOfferPaymentMethod> ProductOfferPaymentMethods { get; set; } = new List<ProductOfferPaymentMethod>();
+        public List<ProductOfferPaymentMode> ProductOfferPaymentModes { get; set; } = new List<ProductOfferPaymentMode>();
         public ICollection<SelectedProductOffer> SelectedProductOffers { get; set; }
 
     }

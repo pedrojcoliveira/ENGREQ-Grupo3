@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using static AMAPP.API.Constants;
 
 namespace AMAPP.API.Models
 {
@@ -12,9 +13,9 @@ namespace AMAPP.API.Models
         public SelectedProductOffer SelectedProductOffer { get; set; }
         public int DeliveryDateId { get; set; }
         public DateTime DeliveryDate { get; set; }
-        public decimal Amount { get; set; }
-        public decimal Price { get; set; }
-        public decimal DeliveredAmount { get; set; }
-        public string Status { get; set; }
+        public double Amount { get; set; }
+        public double Price { get; set; }
+        public double DeliveredAmount { get; set; }
+        public DeliveryStatus Status { get; set; }
     }
 }
