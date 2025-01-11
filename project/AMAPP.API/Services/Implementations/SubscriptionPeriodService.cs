@@ -11,24 +11,26 @@ using AutoMapper;
 using MediatR;
 using AMAPP.API.DTOs.DeliveryDate;
 
-namespace AMAPP.API.Services.Implementations
-{
-    public class SubscriptionPeriodService : ISubscriptionPeriodService
-    {
-        private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
-        private readonly IMapper _mapper;
-        private readonly IMediator _mediator;
-        private readonly ISelectedProductOfferRepository _selectedProductOfferRepository;
-        private readonly IProductOfferRepository _ProductOfferRepository;
+            namespace AMAPP.API.Services.Implementations
+            {
+                public class SubscriptionPeriodService : ISubscriptionPeriodService
+                {
+                    private readonly ISubscriptionPeriodRepository _subscriptionPeriodRepository;
+                    private readonly IMapper _mapper;
+                    private readonly IMediator _mediator;
+                    private readonly ISelectedProductOfferRepository _selectedProductOfferRepository;
+                    private readonly IProductOfferRepository _ProductOfferRepository;
+                    private readonly ISubscriptionRepository _SubscriptionRepository;
 
-        public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator, ISelectedProductOfferRepository selectedProductOfferRepository, IProductOfferRepository productOfferRepository)
-        {
-            _subscriptionPeriodRepository = subscriptionPeriodRepository;
-            _mapper = mapper;
-            _mediator = mediator;
-            _selectedProductOfferRepository = selectedProductOfferRepository;
-            _ProductOfferRepository = productOfferRepository;
-        }
+                    public SubscriptionPeriodService(ISubscriptionPeriodRepository subscriptionPeriodRepository, IMapper mapper, IMediator mediator, ISelectedProductOfferRepository selectedProductOfferRepository, IProductOfferRepository productOfferRepository, ISubscriptionRepository SubscriptionRepository)
+                    {
+                        _subscriptionPeriodRepository = subscriptionPeriodRepository;
+                        _mapper = mapper;
+                        _mediator = mediator;
+                        _selectedProductOfferRepository = selectedProductOfferRepository;
+                        _ProductOfferRepository = productOfferRepository;
+                        _SubscriptionRepository = SubscriptionRepository;
+                    }
 
         public async Task<ResponseSubscriptionPeriodDto> AddSubscriptionPeriodAsync(
             CreateSubscriptionPeriodDto subscriptionPeriodDto)

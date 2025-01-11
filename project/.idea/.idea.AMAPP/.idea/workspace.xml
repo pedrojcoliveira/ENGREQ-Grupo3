@@ -17,6 +17,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/Validators/CreateSelectedProductOfferDtoValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/SelectedProductOffer/Validators/CreateSelectedProductOfferDtoValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/ISubscriptionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/ISubscriptionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AMAPP.API/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +116,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "XThreadsFramesViewSplitterKey": "0.7319149",
-    "git-widget-placeholder": "feature/s2-e2-v3",
+    "git-widget-placeholder": "feature-s2-e4-v1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -121,7 +126,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Multi-Launch.Multi-Launch: AMAPP">
+  <component name="RunManager" selected=".NET Launch Settings Profile.AMAPP.API: IIS Express">
     <configuration name="AMAPP.API: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/AMAPP.API/AMAPP.API.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
@@ -307,13 +312,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>68</line>
+          <line>71</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="3501" />
+              <option value="3772" />
             </startOffsets>
             <endOffsets>
-              <option value="3555" />
+              <option value="3826" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
@@ -489,13 +494,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>68</line>
+          <line>71</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="3572" />
+              <option value="3843" />
             </startOffsets>
             <endOffsets>
-              <option value="3625" />
+              <option value="3896" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="20" />
@@ -515,13 +520,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>65</line>
+          <line>68</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="3036" />
+              <option value="3307" />
             </startOffsets>
             <endOffsets>
-              <option value="3067" />
+              <option value="3338" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="25" />
@@ -567,13 +572,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>136</line>
+          <line>163</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="6269" />
+              <option value="7785" />
             </startOffsets>
             <endOffsets>
-              <option value="6349" />
+              <option value="7865" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="41" />
@@ -593,65 +598,65 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>138</line>
+          <line>165</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="6372" />
+              <option value="7888" />
             </startOffsets>
             <endOffsets>
-              <option value="6479" />
+              <option value="7995" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>139</line>
+          <line>166</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="6492" />
+              <option value="8008" />
             </startOffsets>
             <endOffsets>
-              <option value="6520" />
+              <option value="8036" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>150</line>
+          <line>177</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="7002" />
+              <option value="8518" />
             </startOffsets>
             <endOffsets>
-              <option value="7080" />
+              <option value="8596" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>90</line>
+          <line>109</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="4021" />
+              <option value="5070" />
             </startOffsets>
             <endOffsets>
-              <option value="4111" />
+              <option value="5160" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
-          <line>91</line>
+          <line>110</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'UpdateSelectedProductOfferAsync'">
             <startOffsets>
-              <option value="4120" />
+              <option value="5169" />
             </startOffsets>
             <endOffsets>
-              <option value="4205" />
+              <option value="5254" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="47" />
@@ -775,68 +780,198 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>185</line>
+          <line>189</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'SubscriptionPeriodHasAssociations'">
             <startOffsets>
-              <option value="11054" />
+              <option value="11443" />
             </startOffsets>
             <endOffsets>
-              <option value="11112" />
+              <option value="11524" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>183</line>
+          <line>186</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'SubscriptionPeriodHasAssociations'">
             <startOffsets>
-              <option value="10911" />
+              <option value="11182" />
             </startOffsets>
             <endOffsets>
-              <option value="11028" />
+              <option value="11299" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>182</line>
+          <line>185</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'SubscriptionPeriodHasAssociations'">
             <startOffsets>
-              <option value="10793" />
+              <option value="11064" />
             </startOffsets>
             <endOffsets>
-              <option value="10886" />
+              <option value="11157" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>147</line>
+          <line>150</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'DeleteSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="8970" />
+              <option value="9241" />
             </startOffsets>
             <endOffsets>
-              <option value="9029" />
+              <option value="9300" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>143</line>
+          <line>146</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'DeleteSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="8600" />
+              <option value="8871" />
             </startOffsets>
             <endOffsets>
-              <option value="8648" />
+              <option value="8919" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>247</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'ValidateSubscriptionPeriodAndDeliveryDateAsync'">
+            <startOffsets>
+              <option value="11414" />
+            </startOffsets>
+            <endOffsets>
+              <option value="11509" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>254</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'ValidateSubscriptionPeriodAndDeliveryDateAsync'">
+            <startOffsets>
+              <option value="11719" />
+            </startOffsets>
+            <endOffsets>
+              <option value="11816" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>240</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'IsValidDeliveryDate'">
+            <startOffsets>
+              <option value="11152" />
+            </startOffsets>
+            <endOffsets>
+              <option value="11212" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>60</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
+            <startOffsets>
+              <option value="2929" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3088" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>62</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'AddSelectedProductOfferAsync'">
+            <startOffsets>
+              <option value="3098" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3123" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>248</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'ValidateSubscriptionPeriodAndDeliveryDateAsync'">
+            <startOffsets>
+              <option value="11518" />
+            </startOffsets>
+            <endOffsets>
+              <option value="11549" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>256</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'ValidateSubscriptionPeriodAndDeliveryDateAsync'">
+            <startOffsets>
+              <option value="11839" />
+            </startOffsets>
+            <endOffsets>
+              <option value="11852" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs</url>
+          <line>259</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SelectedProductOfferService.cs" containingFunctionPresentation="Method 'ValidateSubscriptionPeriodAndDeliveryDateAsync'">
+            <startOffsets>
+              <option value="11872" />
+            </startOffsets>
+            <endOffsets>
+              <option value="11884" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/SubscriptionRepository/SubscriptionRepository.cs</url>
+          <line>23</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\SubscriptionRepository\SubscriptionRepository.cs" containingFunctionPresentation="Method 'GetSubscriptionsBySubscriptionPeriodId'">
+            <startOffsets>
+              <option value="820" />
+            </startOffsets>
+            <endOffsets>
+              <option value="948" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
+          <line>187</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'SubscriptionPeriodHasAssociations'">
+            <startOffsets>
+              <option value="11324" />
+            </startOffsets>
+            <endOffsets>
+              <option value="11417" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
