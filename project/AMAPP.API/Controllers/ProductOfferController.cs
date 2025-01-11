@@ -111,8 +111,24 @@ namespace AMAPP.API.Controllers
         [ProducesResponseType(typeof(List<ProductOfferResultDto>), 200)]
         public async Task<IActionResult> GetAllProductOffers()
         {
-            var productOffers = await _productOfferService.GetAllProductOffersWithDetailsAsync();
-            return Ok(productOffers);
+            try
+            {
+                var productOffers = await _productOfferService.GetAllProductOffersWithDetailsAsync();
+                return Ok(productOffers);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
         }
 
 

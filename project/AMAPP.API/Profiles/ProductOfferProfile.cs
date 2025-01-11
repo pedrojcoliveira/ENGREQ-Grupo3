@@ -22,7 +22,9 @@ namespace AMAPP.API.Profiles
 
             CreateMap<ProductOffer, ProductOfferResultDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
-                .ForMember(dest => dest.SubscriptionPeriodName, opt => opt.MapFrom(src => src.SubscriptionPeriod.Name));
+                .ForMember(dest => dest.SubscriptionPeriodName, opt => opt.MapFrom(src => src.SubscriptionPeriod.Name))
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+                .ForMember(dest => dest.SelectedDeliveryDates, opt => opt.MapFrom(src => src.SelectedDeliveryDates.Select(sdd => sdd.DeliveryDate.Date).ToList()));
             
 
             CreateMap<CreateProductOfferDto, ProductOffer>()

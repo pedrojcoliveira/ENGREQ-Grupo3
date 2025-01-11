@@ -10,8 +10,9 @@ using AMAPP.API.Utils;
 using AutoMapper;
 using MediatR;
 using AMAPP.API.DTOs.DeliveryDate;
+using AMAPP.API.Repository.SubscriptionRepository;
 
-            namespace AMAPP.API.Services.Implementations
+namespace AMAPP.API.Services.Implementations
             {
                 public class SubscriptionPeriodService : ISubscriptionPeriodService
                 {
