@@ -16,9 +16,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c364b54f-bf1b-4aa4-b3fd-cf2906d37d46" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Controllers/CompoundProductProductController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/CompoundProductProduct/CompoundProductProductDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/CompoundProductProduct/CreateCompoundProductProductDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/CompoundProductProduct/UpdateCompoundProductProductDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/CompoundProductProduct/Validators/CreateCompoundProductProductDtoValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/DTOs/CompoundProductProduct/Validators/UpdateCompoundProductProductDtoValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/CompoundProductProductProfile.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/ICompoundProductProductRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AMAPP.API/Services/Interfaces/ICompoundProductProductService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AMAPP/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SelectedProductOfferService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Profiles/ProductProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Profiles/ProductProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/ProductService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AMAPP.API/Services/Implementations/ProductService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,11 +55,13 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1fce37416598a5fb677f9b329d52e2e9d64e126621a5229f5a5884d87827b9ad/Mapper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/294078ecfce6fdb942ecfee089f09717de7a6fcfe5efd9fdb6f4f93c0fb4813/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/394cf11a64687141fd58fb926ff8b3d5a299eba3bbadaf2de9b93928d523d4/Type.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3bd4df5aff92cabbc4d630be64227073db1b8539b3a1e47786b4b189d7cdb7/DbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3eab2556a6e1dddc71dd7dd41efa5153ec50a4b7394940f26c808fcbb5dec9d/PageModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/408fbd74905ca97e9d7eba0783ae1eb50b056399a58de4a752dae6f14e7ce9b/MappingExpression.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4b21fc3f8a3abb5d25f06c622276fbec0fd3932f169cc6af520bf5abc6a46b4/DbSet.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5508f372f21af83ffab8566fd109987faace7e977524c10e06e84fbfbbc2/ClassificationTypeNames.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5aeaf34e3a929e754e448d9dd811825f0433c7d3f959b3da8b1ba51b62ef21/ModelStateDictionary.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5c77173b4dbdac69ea17b864754ccc536672c88948b96eea7ec3f1314f9eca1/ReflectionHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8be3a835a33b22749161cd57a7225ef65e0c61c64c2bfd969e2e404130dd/Controller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9eda537f15ea23cdfae523c19e87eb303a3ded88937ae7e55919387a43f70/ExecutionContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
@@ -105,14 +119,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Launch Settings Profile.AMAPP.API: IIS Express.executor": "Run",
-    ".NET Launch Settings Profile.AMAPP.API: http.executor": "Run",
+    ".NET Launch Settings Profile.AMAPP.API: http.executor": "Debug",
     ".NET Launch Settings Profile.AMAPP.Web: IIS Express.executor": "Run",
-    ".NET Launch Settings Profile.AMAPP.Web: http.executor": "Run",
+    ".NET Launch Settings Profile.AMAPP.Web: http.executor": "Debug",
     "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "XThreadsFramesViewSplitterKey": "0.7319149",
-    "git-widget-placeholder": "hotfix/post-refactor-db-hf",
+    "git-widget-placeholder": "feature/s2-cp",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -310,13 +323,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>135</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
+          <line>134</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Lambda expression inside Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="3772" />
+              <option value="6926" />
             </startOffsets>
             <endOffsets>
-              <option value="3826" />
+              <option value="6927" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
@@ -492,13 +505,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>135</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
+          <line>134</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Lambda expression inside Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="3843" />
+              <option value="6926" />
             </startOffsets>
             <endOffsets>
-              <option value="3896" />
+              <option value="6927" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="20" />
@@ -518,13 +531,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/SubscriptionPeriodService.cs</url>
-          <line>127</line>
+          <line>126</line>
           <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\SubscriptionPeriodService.cs" containingFunctionPresentation="Method 'UpdateSubscriptionPeriodAsync'">
             <startOffsets>
-              <option value="3307" />
+              <option value="6618" />
             </startOffsets>
             <endOffsets>
-              <option value="3338" />
+              <option value="6686" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="25" />
@@ -567,97 +580,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs</url>
-          <line>13</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SubscriptionPeriodProfile.cs" containingFunctionPresentation="Constructor 'SubscriptionPeriodProfile'">
-            <startOffsets>
-              <option value="356" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1055" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs</url>
-          <line>18</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SubscriptionPeriodProfile.cs" containingFunctionPresentation="Lambda expression inside Constructor 'SubscriptionPeriodProfile'">
-            <startOffsets>
-              <option value="906" />
-            </startOffsets>
-            <endOffsets>
-              <option value="924" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs</url>
-          <line>19</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SubscriptionPeriodProfile.cs" containingFunctionPresentation="Lambda expression inside Constructor 'SubscriptionPeriodProfile'">
-            <startOffsets>
-              <option value="999" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1012" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs</url>
-          <line>33</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SubscriptionPeriodProfile.cs" containingFunctionPresentation="Lambda expression inside Constructor 'SubscriptionPeriodProfile'">
-            <startOffsets>
-              <option value="2044" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2056" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs</url>
-          <line>36</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SubscriptionPeriodProfile.cs" containingFunctionPresentation="Lambda expression inside Constructor 'SubscriptionPeriodProfile'">
-            <startOffsets>
-              <option value="2352" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2365" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs</url>
-          <line>34</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SubscriptionPeriodProfile.cs" containingFunctionPresentation="Lambda expression inside Constructor 'SubscriptionPeriodProfile'">
-            <startOffsets>
-              <option value="2131" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2149" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/AMAPP.API/Profiles/SubscriptionPeriodProfile.cs</url>
-          <line>35</line>
-          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Profiles\SubscriptionPeriodProfile.cs" containingFunctionPresentation="Lambda expression inside Constructor 'SubscriptionPeriodProfile'">
-            <startOffsets>
-              <option value="2259" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2269" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/AMAPP.API/Repository/ProductOfferRepository/ProductOfferRepository.cs</url>
@@ -788,6 +710,318 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs</url>
+          <line>39</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\CompoundProductProductRepository\CompoundProductProductRepository.cs" containingFunctionPresentation="Method 'AddAsync'">
+            <startOffsets>
+              <option value="1366" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1438" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Controllers/CompoundProductProductController.cs</url>
+          <line>44</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Controllers\CompoundProductProductController.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="1703" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1727" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Controllers/CompoundProductProductController.cs</url>
+          <line>48</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Controllers\CompoundProductProductController.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="1821" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1936" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>54</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="2459" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2526" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>58</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="2645" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2736" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>66</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="2932" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2985" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>72</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="3190" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3256" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>75</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="3386" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3449" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="109" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Controllers/CompoundProductProductController.cs</url>
+          <line>68</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Controllers\CompoundProductProductController.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="2699" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2723" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Controllers/CompoundProductProductController.cs</url>
+          <line>73</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Controllers\CompoundProductProductController.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="2818" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2937" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>80</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="3635" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3722" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="112" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>82</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="3736" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3772" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>85</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="3865" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3932" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>89</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="4019" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4113" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>97</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="4454" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4531" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>99</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="4557" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4628" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>70</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'CreateCompoundProductProduct'">
+            <startOffsets>
+              <option value="3111" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3176" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs</url>
+          <line>70</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\CompoundProductProductRepository\CompoundProductProductRepository.cs" containingFunctionPresentation="Method 'UpdateAsync'">
+            <startOffsets>
+              <option value="2777" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2811" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="150" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs</url>
+          <line>65</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\CompoundProductProductRepository\CompoundProductProductRepository.cs" containingFunctionPresentation="Method 'UpdateAsync'">
+            <startOffsets>
+              <option value="2596" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2639" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="151" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs</url>
+          <line>58</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\CompoundProductProductRepository\CompoundProductProductRepository.cs" containingFunctionPresentation="Method 'UpdateAsync'">
+            <startOffsets>
+              <option value="2221" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2300" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs</url>
+          <line>47</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\CompoundProductProductRepository\CompoundProductProductRepository.cs" containingFunctionPresentation="Method 'UpdateAsync'">
+            <startOffsets>
+              <option value="1615" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1616" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="153" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs</url>
+          <line>52</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\CompoundProductProductRepository\CompoundProductProductRepository.cs" containingFunctionPresentation="Method 'UpdateAsync'">
+            <startOffsets>
+              <option value="1896" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1923" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="154" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Repository/CompoundProductProductRepository/CompoundProductProductRepository.cs</url>
+          <line>75</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Repository\CompoundProductProductRepository\CompoundProductProductRepository.cs" containingFunctionPresentation="Method 'UpdateAsync'">
+            <startOffsets>
+              <option value="2916" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2988" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="155" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/AMAPP.API/Services/Implementations/CompoundProductProductService.cs</url>
+          <line>94</line>
+          <properties documentPath="F:\temp_repo\ENGREQ2425-Grupo3\project\AMAPP.API\Services\Implementations\CompoundProductProductService.cs" containingFunctionPresentation="Method 'UpdateCompoundProductProduct'">
+            <startOffsets>
+              <option value="4299" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4377" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="156" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
