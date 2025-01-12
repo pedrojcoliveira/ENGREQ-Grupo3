@@ -53,6 +53,15 @@ namespace AMAPP.API.Repository.ProductOfferRepository
                 .Where(po => enumerable.Contains(po.Id))
                 .ToListAsync();
         }
+        public new async Task<ProductOffer?> GetByIdAsync(int id)
+        {
+            return await _context.ProductOffers
+                .Include(sp => sp.ProductOfferPaymentMethods)
+                .Include(sp => sp.ProductOfferPaymentModes)
+                .Include(sp => sp.SelectedDeliveryDates).ThenInclude(x => x.DeliveryDate)
+                .FirstOrDefaultAsync(sp => sp.Id == id);
+        }
+
     }
 }
 

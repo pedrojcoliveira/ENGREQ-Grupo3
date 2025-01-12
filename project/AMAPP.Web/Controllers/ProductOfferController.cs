@@ -207,5 +207,21 @@ namespace AMAPP.Web.Controllers
                 return View("Edit", model);
             }
         }
+
+        // Action to fetch the available delivery dates for the selected subscription period
+        [HttpGet]
+        public async Task<JsonResult> GetDeliveryDatesAsync(int productOfferId)
+        {
+
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/product-offer/{productOfferId}/deliverydates");
+            request.Headers.Add("accept", "*/*");
+            var response = await _httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var deliverydates = JsonConvert.DeserializeObject<List<DeliveryDateDto>>(json);
+
+            return Json(deliverydates);
+        }
     }
 }

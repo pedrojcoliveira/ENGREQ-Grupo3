@@ -1,4 +1,5 @@
-﻿using AMAPP.API.DTOs.ProductOffer;
+﻿using AMAPP.API.DTOs.DeliveryDate;
+using AMAPP.API.DTOs.ProductOffer;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,5 +15,6 @@ namespace AMAPP.API.Services.Interfaces
         Task<bool> UpdateProductOfferAsync(int id, ProductOfferDto productOfferDto);
         Task<bool> RemoveProductOfferAsync(int id);
         Task<List<ProductOfferResultDto>> GetAllProductOffersWithDetailsAsync();
+        Task<List<ProductOfferDetailsDto>> GetProductsOfferDatesById(int id);
     }
 }

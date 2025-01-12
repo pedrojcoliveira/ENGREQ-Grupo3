@@ -33,6 +33,8 @@ namespace AMAPP.API.Profiles
                 .ForMember(dest => dest.ProductOfferPaymentModes, opt => opt.Ignore()); // If you need to handle them separately
 
             CreateMap<ProductOffer, CreateProductOfferDto>();
+            CreateMap<ProductOffer, ProductOfferDetailsDto>()
+                ;
 
         }
     }

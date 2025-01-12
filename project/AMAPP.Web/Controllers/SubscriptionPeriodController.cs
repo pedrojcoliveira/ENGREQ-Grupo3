@@ -210,7 +210,7 @@ namespace AMAPP.Web.Controllers
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
-            var subscriptionPeriod = JsonConvert.DeserializeObject<List<DeliveryDateDto>>(json);
+            var subscriptionPeriod = JsonConvert.DeserializeObject<List<ProductOfferDto>>(json);
 
             return Json(subscriptionPeriod);
         }

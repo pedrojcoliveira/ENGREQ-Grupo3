@@ -12,9 +12,9 @@
         </div>
         <div class="card-body">
             <form asp-controller="Subscriptions" asp-action="Create" method="post">
-                <!-- Campo para DeliveryDate -->
+                
                 <div class="mb-3">
-                    <label for="PeriodSubscriptionId" class="form-label">Período de Assinatura</label>
+                    <label for="PeriodSubscriptionId" class="form-label">Período de Subscrição</label>
                     <select id="PeriodSubscriptionId" class="form-select" asp-for="SubscriptionPeriodId" asp-items="@(ViewBag.SubscriptionPeriods != null ? new SelectList(ViewBag.SubscriptionPeriods, "Id", "Name") : null)">
                         <option value="">Selecione um período</option>
                     </select>
@@ -22,12 +22,23 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="ProducOffers" class="form-label">Ofertas de Produto</label>
+                    <label for="ProducOffer" class="form-label">Ofertas de Produto</label>
                     @Html.DropDownListFor(
                              model => model.ProductOffer,
                              new MultiSelectList(Enumerable.Empty<SelectListItem>()), // Empty list initially
                              "Selecione o Produto",
                              new { @id = "ProductOffer", @class = "form-control", multiple = "multiple" }
+                             )
+                    <span asp-validation-for="ProductOffer" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="DeliveryDates" class="form-label">Datas de Entrega</label>
+                    @Html.DropDownListFor(
+                             model => model.ProductOffer,
+                             new MultiSelectList(Enumerable.Empty<SelectListItem>()), // Empty list initially
+                             "Selecione a data",
+                             new { @id = "SelectedDeliveryDates", @class = "form-control", multiple = "multiple" }
                              )
                     <span asp-validation-for="ProductOffer" class="text-danger"></span>
                 </div>
@@ -60,25 +71,6 @@
 
 @section Scripts {
     <script>
-        // Adiciona uma nova data de entrega ao formulário
-        // document.getElementById('addDateButton').addEventListener('click', function () {
-        //     const container = document.getElementById('DeliveryDatesContainer');
-        //     const newDateGroup = document.createElement('div');
-        //     newDateGroup.classList.add('input-group', 'mb-2');
-        //     newDateGroup.innerHTML = `
-        //         <input type="date" class="form-control" name="SelectedDeliveryDates" />
-        //         <button type="button" class="btn btn-danger remove-date-btn">Remover</button>
-        //     `;
-        //     container.appendChild(newDateGroup);
-        // });
-
-        // Remove uma data de entrega do formulário
-        // document.getElementById('DeliveryDatesContainer').addEventListener('click', function (event) {
-        //     if (event.target.classList.contains('remove-date-btn')) {
-        //         event.target.closest('.input-group').remove();
-        //     }
-        // });
-
         document.getElementById("PeriodSubscriptionId").addEventListener("change", function () {
             debugger;
             var subscriptionPeriodId = this.value; // Get the selected subscription period ID
@@ -86,22 +78,54 @@
             // Check if a valid subscription period is selected
             if (subscriptionPeriodId) {
                 // AJAX request to get the available delivery dates
-                fetch('@Url.Action("GetProductsAsync", "SubscriptionPeriod")?subscriptionPeriodId=' + subscriptionPeriodId)
+                fetch('@Url.Action("GetProducts", "SubscriptionPeriod")?subscriptionPeriodId=' + subscriptionPeriodId)
                     .then(response => response.json())
                     .then(data => {
                         var productOfferDropdown = document.getElementById("ProductOffer");
-                        productOfferDropdown.innerHTML = '<option value="">Selecione o Produto12345</option>'; // Clear existing options
+                        productOfferDropdown.innerHTML = '<option value="">Selecione o Produto</option>'; // Clear existing options
                         debugger;
                         // Populate new options for multiple selections
                         data.forEach(item => {
                             var option = document.createElement("option");
                             option.value = item.id;
-                            option.value = item.productId;
+                            option.text = item.productName;
                             productOfferDropdown.appendChild(option);
                         });
                     })
                     .catch(error => {
                         console.error('Error fetching Products:', error);
+                    });
+            } else {
+                // If no period is selected, clear the delivery date dropdown
+                document.getElementById("DeliveryDateId").innerHTML = '<option value="">Selecione uma data</option>';
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById("ProductOffer").addEventListener("change", function () {
+            debugger;
+            var productOfferId = this.value; // Get the selected subscription period ID
+
+            // Check if a valid subscription period is selected
+            if (productOfferId) {
+                // AJAX request to get the available delivery dates
+                fetch('@Url.Action("GetDeliveryDates", "ProductOffer")?productOfferId=' + productOfferId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var deliveryDateDropdown = document.getElementById("SelectedDeliveryDates");
+                        deliveryDateDropdown.innerHTML = '<option value="">Selecione as datas</option>'; // Clear existing options
+                        debugger;
+                        // Populate new options for multiple selections
+                        data.forEach(item => {
+                            var option = document.createElement("option");
+                            option.value = item.id;
+                            option.textContent = item.date;
+                            deliveryDateDropdown.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching delivery dates:', error);
                     });
             } else {
                 // If no period is selected, clear the delivery date dropdown

@@ -22,6 +22,7 @@ namespace AMAPP.API.Repository.SubscriptionPeriodRepository
             return await _context.SubscriptionPeriods
                 .Include(sp => sp.DeliveryDates)
                 .Include(sp => sp.ProductOffers)
+                .ThenInclude(po => po.Product)
                 .FirstOrDefaultAsync(sp => sp.Id == id);
         }
         

@@ -1,6 +1,4 @@
-﻿using static AMAPP.API.Constants;
-
-namespace AMAPP.API.DTOs.ProductOffer
+﻿namespace AMAPP.Web.Models
 {
     public class ProductOfferDto
     {
@@ -11,7 +9,5 @@ namespace AMAPP.API.DTOs.ProductOffer
         public List<int> ProductOfferPaymentMethodIds { get; set; } = new List<int>(); // List of Payment Method IDs
         public List<int> ProductOfferPaymentModeIds { get; set; } = new List<int>(); // List of Payment Mode IDs
         public string ProductName { get; set; } // Nome do produto
-
-    } 
-
+    }
 }
