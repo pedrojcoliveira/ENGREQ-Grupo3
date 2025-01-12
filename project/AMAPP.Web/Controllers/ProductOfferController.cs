@@ -210,7 +210,7 @@ namespace AMAPP.Web.Controllers
 
         // Action to fetch the available delivery dates for the selected subscription period
         [HttpGet]
-        public async Task<JsonResult> GetDeliveryDatesAsync(int productOfferId)
+        public async Task<JsonResult> GetProductOfferDetailsAsync(int productOfferId)
         {
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"/api/product-offer/{productOfferId}/deliverydates");

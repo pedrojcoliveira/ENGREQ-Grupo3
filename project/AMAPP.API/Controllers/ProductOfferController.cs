@@ -203,7 +203,7 @@ namespace AMAPP.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}/deliverydates")]
+        [HttpGet("{id}/productofferdetails")]
         public async Task<ActionResult> GetProductsOfferDates(int id)
         {
             try

@@ -38,7 +38,29 @@
                              model => model.ProductOffer,
                              new MultiSelectList(Enumerable.Empty<SelectListItem>()), // Empty list initially
                              "Selecione a data",
-                             new { @id = "SelectedDeliveryDates", @class = "form-control", multiple = "multiple" }
+                             new { @id = "SelectedProductOfferDetails", @class = "form-control", multiple = "multiple" }
+                             )
+                    <span asp-validation-for="ProductOffer" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="PaymentMethod" class="form-label">Payment Method</label>
+                    @Html.DropDownListFor(
+                             model => model.ProductOffer,
+                             new MultiSelectList(Enumerable.Empty<SelectListItem>()), // Empty list initially
+                             "Selecione a data",
+                             new { @id = "SelectedPaymentMethods", @class = "form-control", multiple = "multiple" }
+                             )
+                    <span asp-validation-for="ProductOffer" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="PaymentMode" class="form-label">Payment Mode</label>
+                    @Html.DropDownListFor(
+                             model => model.ProductOffer,
+                             new MultiSelectList(Enumerable.Empty<SelectListItem>()), // Empty list initially
+                             "Selecione a data",
+                             new { @id = "SelectedPaymentMode", @class = "form-control", multiple = "multiple" }
                              )
                     <span asp-validation-for="ProductOffer" class="text-danger"></span>
                 </div>
@@ -110,7 +132,7 @@
             // Check if a valid subscription period is selected
             if (productOfferId) {
                 // AJAX request to get the available delivery dates
-                fetch('@Url.Action("GetDeliveryDates", "ProductOffer")?productOfferId=' + productOfferId)
+                fetch('@Url.Action("GetProductOfferDetails", "ProductOffer")?productOfferId=' + productOfferId)
                     .then(response => response.json())
                     .then(data => {
                         var deliveryDateDropdown = document.getElementById("SelectedDeliveryDates");
