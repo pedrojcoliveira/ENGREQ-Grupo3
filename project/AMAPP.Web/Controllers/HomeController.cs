@@ -46,7 +46,6 @@ namespace AMAPP.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Username and Password are required.");
                 return View();
             }
-
             try
             {
                 // Criação do objeto para envio
@@ -86,7 +85,7 @@ namespace AMAPP.Web.Controllers
                 // Redireciona para ProductController > List após login bem-sucedido
                 return RedirectToAction("List", "Products");
             }
-            catch
+            catch(Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again.");
                 return View();
