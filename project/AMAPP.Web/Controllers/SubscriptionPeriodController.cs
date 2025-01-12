@@ -184,10 +184,27 @@ namespace AMAPP.Web.Controllers
         }
 
         // Action to fetch the available delivery dates for the selected subscription period
+        [HttpGet]
         public async Task<JsonResult> GetDeliveryDatesAsync(int subscriptionPeriodId)
         {
 
-            var request = new HttpRequestMessage(HttpMethod.Get, "/api/subscription-period/1/deliverydates");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/subscription-period/{subscriptionPeriodId}/deliverydates");
+            request.Headers.Add("accept", "*/*");
+            var response = await _httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var subscriptionPeriod = JsonConvert.DeserializeObject<List<DeliveryDateDto>>(json);
+
+            return Json(subscriptionPeriod);
+        }
+
+        // Action to fetch the available delivery dates for the selected subscription period
+        [HttpGet]
+        public async Task<JsonResult> GetProductsAsync(int subscriptionPeriodId)
+        {
+
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/subscription-period/{subscriptionPeriodId}/productoffers");
             request.Headers.Add("accept", "*/*");
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();

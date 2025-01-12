@@ -1,15 +1,12 @@
 ﻿namespace AMAPP.Web.Models
 {
-    public class Subscription
+    public class CreateSubscription
     {
-        // Propriedades para Listagem
         public int Id { get; set; }
         public DateTime DeliveryDate { get; set; }
-        public int ProductOfferId { get; set; }
         public int SubscriptionId { get; set; }
         public int Quantity { get; set; }
         public int SubscriptionPeriodId { get; set; }
-        public List<int> SelectedDeliveryDates { get; set; } = new List<int>();
-
+        public List<int> ProductOffer { get; set; } = new List<int>();
     }
 }

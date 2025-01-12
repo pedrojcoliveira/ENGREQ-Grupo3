@@ -11,6 +11,7 @@ using AutoMapper;
 using MediatR;
 using AMAPP.API.DTOs.DeliveryDate;
 using AMAPP.API.Repository.SubscriptionRepository;
+using AMAPP.API.DTOs.ProductOffer;
 
 namespace AMAPP.API.Services.Implementations
             {
@@ -200,6 +201,19 @@ namespace AMAPP.API.Services.Implementations
                 throw new NotFoundException("Período de subscrição  sem datas de entrega");
 
             return _mapper.Map<List<DeliveryDateDto>>(subscriptionPeriod.DeliveryDates.Where(d => d.ResourceStatus == ResourceStatus.Ativo));
+
+        }
+
+        public async Task<List<ProductOfferDto>> GetSubscriptionPeriodProductOfferById(int id)
+        {
+            var subscriptionPeriod = await _subscriptionPeriodRepository.GetByIdAsync(id);
+            if (subscriptionPeriod == null)
+                throw new NotFoundException("O período de subscrição  não existe");
+
+            if (subscriptionPeriod.ProductOffers == null)
+                throw new NotFoundException("Período de subscrição  sem datas de entrega");
+
+            return _mapper.Map<List<ProductOfferDto>>(subscriptionPeriod.ProductOffers);
 
         }
     }
