@@ -24,6 +24,7 @@ namespace AMAPP.Web.Controllers
         {
             try
             {
+
                 // Chamar a API para obter os produtos
                 var response = await _httpClient.GetAsync("/api/Product"); // Endpoint para getAllProducts
 

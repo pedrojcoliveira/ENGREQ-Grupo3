@@ -1,3 +1,6 @@
+using AMAPP.Web.Middleware;
+using AMAPP.Web.Utils;
+
 namespace AMAPP.Web
 {
     public class Program
@@ -9,17 +12,23 @@ namespace AMAPP.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
+
+            // Add session services
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+                options.Cookie.HttpOnly = true; // Secure cookie
+                options.Cookie.IsEssential = true; // For GDPR compliance
+            });
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddTransient<ApiTokenHandler>();
+
             // Register HttpClient with BaseAddress
             builder.Services.AddHttpClient("APIClient", client =>
             {
-                //client.BaseAddress = new Uri("https://localhost:7237/"); 
-                client.BaseAddress = new Uri("http://localhost:5143/"); //HTTP VERSION
-            });
-            
-// Enable TempData with session-based storage
-builder.Services.AddDistributedMemoryCache(); // Required for session state
-builder.Services.AddSession(); // Add session support
-builder.Services.AddHttpContextAccessor(); // Ensure TempData works
+                client.BaseAddress = new Uri("https://localhost:7237/"); 
+            }).AddHttpMessageHandler<ApiTokenHandler>();
 
             var app = builder.Build();
 
@@ -35,9 +44,12 @@ builder.Services.AddHttpContextAccessor(); // Ensure TempData works
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
             
+            app.UseSession(); // Add this before UseAuthorization
+            app.UseMiddleware<TokenValidationMiddleware>();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.MapControllerRoute(
                 name: "default",

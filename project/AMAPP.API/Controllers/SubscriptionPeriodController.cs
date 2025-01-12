@@ -3,14 +3,17 @@ using AMAPP.API.DTOs.SubscriptionPeriod;
 using AMAPP.API.Models;
 using AMAPP.API.Services.Implementations;
 using AMAPP.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 
 namespace AMAPP.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class SubscriptionPeriodController : ControllerBase
@@ -22,6 +25,7 @@ public class SubscriptionPeriodController : ControllerBase
         _subscriptionPeriodService = subscriptionPeriodService;
     }
 
+    [Authorize(Roles = "Amap, Administrator")]
     [HttpPost]
     public async Task<ActionResult<ResponseSubscriptionPeriodDto>> AddSubscriptionPeriod([FromBody] CreateSubscriptionPeriodDto subscriptionPeriodDto)
     {
@@ -33,9 +37,11 @@ public class SubscriptionPeriodController : ControllerBase
         return StatusCode(201, createdSubscriptionPeriod);
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<List<ResponseSubscriptionPeriodDto>>> GetAllSubscriptionPeriods([FromQuery(Name = "show-all")] bool showAll = false)
     {
+
         var subscriptionPeriods = await _subscriptionPeriodService.GetAllSubscriptionPeriodsAsync();
 
         //only show active subscription periods with active delivery dates
@@ -62,6 +68,7 @@ public class SubscriptionPeriodController : ControllerBase
         return Ok(subscriptionPeriod);
     }
 
+    [Authorize(Roles = "Amap")]
     [HttpPatch("{id}")]
     public async Task<ActionResult<ResponseSubscriptionPeriodDto>> UpdateSubscriptionPeriod(int id, [FromBody] SubscriptionPeriodDto subscriptionPeriodDto)
     {
@@ -75,6 +82,7 @@ public class SubscriptionPeriodController : ControllerBase
         return Ok(updatedSubscriptionPeriod);
     }
 
+    [Authorize(Roles = "Amap")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteSubscriptionPeriod(int id)
     {
