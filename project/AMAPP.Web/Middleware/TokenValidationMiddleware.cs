@@ -8,6 +8,11 @@ namespace AMAPP.Web.Middleware
     public class TokenValidationMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly List<string> _excludedPaths = new List<string>
+        {
+            "/auth/login",       // Login page
+            "/auth/register",    // Registration page
+        };
 
         public TokenValidationMiddleware(RequestDelegate next)
         {
@@ -16,6 +21,18 @@ namespace AMAPP.Web.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
+
+            // Get the request path
+            var path = context.Request.Path.Value.ToLower();
+
+            // Skip validation for excluded paths
+            if (_excludedPaths.Any(p => path.StartsWith(p)))
+            {
+                await _next(context);
+                return;
+            }
+
+            // Get the JWT token from cookies
             var token = context.Request.Cookies["jwt"];
 
             if (!string.IsNullOrEmpty(token))
@@ -44,7 +61,7 @@ namespace AMAPP.Web.Middleware
                     // Token is invalid or expired; clear the cookie and redirect to login
                     context.Response.Cookies.Delete("jwt");
                     //context.Response.Redirect("/Account/Login");
-                    context.Response.Redirect("/Home");
+                    context.Response.Redirect("/Auth/Login");
                     return;
                 }
             }
@@ -52,7 +69,7 @@ namespace AMAPP.Web.Middleware
             {
                 // No token; redirect to login
                 //context.Response.Redirect("/Account/Login");
-                context.Response.Redirect("/Home");
+                context.Response.Redirect("/Auth/Login");
                 return;
             }
 
