@@ -1,4 +1,5 @@
 using AMAPP.Web.Middleware;
+using AMAPP.Web.Utils;
 
 namespace AMAPP.Web
 {
@@ -11,12 +12,7 @@ namespace AMAPP.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Register HttpClient with BaseAddress
-            builder.Services.AddHttpClient("APIClient", client =>
-            {
-                //client.BaseAddress = new Uri("https://localhost:7237/"); 
-                client.BaseAddress = new Uri("http://localhost:5143/"); //HTTP VERSION
-            });
+
 
             // Add session services
             builder.Services.AddSession(options =>
@@ -25,6 +21,14 @@ namespace AMAPP.Web
                 options.Cookie.HttpOnly = true; // Secure cookie
                 options.Cookie.IsEssential = true; // For GDPR compliance
             });
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddTransient<ApiTokenHandler>();
+
+            // Register HttpClient with BaseAddress
+            builder.Services.AddHttpClient("APIClient", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7237/"); 
+            }).AddHttpMessageHandler<ApiTokenHandler>();
 
             var app = builder.Build();
 
@@ -43,7 +47,7 @@ namespace AMAPP.Web
             
             app.UseSession(); // Add this before UseAuthorization
             app.UseMiddleware<TokenValidationMiddleware>();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

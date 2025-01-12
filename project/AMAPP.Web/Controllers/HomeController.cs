@@ -1,8 +1,6 @@
 using AMAPP.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Text;
 namespace AMAPP.Web.Controllers
 {
     public class HomeController : Controller
