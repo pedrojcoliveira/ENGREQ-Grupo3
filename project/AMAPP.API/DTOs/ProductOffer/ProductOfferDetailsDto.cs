@@ -1,15 +1,14 @@
-﻿namespace AMAPP.API.DTOs.ProductOffer
+﻿
+namespace AMAPP.API.DTOs.ProductOffer
 {
     public class ProductOfferDetailsDto
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int SubscriptionPeriodId { get; set; }
-        public List<int> SelectedDeliveryDates { get; set; } = new List<int>(); // List of Delivery Date IDs, or other details
-        public List<int> ProductOfferPaymentMethodIds { get; set; } = new List<int>(); // List of Payment Method IDs
-        public List<int> ProductOfferPaymentModeIds { get; set; } = new List<int>(); // List of Payment Mode IDs
+        public List<DateTime> DeliveryDates { get; set; } = new List<DateTime>(); // List of Delivery Date IDs, or other details
         public string ProductName { get; set; } // Nome do produto
-        public List<string> ProductOfferPaymentMethods { get; set; } = new List<string>();
-        public List<string> ProductOfferPaymentModes { get; set; } = new List<string>();
+        public List<Constants.PaymentMethod> PaymentMethods { get; set; } 
+        public List<Constants.PaymentMode> PaymentModes { get; set; } 
     }
 }

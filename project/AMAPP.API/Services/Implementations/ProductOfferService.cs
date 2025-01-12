@@ -232,16 +232,22 @@ namespace AMAPP.API.Services.Implementations
             var productOffers = await _productOfferRepository.GetAllProductOffersWithDetailsAsync();
             return _mapper.Map<List<ProductOfferResultDto>>(productOffers);
         }
-        public async Task<List<ProductOfferDetailsDto>> GetProductsOfferDatesById(int id)
+        public async Task<ProductOfferDetailsDto> GetProductsOfferDetailsById(int id)
         {
-            var productOffer = await _productOfferRepository.GetByIdAsync(id);
+            var productOffer = await _productOfferRepository.GetProductOfferDetails(id);
             if (productOffer == null)
                 throw new NotFoundException("O período de subscrição  não existe");
 
-            if (productOffer.SelectedDeliveryDates == null)
+            if (productOffer.DeliveryDates == null)
                 throw new NotFoundException("Período de subscrição  sem datas de entrega");
 
-            return _mapper.Map<List<ProductOfferDetailsDto>>(productOffer);
+            if (productOffer.PaymentMethods == null)
+                throw new NotFoundException("Período de subscrição  sem métodos de pagamento");
+
+            if (productOffer.PaymentModes == null)
+                throw new NotFoundException("Período de subscrição  sem modos de pagamento");
+
+            return productOffer;
 
         }
 

@@ -208,7 +208,7 @@ namespace AMAPP.API.Controllers
         {
             try
             {
-                var ProductOfferDetailsDto = await _productOfferService.GetProductsOfferDatesById(id);
+                var ProductOfferDetailsDto = await _productOfferService.GetProductsOfferDetailsById(id);
 
                 return Ok(ProductOfferDetailsDto);
             }

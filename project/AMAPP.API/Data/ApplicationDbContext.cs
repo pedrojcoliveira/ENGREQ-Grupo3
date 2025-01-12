@@ -24,6 +24,8 @@ namespace AMAPP.API.Data
         public DbSet<SelectedProductOffer> SelectedProductOffers { get; set; }
         public DbSet<SelectedDeliveryDate> SelectedDeliveryDates { get; set; }
         public DbSet<Payment> SubscriptionPayments { get; set; }
+        public DbSet<ProductOfferPaymentMethod> ProductOfferPaymentMethod { get; set; }
+        public DbSet<ProductOfferPaymentMode> ProductOfferPaymentMode { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

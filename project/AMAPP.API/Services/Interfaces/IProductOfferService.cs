@@ -15,6 +15,6 @@ namespace AMAPP.API.Services.Interfaces
         Task<bool> UpdateProductOfferAsync(int id, ProductOfferDto productOfferDto);
         Task<bool> RemoveProductOfferAsync(int id);
         Task<List<ProductOfferResultDto>> GetAllProductOffersWithDetailsAsync();
-        Task<List<ProductOfferDetailsDto>> GetProductsOfferDatesById(int id);
+        Task<ProductOfferDetailsDto> GetProductsOfferDetailsById(int id);
     }
 }
