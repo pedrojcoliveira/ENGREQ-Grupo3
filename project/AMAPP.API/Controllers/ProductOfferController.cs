@@ -202,6 +202,25 @@ namespace AMAPP.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}/productofferdetails")]
+        public async Task<ActionResult> GetProductsOfferDates(int id)
+        {
+            try
+            {
+                var ProductOfferDetailsDto = await _productOfferService.GetProductsOfferDetailsById(id);
+
+                return Ok(ProductOfferDetailsDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
     }
 }
 

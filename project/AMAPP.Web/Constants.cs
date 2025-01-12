@@ -12,4 +12,9 @@ public static class Constants
         Gramas,
         Litros
     }
+
+    // Payment methods
+    public enum PaymentMethod { Dinheiro, MBWay, TransferenciaBancaria }
+    // Payment methods
+    public enum PaymentMode { Integral, Fracionado }
 }

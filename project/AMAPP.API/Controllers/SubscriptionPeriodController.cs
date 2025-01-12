@@ -112,4 +112,23 @@ public class SubscriptionPeriodController : ControllerBase
         }
     }
 
+    [HttpGet("{id}/productoffers")]
+    public async Task<ActionResult> GetSubscriptionPeriodProductOffer(int id)
+    {
+        try
+        {
+            var productOfferDto = await _subscriptionPeriodService.GetSubscriptionPeriodProductOfferById(id);
+
+            return Ok(productOfferDto);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "An unexpected error occurred.");
+        }
+    }
+
 }

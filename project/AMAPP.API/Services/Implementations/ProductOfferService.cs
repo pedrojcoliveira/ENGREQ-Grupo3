@@ -1,4 +1,5 @@
-﻿using AMAPP.API.DTOs.Product;
+﻿using AMAPP.API.DTOs.DeliveryDate;
+using AMAPP.API.DTOs.Product;
 using AMAPP.API.DTOs.ProductOffer;
 using AMAPP.API.Models;
 using AMAPP.API.Repository.DeliveryDateRepository;
@@ -7,6 +8,7 @@ using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Repository.SelectedDeliveryDateRepository;
 using AMAPP.API.Repository.SubscriptionPeriodRepository;
 using AMAPP.API.Services.Interfaces;
+using AMAPP.API.Utils;
 using AutoMapper;
 using FluentValidation;
 using System.Collections.Generic;
@@ -230,5 +232,24 @@ namespace AMAPP.API.Services.Implementations
             var productOffers = await _productOfferRepository.GetAllProductOffersWithDetailsAsync();
             return _mapper.Map<List<ProductOfferResultDto>>(productOffers);
         }
+        public async Task<ProductOfferDetailsDto> GetProductsOfferDetailsById(int id)
+        {
+            var productOffer = await _productOfferRepository.GetProductOfferDetails(id);
+            if (productOffer == null)
+                throw new NotFoundException("O período de subscrição  não existe");
+
+            if (productOffer.DeliveryDates == null)
+                throw new NotFoundException("Período de subscrição  sem datas de entrega");
+
+            if (productOffer.PaymentMethods == null)
+                throw new NotFoundException("Período de subscrição  sem métodos de pagamento");
+
+            if (productOffer.PaymentModes == null)
+                throw new NotFoundException("Período de subscrição  sem modos de pagamento");
+
+            return productOffer;
+
+        }
+
     }
 }

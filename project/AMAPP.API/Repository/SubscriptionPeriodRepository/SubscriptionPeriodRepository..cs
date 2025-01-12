@@ -20,7 +20,9 @@ namespace AMAPP.API.Repository.SubscriptionPeriodRepository
         public new async Task<SubscriptionPeriod?> GetByIdAsync(int id)
         {
             return await _context.SubscriptionPeriods
-                .Include(sp => sp.DeliveryDates) 
+                .Include(sp => sp.DeliveryDates)
+                .Include(sp => sp.ProductOffers)
+                .ThenInclude(po => po.Product)
                 .FirstOrDefaultAsync(sp => sp.Id == id);
         }
         

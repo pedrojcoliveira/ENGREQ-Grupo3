@@ -1,4 +1,5 @@
-﻿using AMAPP.API.Models;
+﻿using AMAPP.API.DTOs.ProductOffer;
+using AMAPP.API.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace AMAPP.API.Repository.ProductOfferRepository
         Task<List<ProductOffer>> GetAllProductOffersWithDetailsAsync();
         Task<List<ProductOffer>> GetProductOffersBySubscriptionPeriodId(int id);
         Task<List<ProductOffer>> GetProductOffersByIds(IEnumerable<int> enumerable);
+        Task<ProductOfferDetailsDto?> GetProductOfferDetails(int id);
     }
 }
 
