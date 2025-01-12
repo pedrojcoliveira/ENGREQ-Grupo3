@@ -1,11 +1,13 @@
 ﻿using AMAPP.API.DTOs;
 using AMAPP.API.DTOs.Auth;
 using AMAPP.API.Models;
+using AMAPP.API.Services.Implementations;
 using AMAPP.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 using MimeKit;
 using System.Net.Mail;
 using System.Text;
@@ -22,8 +24,9 @@ namespace AMAPP.API.Controllers
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
         private readonly string role;
+        private readonly TokenService _tokenService;
 
-        public AuthController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IJwtService jwtService, IEmailService emailService, IConfiguration configuration)
+        public AuthController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IJwtService jwtService, IEmailService emailService, IConfiguration configuration, TokenService tokenService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -31,6 +34,7 @@ namespace AMAPP.API.Controllers
             _emailService = emailService;
             role = "PROD";
             _configuration = configuration;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -104,8 +108,16 @@ namespace AMAPP.API.Controllers
 
             if (user != null && await _userManager.CheckPasswordAsync(user, loginRequest.Password))
             {
-                var token = _jwtService.CreateToken(user);
-                return Ok(token);
+                var roles = await _userManager.GetRolesAsync(user);
+                var token = _tokenService.GenerateToken(user, roles.ToList());
+
+                var loginResponse = new LoginResponseDto
+                {
+                    Token = token,
+                    Expiration = DateTime.UtcNow.AddMinutes(1)
+                };
+
+                return Ok(loginResponse);
             }
 
             return Unauthorized("Invalid Authentication");

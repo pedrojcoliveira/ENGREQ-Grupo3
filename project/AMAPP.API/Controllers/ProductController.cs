@@ -2,6 +2,7 @@
 using AMAPP.API.Models;
 using AMAPP.API.Repository.ProducerInfoRepository;
 using AMAPP.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,9 +23,11 @@ namespace AMAPP.API.Controllers
             _producerInfoRepository = producerInfoRepository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<ProductDto>>> GetAllProducts()
         {
+
             var products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
