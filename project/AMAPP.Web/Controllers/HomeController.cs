@@ -44,7 +44,6 @@ namespace AMAPP.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Username and Password are required.");
                 return View();
             }
-
             try
             {
                 // Criação do objeto para envio
@@ -72,7 +71,7 @@ namespace AMAPP.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid login attempt. Please try again.");
                 return View();
             }
-            catch
+            catch(Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again.");
                 return View();

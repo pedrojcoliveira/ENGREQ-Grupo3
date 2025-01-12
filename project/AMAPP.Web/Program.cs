@@ -15,11 +15,14 @@ namespace AMAPP.Web
                 //client.BaseAddress = new Uri("https://localhost:7237/"); 
                 client.BaseAddress = new Uri("http://localhost:5143/"); //HTTP VERSION
             });
-            
-// Enable TempData with session-based storage
-builder.Services.AddDistributedMemoryCache(); // Required for session state
-builder.Services.AddSession(); // Add session support
-builder.Services.AddHttpContextAccessor(); // Ensure TempData works
+
+            // Add session services
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+                options.Cookie.HttpOnly = true; // Secure cookie
+                options.Cookie.IsEssential = true; // For GDPR compliance
+            });
 
             var app = builder.Build();
 
@@ -36,8 +39,9 @@ builder.Services.AddHttpContextAccessor(); // Ensure TempData works
 
             app.UseRouting();
 
+            app.UseSession(); // Add this before UseAuthorization
             app.UseAuthorization();
-            
+
 
             app.MapControllerRoute(
                 name: "default",
