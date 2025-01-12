@@ -1,5 +1,6 @@
 ﻿using AMAPP.API.DTOs.Product;
 using AMAPP.API.Models;
+using AMAPP.API.Repository.CompoundProductProductRepository;
 using AMAPP.API.Repository.ProducerInfoRepository;
 using AMAPP.API.Repository.ProdutoRepository;
 using AMAPP.API.Services.Interfaces;
@@ -14,13 +15,15 @@ namespace AMAPP.API.Services.Implementations
         private readonly IMapper _mapper;
         private readonly IProducerInfoRepository _producerInfoRepository;
         private readonly UserManager<User> _userManager;
+        private readonly ICompoundProductProductRepository _compoundProductProductRepository;
 
-        public ProductService(IProductRepository productRepository, IMapper mapper, IProducerInfoRepository producerInfoRepository, UserManager<User> userManager)
+        public ProductService(IProductRepository productRepository, IMapper mapper, IProducerInfoRepository producerInfoRepository, UserManager<User> userManager, ICompoundProductProductRepository compoundProductProductRepository)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _producerInfoRepository = producerInfoRepository;
             _userManager = userManager;
+            _compoundProductProductRepository = compoundProductProductRepository;
         }
 
         public async Task<List<ProductDto>> GetAllProductsAsync()
@@ -142,10 +145,26 @@ namespace AMAPP.API.Services.Implementations
 
             if (product == null)
                 return false;
+            
+            var compoundProductProduct = await _compoundProductProductRepository.GetByProductIdAsync(id);
+            //validate if the product is in a compound product to avoid deleting it
+            if (compoundProductProduct != null && compoundProductProduct.Any())
+                throw new ArgumentException("Product is in a compound product and cannot be deleted.");
 
             await _productRepository.RemoveAsync(product);
 
             return true;
+        }
+        
+        //to validate if the product exists
+        public async Task<ProductDto> GetProductDetailsByIdAsync(int id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+
+            if (product == null)
+                return null;
+
+            return _mapper.Map<ProductDto>(product);
         }
     }
 }

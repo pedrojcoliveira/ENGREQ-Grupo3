@@ -17,8 +17,7 @@ namespace AMAPP.API.Profiles
                 .ForMember(dest => dest.ProductType, opt => opt.Ignore()) // TipoProduto is set separately
                 .ForMember(dest => dest.Photo, opt => opt.Ignore()) // Photo is set separately
                 .ForMember(dest => dest.ProducerInfo, opt => opt.Ignore()); // ProducerInfo is set separately
-
-
+            
             // Map UpdateProductDto to Produto
             CreateMap<UpdateProductDto, Product>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())

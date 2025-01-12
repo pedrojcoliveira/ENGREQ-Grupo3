@@ -26,8 +26,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using AMAPP.API.DTOs.CompoundProductProduct;
+using AMAPP.API.DTOs.CompoundProductProduct.Validators;
 using AMAPP.API.DTOs.SubscriptionPayment.Validators;
 using AMAPP.API.Repository.AccountBalanceRepository;
+using AMAPP.API.Repository.CompoundProductProductRepository;
 using AMAPP.API.Repository.SelectedDeliveryDateRepository;
 using AMAPP.API.Repository.DeliveryDateRepository;
 
@@ -120,6 +123,8 @@ namespace AMAPP.API
             builder.Services.AddScoped<IAccountBalanceRepository, AccountBalanceRepository>();
             builder.Services.AddScoped<ISelectedDeliveryDateRepository, SelectedDeliveryDateRepository>();
             builder.Services.AddScoped<IDeliveryDateRepository, DeliveryDateRepository>();
+            builder.Services.AddScoped<ICompoundProductProductService, CompoundProductProductService>();
+            builder.Services.AddScoped<ICompoundProductProductRepository, CompoundProductProductRepository>();
 
             builder.Services.AddRouting(options =>
             {
@@ -137,6 +142,8 @@ namespace AMAPP.API
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSelectedProductOfferDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSubscriptionPeriodDtoValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CreateSubscriptionPaymentDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateCompoundProductProductDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<UpdateCompoundProductProductDtoValidator>();
             
             // Add MediatR
             builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
