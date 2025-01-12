@@ -2,6 +2,7 @@ using AMAPP.API.DTOs.Auth;
 using AMAPP.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NuGet.Common;
 using System.Diagnostics;
 using System.Text;
 namespace AMAPP.Web.Controllers
@@ -72,7 +73,15 @@ namespace AMAPP.Web.Controllers
 
                 // Ler e desserializar os dados da resposta
                 var json = await response.Content.ReadAsStringAsync();
-                var products = JsonConvert.DeserializeObject<TokenResponse>(json);
+                var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(json);
+
+                // Armazenar o token na sessão
+                Response.Cookies.Append("jwt", loginResponse.Token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                });
 
                 // Redireciona para ProductController > List após login bem-sucedido
                 return RedirectToAction("List", "Products");

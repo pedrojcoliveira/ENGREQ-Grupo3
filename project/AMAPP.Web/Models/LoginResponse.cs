@@ -1,6 +1,6 @@
-﻿namespace AMAPP.API.DTOs.Auth
+﻿namespace AMAPP.Web.Models
 {
-    public class TokenResponse
+    public class LoginResponse
     {
         public string Token { get; set; }
 
