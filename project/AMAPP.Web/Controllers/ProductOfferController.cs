@@ -213,13 +213,13 @@ namespace AMAPP.Web.Controllers
         public async Task<JsonResult> GetProductOfferDetailsAsync(int productOfferId)
         {
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/product-offer/{productOfferId}/deliverydates");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/product-offer/{productOfferId}/productofferdetails");
             request.Headers.Add("accept", "*/*");
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
-            var deliverydates = JsonConvert.DeserializeObject<List<DeliveryDateDto>>(json);
+            var deliverydates = JsonConvert.DeserializeObject<ProductOfferDetailsDto>(json);
 
             return Json(deliverydates);
         }

@@ -71,11 +71,37 @@ namespace AMAPP.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Subscription model)
+        public async Task<IActionResult> Create(CreateSubscription model)
         {
             if (ModelState.IsValid)
             {
-                var json = JsonConvert.SerializeObject(model);
+                List<SubscriptionProductOfferDates> subscriptionProductOfferDates = new List<SubscriptionProductOfferDates>();
+                subscriptionProductOfferDates.Add(new SubscriptionProductOfferDates()
+                {
+                    DeliveryDate = model.DeliveryDate,
+                    Amount = model.Quantity
+                });
+
+                List<SubscriptionProductOffers> subscriptionProductOffers = new List<SubscriptionProductOffers>();
+                subscriptionProductOffers.Add(new SubscriptionProductOffers()
+                {
+                    ProductOfferId = model.ProductOffer,
+                    SubscriptionProductOfferDates = subscriptionProductOfferDates,
+                    PaymentMethod = model.PaymentMethod,
+                    PaymentMode = model.PaymentMode
+                });
+
+
+                CreateSubscriptionDto subscription = new CreateSubscriptionDto {
+                    SubscriptionProductOffers = subscriptionProductOffers,
+                    SubscriptionPeriodId = 1
+                    //SubscriptionPeriodId = model.SubscriptionPeriodId
+                };
+
+
+
+
+                var json = JsonConvert.SerializeObject(subscription);
                 var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync("/api/selected-product-offer", content);
