@@ -63,17 +63,35 @@ namespace AMAPP.API
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true; // Stores the token in the HttpContext.User
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = configuration["JwtSettings:Issuer"],
-                    ValidAudience = configuration["JwtSettings:Audience"],
-                    RequireExpirationTime = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Secret"])),
-                    ValidateIssuerSigningKey = true
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+
+                // Add event hooks for debugging
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine($"Token validated successfully for user: {context.Principal.Identity?.Name}");
+                        return Task.CompletedTask;
+                    }
                 };
             });
+
+
 
             builder.Services.AddAutoMapper(typeof(Program));
 
@@ -81,6 +99,7 @@ namespace AMAPP.API
             builder.Services.Configure<EmailConfiguration>(configuration.GetSection(key: nameof(EmailConfiguration)));
 
             builder.Services.AddScoped<IJwtService, JwtService>();
+            builder.Services.AddScoped<TokenService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -161,7 +180,9 @@ namespace AMAPP.API
                 });
             });
 
+
             var app = builder.Build();
+
 
             // Seed roles and users
             await DatabaseSeed.SeedRolesAndUsers(app.Services);
@@ -174,12 +195,14 @@ namespace AMAPP.API
             }
 
             app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
-            app.UseHttpsRedirection();
-            app.UseCors(); // Enable CORS for the frontend
-            app.UseAuthorization();
-            
-            
 
+            app.UseHttpsRedirection();
+
+            app.UseCors();
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
 
