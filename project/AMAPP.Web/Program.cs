@@ -1,3 +1,5 @@
+using AMAPP.Web.Middleware;
+
 namespace AMAPP.Web
 {
     public class Program
@@ -38,7 +40,7 @@ namespace AMAPP.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseMiddleware<TokenValidationMiddleware>();
             app.UseSession(); // Add this before UseAuthorization
             app.UseAuthorization();
 
