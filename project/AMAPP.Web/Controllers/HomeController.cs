@@ -1,3 +1,4 @@
+using AMAPP.API.DTOs.Auth;
 using AMAPP.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -62,15 +63,19 @@ namespace AMAPP.Web.Controllers
                 var response = await _httpClient.PostAsync("/api/Auth/login", content);
 
                 // Verifica o status da resposta
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    // Redireciona para ProductController > List após login bem-sucedido
-                    return RedirectToAction("List", "Products");
+                    // Adiciona mensagem de erro para tentativas inválidas
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt. Please try again.");
+                    return View();
                 }
 
-                // Adiciona mensagem de erro para tentativas inválidas
-                ModelState.AddModelError(string.Empty, "Invalid login attempt. Please try again.");
-                return View();
+                // Ler e desserializar os dados da resposta
+                var json = await response.Content.ReadAsStringAsync();
+                var products = JsonConvert.DeserializeObject<TokenResponse>(json);
+
+                // Redireciona para ProductController > List após login bem-sucedido
+                return RedirectToAction("List", "Products");
             }
             catch
             {
